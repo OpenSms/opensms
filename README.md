@@ -1,2 +1,2 @@
-opensms
-=======
+README opensms
+==============
