@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence">
+  <persistence-unit name="profile" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>com.dineth.anyskool.webapp.db.entity.Comment</class>
+    <class>com.dineth.anyskool.webapp.db.entity.Question</class>
+    <class>com.dineth.anyskool.webapp.db.entity.User</class>
+    <class>com.dineth.anyskool.webapp.db.entity.UserRegisterSubject</class>
+    <class>com.dineth.anyskool.webapp.db.entity.UserHasUniversity</class>
+    <class>com.dineth.anyskool.webapp.db.entity.Department</class>
+    <class>com.dineth.anyskool.webapp.db.entity.University</class>
+    <class>com.dineth.anyskool.webapp.db.entity.UserHasDepartment</class>
+    <class>com.dineth.anyskool.webapp.db.entity.Subject</class>
+    <properties>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+      <property name="hibernate.show_sql" value="true"/>
+    </properties>
+  </persistence-unit>
+</persistence>
