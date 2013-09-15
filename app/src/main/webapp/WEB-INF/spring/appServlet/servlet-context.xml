@@ -19,12 +19,7 @@
 
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving
     up static resources in the ${webappRoot}/resources directory -->
-    <resources mapping="./static/**" location="/static/"/>
-    <resources mapping="/static/css/**" location="/static/css/"/>
-    <resources mapping="/static/js/**" location="/static/js/"/>
-    <resources mapping="/static/img/**" location="/static/img/"/>
-    <resources location="/static/app/" mapping="/static/app/**"/>
-    <resources location="/static/app/templates" mapping="/static/app/templates/**"/>
+    <resources mapping="/static/**" location="/static/"/>
 
     <!-- Internationalization support -->
 
