@@ -1,0 +1,162 @@
+<div ng-controller="EditUserCtrl" class="ui form segment">
+    <div class="field">
+        <label>Username</label>
+
+        <div class="ui left labeled icon input">
+            <input ng-model="user.username" type="text" placeholder="Username">
+            <i class="user icon"></i>
+
+            <div class="ui corner label">
+                <i class="icon asterisk"></i>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <label>Password</label>
+
+        <div class="ui left labeled icon input">
+            <input ng-model="user.password" type="password">
+            <i class="lock icon"></i>
+
+            <div class="ui corner label">
+                <i class="icon asterisk"></i>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <label>Confirm Password</label>
+
+        <div class="ui left labeled icon input">
+            <input ng-model="user.confirmPassword" type="password">
+            <i class="lock icon"></i>
+
+            <div class="ui corner label">
+                <i class="icon asterisk"></i>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <label>Email</label>
+
+        <div class="ui labeled input">
+            <input ng-model="user.email" type="text" placeholder="Email">
+
+            <div class="ui corner label">
+                <i class="icon asterisk"></i>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('.ui.checkbox')
+                .checkbox()
+        ;
+    </script>
+
+    <div class="inline field">
+        <div class="ui toggle checkbox">
+            <input type="checkbox" ng-model="user.state">
+            <label></label>
+        </div>
+        <label>Activate account</label>
+    </div>
+
+    <div>
+        <p>### Show this if user is an employee ###</p>
+
+        <div class="field">
+            <label>Surname</label>
+
+            <div class="ui labeled input">
+                <input ng-model="user.surname" type="text" placeholder="Surname">
+
+                <div class="ui corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label>Initials</label>
+
+            <div class="ui labeled input">
+                <input ng-model="user.initials" type="text" placeholder="Initials">
+
+                <div class="ui corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label>Name referred by initials</label>
+
+            <div class="ui labeled input">
+                <input ng-model="user.nameReferredByInitials" type="text" placeholder="Name referred by initials">
+
+                <div class="ui corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <p>### Show this if user is a customer ###</p>
+
+        <div class="field">
+            <label>Name</label>
+
+            <div class="ui labeled input">
+                <input ng-model="user.name" type="text" placeholder="Name">
+
+                <div class="ui corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <p>### Show this if user is a vendor ###</p>
+
+        <div class="field">
+            <label>Name</label>
+
+            <div class="ui labeled input">
+                <input ng-model="user.name" type="text" placeholder="Name">
+
+                <div class="ui corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="ui sortable table segment">
+        <thead>
+        <tr>
+            <th>Role</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="negative">
+            <td>admin</td>
+            <td>deactivated</td>
+        </tr>
+        <tr class="positive">
+            <td>data entry</td>
+            <td>active</td>
+        </tr>
+        <tr class="positive">
+            <td>sales</td>
+            <td>active</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <th colspan="3">
+                <div class="ui small blue labeled icon button"><i class="icon add user"></i> Add Role</div>
+            </th>
+        </tr>
+        </tfoot>
+    </table>
+
+    <div class="ui blue submit button" ng-click="save()">Save Changes</div>
+</div>

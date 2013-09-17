@@ -12,7 +12,10 @@ angular.module("main-app", [], function($routeProvider, $locationProvider) {
   $routeProvider.when("/contactDetails", {
     templateUrl: "./static/app/templates/contactDetails.html"
   });
-  return $routeProvider.when("/registration", {
+  $routeProvider.when("/registration", {
     templateUrl: "./static/app/templates/registration.html"
+  });
+  return $routeProvider.when("/editUser", {
+    templateUrl: "./static/app/templates/editUser.html"
   });
 });

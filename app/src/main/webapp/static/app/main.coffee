@@ -13,3 +13,6 @@ angular.module "main-app", [], ($routeProvider, $locationProvider) ->
 
   $routeProvider.when "/registration",
     templateUrl: "./static/app/templates/registration.html"
+
+  $routeProvider.when "/editUser",
+    templateUrl: "./static/app/templates/editUser.html"
