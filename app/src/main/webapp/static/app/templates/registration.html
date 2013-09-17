@@ -1,0 +1,97 @@
+<div ng-controller="RegistrationCtrl" class="ui form segment">
+    <div class="field">
+        <label>Name</label>
+
+        <div class="ui labeled input">
+            <input ng-model="user.name" type="text" placeholder="Name">
+
+            <div class="ui corner label">
+                <i class="icon asterisk"></i>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <label>Username</label>
+
+        <div class="ui left labeled icon input">
+            <input ng-model="user.username" type="text" placeholder="Username">
+            <i class="user icon"></i>
+
+            <div class="ui corner label">
+                <i class="icon asterisk"></i>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <label>Password</label>
+
+        <div class="ui left labeled icon input">
+            <input ng-model="user.password" type="password">
+            <i class="lock icon"></i>
+
+            <div class="ui corner label">
+                <i class="icon asterisk"></i>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <label>Confirm Password</label>
+
+        <div class="ui left labeled icon input">
+            <input ng-model="user.confirmPassword" type="password">
+            <i class="lock icon"></i>
+
+            <div class="ui corner label">
+                <i class="icon asterisk"></i>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <label>Email</label>
+
+        <div class="ui labeled input">
+            <input ng-model="user.email" type="text" placeholder="Email">
+
+            <div class="ui corner label">
+                <i class="icon asterisk"></i>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <label>Email</label>
+
+        <div class="ui labeled input">
+            <input ng-model="user.type" type="text" placeholder="I am a">
+
+            <div class="ui corner label">
+                <i class="icon asterisk"></i>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('.ui.dropdown')
+                .dropdown({
+                    action: 'changeText'
+                })
+        ;
+    </script>
+
+    <div class="field">
+        <label>I am a</label>
+
+        <div class="ui selection dropdown ">
+            <input type="hidden" ng-model="user.type" value="customer">
+            <i class="dropdown icon"></i>
+
+            <div class="text">Customer</div>
+            <div class="menu ui transition hidden">
+                <div class="item active" data-value="customer">Customer</div>
+                <div class="item" data-value="vendor">Vendor</div>
+            </div>
+        </div>
+    </div>
+
+    <!--Only to test. remove this later-->
+    <!--div class="ui red submit button" ng-click="test()">Test</div-->
+</div>
