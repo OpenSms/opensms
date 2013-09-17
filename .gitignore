@@ -8,5 +8,8 @@
 # misc.
 *.bak
 .directory
+
 /app/nb-configuration.xml
 /app/target/
+/app/.idea/
+/app/webapp.iml

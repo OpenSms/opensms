@@ -39,7 +39,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `opensms`.`profit`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `opensms`.`profit` (
-  `profit_id` INT UNSIGNED NOT NULL,
+  `profit_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `value` DECIMAL(12,2) NOT NULL,
   `type` ENUM('PRECENTAGE','MARGIN') NOT NULL,
   PRIMARY KEY (`profit_id`))
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `opensms`.`item` (
   `item_id` VARCHAR(100) NOT NULL,
   `unit` INT(10) UNSIGNED NOT NULL,
   `name` TEXT NOT NULL,
-  `default_profit` INT NOT NULL,
+  `default_profit` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`item_id`),
   UNIQUE INDEX `item_id_UNIQUE` (`item_id` ASC),
   INDEX `fk_item_unit1_idx` (`unit` ASC),
@@ -291,8 +291,8 @@ CREATE TABLE IF NOT EXISTS `opensms`.`batch` (
   `item` VARCHAR(100) NOT NULL,
   `buying_unit_price` DECIMAL(20,2) NOT NULL,
   `quantity` DECIMAL(15,3) NOT NULL,
-  `profit` INT NULL,
-  `grn_order` BIGINT NOT NULL,
+  `profit` INT UNSIGNED NULL,
+  `grn_order` BIGINT UNSIGNED NOT NULL,
   PRIMARY KEY (`batch_code`),
   INDEX `fk_batch_item1_idx` (`item` ASC),
   INDEX `fk_batch_profit1_idx` (`profit` ASC),
@@ -330,28 +330,28 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `opensms`.`grn_payment` (
   `payement_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `grn_order` BIGINT NOT NULL,
-  `payment_method` INT NOT NULL,
   `cashier_employee` INT(10) UNSIGNED NOT NULL,
   `amount` DECIMAL(20,2) NOT NULL,
   `payment_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `grn_order` BIGINT UNSIGNED NOT NULL,
+  `payment_method` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`payement_id`),
-  INDEX `fk_grn_order_has_payment_method_payment_method1_idx` (`payment_method` ASC),
-  INDEX `fk_grn_order_has_payment_method_grn_order1_idx` (`grn_order` ASC),
   INDEX `fk_grn_payment_employee1_idx` (`cashier_employee` ASC),
-  CONSTRAINT `fk_grn_order_has_payment_method_grn_order1`
+  INDEX `fk_grn_payment_grn_order1_idx` (`grn_order` ASC),
+  INDEX `fk_grn_payment_payment_method1_idx` (`payment_method` ASC),
+  CONSTRAINT `fk_grn_payment_employee1`
+    FOREIGN KEY (`cashier_employee`)
+    REFERENCES `opensms`.`employee` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_grn_payment_grn_order1`
     FOREIGN KEY (`grn_order`)
     REFERENCES `opensms`.`grn_order` (`grn_order_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_grn_order_has_payment_method_payment_method1`
+  CONSTRAINT `fk_grn_payment_payment_method1`
     FOREIGN KEY (`payment_method`)
     REFERENCES `opensms`.`payment_method` (`payment_method_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_grn_payment_employee1`
-    FOREIGN KEY (`cashier_employee`)
-    REFERENCES `opensms`.`employee` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -397,8 +397,8 @@ CREATE TABLE IF NOT EXISTS `opensms`.`pre_order` (
   `customer` INT(10) UNSIGNED NOT NULL,
   `pre_order_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `priority` INT NOT NULL DEFAULT 5,
-  `iis_order` INT NULL,
   `is_open` TINYINT(1) NOT NULL DEFAULT true,
+  `iis_order` BIGINT UNSIGNED NULL,
   PRIMARY KEY (`pre_order_id`),
   INDEX `fk_pre_order_customer1_idx` (`customer` ASC),
   INDEX `fk_pre_order_iis_order1_idx` (`iis_order` ASC),
