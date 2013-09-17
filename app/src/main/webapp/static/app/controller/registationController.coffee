@@ -1,4 +1,4 @@
 RegistrationCtrl = ($scope, $http, $location)->
   $scope.user
-  $scope.login=() ->
+  $scope.test=()->
     console.log $scope.user
