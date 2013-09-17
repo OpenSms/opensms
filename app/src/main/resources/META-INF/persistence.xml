@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence">
   <persistence-unit name="profile" transaction-type="RESOURCE_LOCAL">
-      <properties>
+    <class>org.opensms.app.db.entity.GsrPayment</class>
+    <class>org.opensms.app.db.entity.Employee</class>
+    <class>org.opensms.app.db.entity.Vendor</class>
+    <class>org.opensms.app.db.entity.IisOrder</class>
+    <class>org.opensms.app.db.entity.IisOrderBatchHasGsrOrder</class>
+    <class>org.opensms.app.db.entity.Customer</class>
+    <class>org.opensms.app.db.entity.Type</class>
+    <class>org.opensms.app.db.entity.GrnOrder</class>
+    <class>org.opensms.app.db.entity.EmployeeType</class>
+    <class>org.opensms.app.db.entity.PreOrderHasItem</class>
+    <class>org.opensms.app.db.entity.Item</class>
+    <class>org.opensms.app.db.entity.Unit</class>
+    <class>org.opensms.app.db.entity.PreOrder</class>
+    <class>org.opensms.app.db.entity.Role</class>
+    <class>org.opensms.app.db.entity.UserContactDetail</class>
+    <class>org.opensms.app.db.entity.IisOrderHasBatch</class>
+    <class>org.opensms.app.db.entity.Batch</class>
+    <class>org.opensms.app.db.entity.GrnPayment</class>
+    <class>org.opensms.app.db.entity.UserRole</class>
+    <class>org.opensms.app.db.entity.User</class>
+    <class>org.opensms.app.db.entity.PaymentMethod</class>
+    <class>org.opensms.app.db.entity.GsrOrder</class>
+    <class>org.opensms.app.db.entity.Profit</class>
+    <class>org.opensms.app.db.entity.Category</class>
+    <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
       <property name="hibernate.show_sql" value="true"/>
-          <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/opensms"/>
-          <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-          <property name="hibernate.connection.username" value="root"/>
-          <property name="hibernate.connection.password" value=""/>
-      </properties>
+      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/opensms"/>
+      <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+      <property name="hibernate.connection.username" value="root"/>
+      <property name="hibernate.connection.password" value=""/>
+    </properties>
   </persistence-unit>
 </persistence>
