@@ -2,21 +2,19 @@
 <html ng-app="main-app">
 <head>
 
-    <link rel="stylesheet" href="/static/lib/semantic_ui/css/semantic.min.css"/>
+    <link rel="stylesheet" href="/static/lib/bs/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/static/lib/bs/css/bootstrap-theme.min.css"/>
 </head>
 <body>
-<h1>Hello world</h1>
 
-<button class="ui button warning">Test button</button>
+<div class="col-lg-6" style="margin: 20px">
+    <ng-view>
 
-<ng-view>
-
-</ng-view>
-
+    </ng-view>
+</div>
 
 <script type="text/javascript" src="/static/lib/jquery/jquery-2.0.3.min.js"></script>
-<script type="text/javascript" src="/static/lib/semantic_ui/javascript/semantic.min.js"></script>
-
+<script type="text/javascript" src="/static/lib/bs/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/static/lib/angularjs/angular.min.js"></script>
 <script type="text/javascript" src="/static/app/main.js"></script>
 <script type="text/javascript" src="/static/app/controller/indexController.js"></script>
