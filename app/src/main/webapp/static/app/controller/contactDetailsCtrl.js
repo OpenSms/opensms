@@ -1,8 +1,8 @@
 var ContactDetailsCtrl;
 
 ContactDetailsCtrl = function($scope, $http, $location) {
-  $scope.contactDetails;
-  return $scope.test = function() {
+  $scope.contractDetails;
+  return $scope.save = function() {
     return console.log($scope.contactDetails);
   };
 };

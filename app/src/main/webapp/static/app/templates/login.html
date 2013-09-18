@@ -1,26 +1,29 @@
-<div ng-controller="LoginCtrl" class="ui form segment">
-    <div class="field">
-        <label>Username</label>
-        <div class="ui left labeled icon input">
-            <input ng-model="user.username" type="text" placeholder="Username">
-            <i class="user icon"></i>
-            <div class="ui corner label">
-                <i class="icon asterisk"></i>
+<form  ng-controller="LoginCtrl" class="form-horizontal" role="form">
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Username</label>
+        <div class="col-lg-10">
+            <input ng-model="user.username" type="text" class="form-control" placeholder="Username">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Password</label>
+        <div class="col-lg-10">
+            <input ng-model="user.password" type="password" class="form-control" placeholder="Password">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> Remember me
+                </label>
             </div>
         </div>
     </div>
-    <div class="field">
-        <label>Password</label>
-        <div class="ui left labeled icon input">
-            <input ng-model="user.password" type="password">
-            <i class="lock icon"></i>
-            <div class="ui corner label">
-                <i class="icon asterisk"></i>
-            </div>
+    <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10">
+            <button  ng-click="login()" class="btn btn-default">Log in</button>
         </div>
     </div>
-    <div class="ui error message">
-        <div class="header">We noticed some issues</div>
-    </div>
-    <div class="ui blue submit button" ng-click="login()">Login</div>
-</div>
+</form>
+

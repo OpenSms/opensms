@@ -1,83 +1,61 @@
-<div ng-controller="RegistrationCtrl" class="ui form segment">
-    <div class="field">
-        <label>Name</label>
+<form ng-controller="RegistrationCtrl" class="form-horizontal" role="form">
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Name</label>
 
-        <div class="ui labeled input">
-            <input ng-model="user.name" type="text" placeholder="Name">
+        <div class="col-lg-10">
+            <input ng-model="user.name" type="text" class="form-control" placeholder="Name">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Username</label>
 
-            <div class="ui corner label">
-                <i class="icon asterisk"></i>
+        <div class="col-lg-10">
+            <input ng-model="user.username" type="text" class="form-control" placeholder="Username">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Password</label>
+
+        <div class="col-lg-10">
+            <input ng-model="user.password" type="password" class="form-control" placeholder="Password">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Confirm password</label>
+
+        <div class="col-lg-10">
+            <input ng-model="user.confirmPassword" type="password" class="form-control" placeholder="Confirm password">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Email</label>
+
+        <div class="col-lg-10">
+            <input ng-model="user.email" type="email" class="form-control" placeholder="Email">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">I am a</label>
+
+        <div class="col-lg-10">
+            <select ng-model="user.type" class="form-control">
+                <option value="customer">Customer</option>
+                <option value="vendor">Vendor</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">I agree to the terms and conditions
+                </label>
             </div>
         </div>
     </div>
-    <div class="field">
-        <label>Username</label>
-
-        <div class="ui left labeled icon input">
-            <input ng-model="user.username" type="text" placeholder="Username">
-            <i class="user icon"></i>
-
-            <div class="ui corner label">
-                <i class="icon asterisk"></i>
-            </div>
+    <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10">
+            <button ng-click="signUp()" class="btn btn-default">Sign up</button>
         </div>
     </div>
-    <div class="field">
-        <label>Password</label>
-
-        <div class="ui left labeled icon input">
-            <input ng-model="user.password" type="password">
-            <i class="lock icon"></i>
-
-            <div class="ui corner label">
-                <i class="icon asterisk"></i>
-            </div>
-        </div>
-    </div>
-    <div class="field">
-        <label>Confirm Password</label>
-
-        <div class="ui left labeled icon input">
-            <input ng-model="user.confirmPassword" type="password">
-            <i class="lock icon"></i>
-
-            <div class="ui corner label">
-                <i class="icon asterisk"></i>
-            </div>
-        </div>
-    </div>
-    <div class="field">
-        <label>Email</label>
-
-        <div class="ui labeled input">
-            <input ng-model="user.email" type="text" placeholder="Email">
-
-            <div class="ui corner label">
-                <i class="icon asterisk"></i>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        $('.ui.dropdown')
-                .dropdown({
-                    action: 'changeText'
-                })
-        ;
-    </script>
-
-    <div class="field">
-        <label>I am a</label>
-
-        <div class="ui selection dropdown ">
-            <input type="hidden" ng-model="user.type" value="customer">
-            <i class="dropdown icon"></i>
-
-            <div class="text">Customer</div>
-            <div class="menu ui transition hidden">
-                <div class="item active" data-value="customer">Customer</div>
-                <div class="item" data-value="vendor">Vendor</div>
-            </div>
-        </div>
-    </div>
-</div>
+</form>

@@ -1,4 +1,4 @@
 LoginCtrl = ($scope, $http, $location)->
   $scope.user
-  $scope.login=()->
+  $scope.login = ()->
     console.log $scope.user

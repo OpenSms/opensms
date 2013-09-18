@@ -1,4 +1,4 @@
-ContactDetailsCtrl = ($scope, $http, $location)->
-  $scope.contactDetails
-  $scope.test=()->
+ContactDetailsCtrl = ($scope, $http, $location) ->
+  $scope.contractDetails
+  $scope.save = ()->
     console.log $scope.contactDetails
