@@ -22,7 +22,7 @@ Technology
 How to check 
 ------------------
  
- Lets try your own **shooter**
+ Lets try your own **opensms**
  
 ###Prerequisite
  
