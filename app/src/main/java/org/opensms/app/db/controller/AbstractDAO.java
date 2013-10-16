@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- *
  * @author dewmalpc
  */
 public interface AbstractDAO<T, E extends Serializable> {
@@ -44,7 +43,6 @@ public interface AbstractDAO<T, E extends Serializable> {
     public List<T> getAll();
 
     /**
-     *
      * Retrive Query
      *
      * @param entityClass

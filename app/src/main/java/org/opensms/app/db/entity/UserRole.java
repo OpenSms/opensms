@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "UserRole.findByAssignDate", query = "SELECT u FROM UserRole u WHERE u.userRolePK.assignDate = :assignDate"),
     @NamedQuery(name = "UserRole.findByResignDate", query = "SELECT u FROM UserRole u WHERE u.resignDate = :resignDate"),
     @NamedQuery(name = "UserRole.findByActive", query = "SELECT u FROM UserRole u WHERE u.active = :active")})
-public class UserRole implements Serializable {
+public class UserRole implements Serializable, EntityInterface<UserRolePK> {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected UserRolePK userRolePK;
@@ -134,5 +134,9 @@ public class UserRole implements Serializable {
     public String toString() {
         return "org.opensms.app.db.entity.UserRole[ userRolePK=" + userRolePK + " ]";
     }
-    
+
+    @Override
+    public UserRolePK getId() {
+        return getUserRolePK();
+    }
 }

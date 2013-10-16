@@ -1,5 +1,5 @@
 
-angular.module("main-app", [], function($routeProvider, $locationProvider) {
+angular.module("main-app", ["$strap.directives"], function($routeProvider, $locationProvider) {
   $routeProvider.when("/", {
     templateUrl: "./static/app/templates/index.html"
   });
@@ -15,7 +15,13 @@ angular.module("main-app", [], function($routeProvider, $locationProvider) {
   $routeProvider.when("/registration", {
     templateUrl: "./static/app/templates/registration.html"
   });
-  return $routeProvider.when("/editUser", {
+  $routeProvider.when("/editUser", {
     templateUrl: "./static/app/templates/editUser.html"
+  });
+  $routeProvider.when("/customer/registration", {
+    templateUrl: "./static/app/templates/customer/registration.html"
+  });
+  return $routeProvider.when("/RegistrationWizard", {
+    templateUrl: "./static/app/templates/RegistrationWizard.html"
   });
 });

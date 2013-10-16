@@ -27,23 +27,23 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
- *
  * @author dewmal
  */
 @Entity
 @Table(name = "user")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
-    @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId"),
-    @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
-    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
-    @NamedQuery(name = "User.findByCreatedate", query = "SELECT u FROM User u WHERE u.createdate = :createdate"),
-    @NamedQuery(name = "User.findByAccountStatus", query = "SELECT u FROM User u WHERE u.accountStatus = :accountStatus")})
-public class User implements Serializable {
+        @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
+        @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId"),
+        @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
+        @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
+        @NamedQuery(name = "User.findByCreatedate", query = "SELECT u FROM User u WHERE u.createdate = :createdate"),
+        @NamedQuery(name = "User.findByAccountStatus", query = "SELECT u FROM User u WHERE u.accountStatus = :accountStatus")})
+public class User implements Serializable, EntityInterface<Integer> {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -75,8 +75,8 @@ public class User implements Serializable {
     private Vendor vendor;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private Customer customer;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1", fetch = FetchType.LAZY)
-    private List<UserRole> userRoleList;
+    //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1", fetch = FetchType.LAZY)
+//    private List<UserRole> userRoleList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private Employee employee;
 
@@ -159,15 +159,15 @@ public class User implements Serializable {
         this.customer = customer;
     }
 
-    @XmlTransient
-    @JsonIgnore
-    public List<UserRole> getUserRoleList() {
-        return userRoleList;
-    }
-
-    public void setUserRoleList(List<UserRole> userRoleList) {
-        this.userRoleList = userRoleList;
-    }
+//    @XmlTransient
+//    @JsonIgnore
+//    public List<UserRole> getUserRoleList() {
+//        return userRoleList;
+//    }
+//
+//    public void setUserRoleList(List<UserRole> userRoleList) {
+//        this.userRoleList = userRoleList;
+//    }
 
     public Employee getEmployee() {
         return employee;
@@ -201,5 +201,9 @@ public class User implements Serializable {
     public String toString() {
         return "org.opensms.app.db.entity.User[ userId=" + userId + " ]";
     }
-    
+
+    @Override
+    public Integer getId() {
+        return getUserId();  //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

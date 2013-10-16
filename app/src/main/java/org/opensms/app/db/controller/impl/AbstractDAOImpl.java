@@ -2,6 +2,7 @@ package org.opensms.app.db.controller.impl;
 
 import org.opensms.app.db.controller.AbstractDAO;
 import org.hibernate.*;
+import org.opensms.app.db.entity.EntityInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
@@ -14,13 +15,15 @@ import java.util.List;
  * Time: 1:18 AM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AbstractDAOImpl<T, E extends Serializable> implements AbstractDAO<T, E> {
+public abstract class AbstractDAOImpl<T extends EntityInterface<E>, E extends Serializable> implements AbstractDAO<T, E> {
 
 
     private Class<T> entityClass;
+    private Class<E> entityIdClass;
 
-    public AbstractDAOImpl(Class<T> entityClass) {
+    public AbstractDAOImpl(Class<T> entityClass, Class<E> entityIdClass) {
         this.entityClass = entityClass;
+        this.entityIdClass = entityIdClass;
     }
 
     @Autowired
@@ -44,7 +47,7 @@ public abstract class AbstractDAOImpl<T, E extends Serializable> implements Abst
         for (T entiy : list) {
             Hibernate.initialize(entiy);
         }
-        return list; 
+        return list;
     }
 
     @Override
@@ -54,5 +57,15 @@ public abstract class AbstractDAOImpl<T, E extends Serializable> implements Abst
 
     }
 
+    @Override
+    public E save(T entity) {
+        getCurrentSession().save(entity);
+        System.out.println(entity.getId());
+        return entity.getId();  //To change body of implemented methods use File | Settings | File Templates.
+    }
 
+    @Override
+    public T get(E id) {
+        return (T) getCurrentSession().get(entityClass, id);  //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

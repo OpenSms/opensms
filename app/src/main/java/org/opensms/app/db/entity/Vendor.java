@@ -37,7 +37,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Vendor.findAll", query = "SELECT v FROM Vendor v"),
     @NamedQuery(name = "Vendor.findByUserId", query = "SELECT v FROM Vendor v WHERE v.userId = :userId"),
     @NamedQuery(name = "Vendor.findByName", query = "SELECT v FROM Vendor v WHERE v.name = :name")})
-public class Vendor implements Serializable {
+public class Vendor implements Serializable, EntityInterface<Integer> {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -137,5 +137,9 @@ public class Vendor implements Serializable {
     public String toString() {
         return "org.opensms.app.db.entity.Vendor[ userId=" + userId + " ]";
     }
-    
+
+    @Override
+    public Integer getId() {
+        return getUserId();
+    }
 }

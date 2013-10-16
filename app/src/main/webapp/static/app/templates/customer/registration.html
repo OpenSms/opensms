@@ -1,4 +1,4 @@
-<form ng-controller="ContactDetailsCtrl" class="form-horizontal" role="form">
+<form ng-controller="RegistrationCtrl" class="form-horizontal" role="form">
     <div class="form-group">
         <label class="col-lg-2 control-label">Name</label>
 
@@ -6,6 +6,36 @@
             <input ng-model="contactDetails.name" type="text" class="form-control" placeholder="Name">
         </div>
     </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Email</label>
+
+        <div class="col-lg-10">
+            <input ng-model="contactDetails.email" type="email" class="form-control" placeholder="Email">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Username</label>
+
+        <div class="col-lg-10">
+            <input ng-model="user.username" type="text" class="form-control" placeholder="Username">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Password</label>
+
+        <div class="col-lg-10">
+            <input ng-model="user.password" type="password" class="form-control" placeholder="Password">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Confirm password</label>
+
+        <div class="col-lg-10">
+            <input type="password" class="form-control" placeholder="Confirm password">
+        </div>
+    </div>
+
+
     <div class="form-group">
         <label class="col-lg-2 control-label">Address Line 1</label>
 
@@ -59,15 +89,8 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-lg-2 control-label">Email</label>
-
-        <div class="col-lg-10">
-            <input ng-model="contactDetails.email" type="email" class="form-control" placeholder="Email">
-        </div>
-    </div>
-    <div class="form-group">
         <div class="col-lg-offset-2 col-lg-10">
-            <button ng-click="save()" class="btn btn-default">Save</button>
+            <button ng-click="add()" class="btn btn-default">Add</button>
         </div>
     </div>
 </form>

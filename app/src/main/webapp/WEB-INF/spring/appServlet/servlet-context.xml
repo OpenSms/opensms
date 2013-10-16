@@ -68,7 +68,7 @@
     <context:component-scan base-package="com.dineth.anyskool.webapp.controller"/>
     <context:component-scan base-package="com.dineth.anyskool.webapp.db.controller.impl"/>    
     <context:component-scan base-package="com.dineth.anyskool.webapp.db.service"/>-->
-    <context:component-scan base-package="org.opensms.app."/>
+    <context:component-scan base-package="org.opensms.app"/>
 
 
 </beans:beans>

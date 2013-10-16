@@ -1,4 +1,4 @@
-angular.module "main-app", [], ($routeProvider, $locationProvider) ->
+angular.module "main-app", ["$strap.directives"], ($routeProvider, $locationProvider) ->
   $routeProvider.when "/",
     templateUrl: "./static/app/templates/index.html"
 
@@ -16,3 +16,10 @@ angular.module "main-app", [], ($routeProvider, $locationProvider) ->
 
   $routeProvider.when "/editUser",
     templateUrl: "./static/app/templates/editUser.html"
+
+  $routeProvider.when "/customer/registration",
+    templateUrl: "./static/app/templates/customer/registration.html"
+
+  $routeProvider.when "/RegistrationWizard",
+    templateUrl: "./static/app/templates/RegistrationWizard.html"
+

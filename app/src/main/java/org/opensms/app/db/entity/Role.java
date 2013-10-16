@@ -23,20 +23,21 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
- *
  * @author dewmal
  */
 @Entity
 @Table(name = "role")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r"),
-    @NamedQuery(name = "Role.findByRoleId", query = "SELECT r FROM Role r WHERE r.roleId = :roleId"),
-    @NamedQuery(name = "Role.findByDescription", query = "SELECT r FROM Role r WHERE r.description = :description")})
-public class Role implements Serializable {
+        @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r"),
+        @NamedQuery(name = "Role.findByRoleId", query = "SELECT r FROM Role r WHERE r.roleId = :roleId"),
+        @NamedQuery(name = "Role.findByDescription", query = "SELECT r FROM Role r WHERE r.description = :description")})
+public class Role implements Serializable, EntityInterface<Integer> {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,6 +49,7 @@ public class Role implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "description")
     private String description;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "role1", fetch = FetchType.LAZY)
     private List<UserRole> userRoleList;
 
@@ -113,5 +115,32 @@ public class Role implements Serializable {
     public String toString() {
         return "org.opensms.app.db.entity.Role[ roleId=" + roleId + " ]";
     }
-    
+
+    @Override
+    public Integer getId() {
+        return getRoleId();
+    }
+
+    public enum ROLES {
+        ADMINISTRATOR_ROLE(1, "Administrator"),
+        MANAGER_ROLE(2, "Manager"),
+        SALES_REPRESENTATIVE_ROLE(3, "Sales Representative"),
+        CUSTOMER_ROLE(4, "Customer"),
+        VENDOR_ROLE(5, "Vendor");
+
+        private Role role;
+
+        ROLES(int id, String description) {
+            role = new Role(id, description);
+        }
+
+        public Role getRole() {
+            return role;
+        }
+
+        @Override
+        public String toString() {
+            return role.getDescription();
+        }
+    }
 }

@@ -21,25 +21,24 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
  * @author dewmal
  */
 @Entity
 @Table(name = "user_contact_detail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "UserContactDetail.findAll", query = "SELECT u FROM UserContactDetail u"),
-    @NamedQuery(name = "UserContactDetail.findByUserId", query = "SELECT u FROM UserContactDetail u WHERE u.userId = :userId"),
-    @NamedQuery(name = "UserContactDetail.findByName", query = "SELECT u FROM UserContactDetail u WHERE u.name = :name"),
-    @NamedQuery(name = "UserContactDetail.findByAddressLine1", query = "SELECT u FROM UserContactDetail u WHERE u.addressLine1 = :addressLine1"),
-    @NamedQuery(name = "UserContactDetail.findByAddressLine2", query = "SELECT u FROM UserContactDetail u WHERE u.addressLine2 = :addressLine2"),
-    @NamedQuery(name = "UserContactDetail.findByCity", query = "SELECT u FROM UserContactDetail u WHERE u.city = :city"),
-    @NamedQuery(name = "UserContactDetail.findByProvince", query = "SELECT u FROM UserContactDetail u WHERE u.province = :province"),
-    @NamedQuery(name = "UserContactDetail.findByPostalCode", query = "SELECT u FROM UserContactDetail u WHERE u.postalCode = :postalCode"),
-    @NamedQuery(name = "UserContactDetail.findByCountry", query = "SELECT u FROM UserContactDetail u WHERE u.country = :country"),
-    @NamedQuery(name = "UserContactDetail.findByPhoneNumber", query = "SELECT u FROM UserContactDetail u WHERE u.phoneNumber = :phoneNumber"),
-    @NamedQuery(name = "UserContactDetail.findByEmail", query = "SELECT u FROM UserContactDetail u WHERE u.email = :email")})
-public class UserContactDetail implements Serializable {
+        @NamedQuery(name = "UserContactDetail.findAll", query = "SELECT u FROM UserContactDetail u"),
+        @NamedQuery(name = "UserContactDetail.findByUserId", query = "SELECT u FROM UserContactDetail u WHERE u.userId = :userId"),
+        @NamedQuery(name = "UserContactDetail.findByName", query = "SELECT u FROM UserContactDetail u WHERE u.name = :name"),
+        @NamedQuery(name = "UserContactDetail.findByAddressLine1", query = "SELECT u FROM UserContactDetail u WHERE u.addressLine1 = :addressLine1"),
+        @NamedQuery(name = "UserContactDetail.findByAddressLine2", query = "SELECT u FROM UserContactDetail u WHERE u.addressLine2 = :addressLine2"),
+        @NamedQuery(name = "UserContactDetail.findByCity", query = "SELECT u FROM UserContactDetail u WHERE u.city = :city"),
+        @NamedQuery(name = "UserContactDetail.findByProvince", query = "SELECT u FROM UserContactDetail u WHERE u.province = :province"),
+        @NamedQuery(name = "UserContactDetail.findByPostalCode", query = "SELECT u FROM UserContactDetail u WHERE u.postalCode = :postalCode"),
+        @NamedQuery(name = "UserContactDetail.findByCountry", query = "SELECT u FROM UserContactDetail u WHERE u.country = :country"),
+        @NamedQuery(name = "UserContactDetail.findByPhoneNumber", query = "SELECT u FROM UserContactDetail u WHERE u.phoneNumber = :phoneNumber"),
+        @NamedQuery(name = "UserContactDetail.findByEmail", query = "SELECT u FROM UserContactDetail u WHERE u.email = :email")})
+public class UserContactDetail implements Serializable, EntityInterface<Integer> {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -216,5 +215,9 @@ public class UserContactDetail implements Serializable {
     public String toString() {
         return "org.opensms.app.db.entity.UserContactDetail[ userId=" + userId + " ]";
     }
-    
+
+    @Override
+    public Integer getId() {
+        return getUserId();
+    }
 }

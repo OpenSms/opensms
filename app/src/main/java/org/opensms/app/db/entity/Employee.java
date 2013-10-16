@@ -38,7 +38,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Employee.findBySurname", query = "SELECT e FROM Employee e WHERE e.surname = :surname"),
     @NamedQuery(name = "Employee.findByInitials", query = "SELECT e FROM Employee e WHERE e.initials = :initials"),
     @NamedQuery(name = "Employee.findByNameReferredByInitials", query = "SELECT e FROM Employee e WHERE e.nameReferredByInitials = :nameReferredByInitials")})
-public class Employee implements Serializable {
+public class Employee implements Serializable, EntityInterface<Integer> {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -226,5 +226,9 @@ public class Employee implements Serializable {
     public String toString() {
         return "org.opensms.app.db.entity.Employee[ userId=" + userId + " ]";
     }
-    
+
+    @Override
+    public Integer getId() {
+        return getUserId();
+    }
 }

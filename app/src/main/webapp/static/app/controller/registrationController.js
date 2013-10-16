@@ -2,8 +2,12 @@ var RegistrationCtrl;
 
 RegistrationCtrl = function($scope, $http, $location) {
   $scope.user;
-  $scope.user.type = "customer";
   return $scope.signUp = function() {
-    return console.log($scope.user);
+    console.log($scope.user);
+    return $http.post("/user/saveCustomer", $scope.user).success(function(data) {
+      return console.log(data);
+    }).error(function(data) {
+      return console.log(data);
+    });
   };
 };

@@ -1,0 +1,201 @@
+<div ng-controller="RegistrationWizardCtrl">
+    <div class="modal-header">
+        <h3>User Registration Wizard</h3>
+    </div>
+    <div class="modal-body">
+        <div>
+            <div class="btn-group">
+                <button class="btn" ng-class="{'btn-primary':isCurrentStep(0)}" >User
+                </button>
+                <button class="btn" ng-class="{'btn-primary':isCurrentStep(1)}" >Contact Details</button>
+
+                <button class="btn" ng-class="{'btn-primary':isCurrentStep(2)}"  ng-show="isEmployee()">Work Details</button>
+                <button class="btn" ng-class="{'btn-primary':isCurrentStep(3)}">Verify</button>
+            </div>
+            <div ng-switch="getCurrentStep()" ng-animate="'wave'" class="slide-frame">
+                <div ng-switch-when="one">
+                    <fieldset>
+                        <div class="form-group form-group-wizard">
+                            <label class="col-lg-3 control-label">Username</label>
+
+                            <div class="col-lg-9">
+                                <input ng-model="user.username" type="text" class="form-control" placeholder="Username"/>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-wizard">
+                            <label class="col-lg-3 control-label">Password</label>
+
+                            <div class="col-lg-9">
+                                <input ng-model="user.password" type="password" class="form-control" placeholder="Password"/>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-wizard">
+                            <label class="col-lg-3 control-label">User State</label>
+
+                            <div class="col-lg-9">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" ng-model="user.accountStatus"/> Activate user
+                                        </label>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-wizard">
+                            <label class="col-lg-3 control-label">User Type</label>
+                            <div class="col-lg-9">
+                                <select ng-model="userType.type" ng-init="userType.type='customer'" class="form-control">
+                                    <option value="employee">Employee</option>
+                                    <option value="customer">Customer</option>
+                                    <option value="vendor">Vendor</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div ng-switch-when="two">
+                    <fieldset>
+                        <div class=" form-group form-group-wizard">
+                            <label class="col-lg-3 control-label">Name</label>
+
+                            <div class="col-lg-9">
+                                <input ng-model="contactDetails.name" type="text" class="form-control" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class=" form-group form-group-wizard">
+                            <label class="col-lg-3 control-label">Email</label>
+
+                            <div class="col-lg-9">
+                                <input ng-model="contactDetails.email" type="email" class="form-control" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class=" form-group form-group-wizard">
+                            <label class="col-lg-3 control-label">Address Line 1</label>
+
+                            <div class="col-lg-9">
+                                <input ng-model="contactDetails.addressLine1" type="text" class="form-control"
+                                       placeholder="Address Line 1">
+                            </div>
+                        </div>
+                        <div class=" form-group form-group-wizard">
+                            <label class="col-lg-3 control-label">Address Line 2</label>
+
+                            <div class="col-lg-9">
+                                <input ng-model="contactDetails.addressLine2" type="text" class="form-control"
+                                       placeholder="Address Line 2">
+                            </div>
+                        </div>
+                        <div class=" form-group form-group-wizard">
+                            <label class="col-lg-3 control-label">City</label>
+
+                            <div class="col-lg-9">
+                                <input ng-model="contactDetails.city" type="text" class="form-control" placeholder="City">
+                            </div>
+                        </div>
+                        <div class=" form-group form-group-wizard">
+                            <label class="col-lg-3 control-label">Province</label>
+
+                            <div class="col-lg-9">
+                                <input ng-model="contactDetails.province" type="text" class="form-control" placeholder="Province">
+                            </div>
+                        </div>
+                        <div class=" form-group form-group-wizard">
+                            <label class="col-lg-3 control-label">Postal Code</label>
+
+                            <div class="col-lg-9">
+                                <input ng-model="contactDetails.postalCode" type="text" class="form-control" placeholder="Postal Code">
+                            </div>
+                        </div>
+                        <div class=" form-group form-group-wizard">
+                            <label class="col-lg-3 control-label">Country</label>
+
+                            <div class="col-lg-9">
+                                <input ng-model="contactDetails.country" type="text" class="form-control" placeholder="Country">
+                            </div>
+                        </div>
+                        <div class=" form-group form-group-wizard">
+                            <label class="col-lg-3 control-label">Telephone Number</label>
+
+                            <div class="col-lg-9">
+                                <input ng-model="contactDetails.phoneNumber" type="text" class="form-control"
+                                       placeholder="Telephone Number">
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div ng-switch-when="three">
+                    <fieldset>
+                        <div class="form-group form-group-wizard">
+                            <label class="col-lg-3 control-label">Surname</label>
+
+                            <div class="col-lg-9">
+                                <input ng-model="employee.surname" type="text" class="form-control" placeholder="Surname">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-wizard">
+                            <label class="col-lg-3 control-label">Initials</label>
+
+                            <div class="col-lg-9">
+                                <input ng-model="employee.initials" type="text" class="form-control" placeholder="Initials">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-wizard">
+                            <label class="col-lg-3 control-label">Name referred by initials</label>
+
+                            <div class="col-lg-9">
+                                <input ng-model="employee.nameReferredByInitials" type="text" class="form-control"
+                                       placeholder="Name referred by initials">
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-wizard">
+                            <label class="col-lg-3 control-label">Roles</label>
+
+                            <div class="col-lg-9 table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <select ng-model="userRole.role1" class="form-control">
+                                                <option ng-repeat="role in roles" value={{role.roleId}}>{{role.description}}</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input ng-model="userRole.active" type="checkbox">
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-default btn-sm" ng-click="addRole()">
+                                                <span class="glyphicon glyphicon-plus"></span> Add
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="userRole in userRoles">
+                                        <td>{{ getRoleDescription(userRole.role1) }}</td>
+                                        <td>{{ userRole.active }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger btn-sm" ng-click="removeRole($$index)">
+                                                <span class="glyphicon glyphicon-remove"  ></span> Remove
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="btn" ng-click="handlePrevious()" ng-show="!isFirstStep()">Back</a>
+        <a class="btn btn-primary" ng-click="handleNext()">{{getNextLabel()}}</a>
+    </div>
+</div>

@@ -6,7 +6,11 @@ EditUserCtrl = ($scope, $http, $location)->
   $scope.userRoles = []
   $scope.userRole = {}
   $scope.addRole = ()->
-    console.log $scope.userRole
-    $scope.userRoles.unshift $scope.userRole
+    console.log 'print'
+    console.log  $scope.userRole
+    $scope.userRoles.unshift (
+      type:$scope.userRole.type
+      state:$scope.userRole.state
+    )
   $scope.save = ()->
     console.log $scope.user

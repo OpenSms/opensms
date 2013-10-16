@@ -1,8 +1,14 @@
 var ContactDetailsCtrl;
 
 ContactDetailsCtrl = function($scope, $http, $location) {
-  $scope.contractDetails;
+  $scope.contactDetails = {};
   return $scope.save = function() {
-    return console.log($scope.contactDetails);
+    $scope.contactDetails.userId = 1;
+    console.log($scope.contactDetails);
+    return $http.post("/contactdetails/saveCustomer", $scope.contactDetails).success(function(data) {
+      return console.log(data);
+    }).error(function(data) {
+      return console.log(data);
+    });
   };
 };
