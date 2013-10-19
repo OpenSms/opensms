@@ -42,9 +42,9 @@ How to check
 
   * Run 
 
-      ```
-      mvn jetty:run 
-      ```
+  ```
+  mvn jetty:run 
+  ```
     then try [http://localhost:8080](http://localhost:8080)  for web interface
     
     
