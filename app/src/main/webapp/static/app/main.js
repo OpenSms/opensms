@@ -1,5 +1,5 @@
 
-angular.module("main-app", ["$strap.directives"], function($routeProvider, $locationProvider) {
+angular.module("main-app", ["$strap.directives", "ngTable"], function($routeProvider, $locationProvider) {
   $routeProvider.when("/", {
     templateUrl: "./static/app/templates/index.html"
   });
@@ -21,7 +21,13 @@ angular.module("main-app", ["$strap.directives"], function($routeProvider, $loca
   $routeProvider.when("/customer/registration", {
     templateUrl: "./static/app/templates/customer/registration.html"
   });
-  return $routeProvider.when("/RegistrationWizard", {
+  $routeProvider.when("/RegistrationWizard", {
     templateUrl: "./static/app/templates/RegistrationWizard.html"
+  });
+  $routeProvider.when("/SearchUsers", {
+    templateUrl: "./static/app/templates/SearchUsers.html"
+  });
+  return $routeProvider.when("/UpdateUser", {
+    templateUrl: "./static/app/templates/UpdateUser.html"
   });
 });

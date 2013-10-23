@@ -59,15 +59,6 @@ RegistrationWizardCtrl = ($scope, $http, $location) ->
       console.log data
     )
 
-  $scope.saveUserWithRoles = (postMethod) ->
-    $http.post("/user/save_with_user_roles", $scope.user).success((data) ->
-      console.log data
-      $scope.user.userId = data
-      postMethod()
-    ).error((data) ->
-      console.log data
-    )
-
   $scope.saveContactDetails = () ->
     $scope.contactDetails.userId = $scope.user.userId
 
@@ -80,9 +71,24 @@ RegistrationWizardCtrl = ($scope, $http, $location) ->
   $scope.saveEmployee = () ->
     $scope.employee.userId = $scope.user.userId
 
-    $http.post("/employee/save", $scope.employee).success((data) ->
+    employeeRoles=[]
+
+    for role in $scope.userRoles
+      employeeRoles.push(
+        roleId: role.role1
+        description:$scope.getRoleDescription(role.role1)
+      )
+
+
+    employeeModel=
+      employee:$scope.employee
+      roles: employeeRoles
+
+    console.log employeeModel
+
+
+    $http.post("/employee/save",employeeModel ).success((data) ->
       console.log data
-      saveEmployeeRoles()
     ).error((data) ->
       console.log data
     )

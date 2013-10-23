@@ -1,7 +1,10 @@
 package org.opensms.app.db.controller.impl;
 
+import org.hibernate.Query;
 import org.opensms.app.db.entity.UserContactDetail;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,5 +17,12 @@ import org.springframework.stereotype.Repository;
 public class ContactDetailsDAOController extends AbstractDAOImpl<UserContactDetail, Integer> {
     public ContactDetailsDAOController() {
         super(UserContactDetail.class, Integer.class);
+    }
+
+    public List<UserContactDetail> search(String queryString) {
+        Query query = getCurrentSession().createQuery("SELECT u FROM UserContactDetail u WHERE u.userId = :queryString");
+        query.setString("queryString", queryString);
+
+        return query.list();
     }
 }

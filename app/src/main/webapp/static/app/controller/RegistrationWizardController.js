@@ -52,15 +52,6 @@ RegistrationWizardCtrl = function($scope, $http, $location) {
       return console.log(data);
     });
   };
-  $scope.saveUserWithRoles = function(postMethod) {
-    return $http.post("/user/save_with_user_roles", $scope.user).success(function(data) {
-      console.log(data);
-      $scope.user.userId = data;
-      return postMethod();
-    }).error(function(data) {
-      return console.log(data);
-    });
-  };
   $scope.saveContactDetails = function() {
     $scope.contactDetails.userId = $scope.user.userId;
     return $http.post("/contactdetails/save", $scope.contactDetails).success(function(data) {
@@ -70,10 +61,24 @@ RegistrationWizardCtrl = function($scope, $http, $location) {
     });
   };
   $scope.saveEmployee = function() {
+    var employeeModel, employeeRoles, role, _i, _len, _ref;
     $scope.employee.userId = $scope.user.userId;
-    return $http.post("/employee/save", $scope.employee).success(function(data) {
-      console.log(data);
-      return saveEmployeeRoles();
+    employeeRoles = [];
+    _ref = $scope.userRoles;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      role = _ref[_i];
+      employeeRoles.push({
+        roleId: role.role1,
+        description: $scope.getRoleDescription(role.role1)
+      });
+    }
+    employeeModel = {
+      employee: $scope.employee,
+      roles: employeeRoles
+    };
+    console.log(employeeModel);
+    return $http.post("/employee/save", employeeModel).success(function(data) {
+      return console.log(data);
     }).error(function(data) {
       return console.log(data);
     });

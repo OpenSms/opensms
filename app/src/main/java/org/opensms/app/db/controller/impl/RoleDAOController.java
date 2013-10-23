@@ -26,7 +26,7 @@ public class RoleDAOController extends AbstractDAOImpl<Role, Integer> {
 
         for (Role role : roles) {
             Hibernate.initialize(role);
-            Hibernate.initialize(role.getUserRoleList());
+            // Hibernate.initialize(role.getUserRoleList());
         }
 
         return roles;

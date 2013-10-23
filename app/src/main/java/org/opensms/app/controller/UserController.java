@@ -6,10 +6,7 @@ import org.opensms.app.db.service.UserDAOService;
 import org.opensms.app.view.model.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,6 +23,12 @@ public class UserController {
     @Autowired
     private UserDAOService userDAOService;
 
+    /**
+     * Save user
+     *
+     * @param user
+     * @return
+     */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public @ResponseBody Integer saveUser(@RequestBody User user) {
         Integer userId = userDAOService.saveUser(user);
@@ -33,12 +36,18 @@ public class UserController {
         return userId;
     }
 
-    @RequestMapping(value = "/save_with_user_roles", method = RequestMethod.POST)
-    public @ResponseBody Integer saveUser(@RequestBody User user, List<Role> roleList) {
-        Integer userId = userDAOService.saveUser(user, roleList);
-
-        return userId;
+    /**
+     * Get all users
+     *
+     * @return
+     */
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public @ResponseBody List<User> getAll() {
+         return userDAOService.getAll();
     }
 
-
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public @ResponseBody List<User> search(@RequestParam("query") String query) {
+        return userDAOService.search(query);
+    }
 }

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sadika
@@ -21,5 +23,13 @@ public class ContactDetailsDAOService {
 
     public void saveContactDetails(UserContactDetail contactDetail) {
         contactDetailsDAOController.save(contactDetail);
+    }
+
+    public List<UserContactDetail> getAll() {
+        return contactDetailsDAOController.getAll();
+    }
+
+    public List<UserContactDetail> search(String query) {
+        return contactDetailsDAOController.search(query);
     }
 }

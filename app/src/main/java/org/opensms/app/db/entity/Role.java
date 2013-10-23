@@ -49,9 +49,9 @@ public class Role implements Serializable, EntityInterface<Integer> {
     @Size(min = 1, max = 45)
     @Column(name = "description")
     private String description;
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role1", fetch = FetchType.LAZY)
-    private List<UserRole> userRoleList;
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role1", fetch = FetchType.LAZY)
+//    private List<UserRole> userRoleList;
 
     public Role() {
     }
@@ -81,15 +81,15 @@ public class Role implements Serializable, EntityInterface<Integer> {
         this.description = description;
     }
 
-    @XmlTransient
-    @JsonIgnore
-    public List<UserRole> getUserRoleList() {
-        return userRoleList;
-    }
-
-    public void setUserRoleList(List<UserRole> userRoleList) {
-        this.userRoleList = userRoleList;
-    }
+//    @XmlTransient
+//    @JsonIgnore
+//    public List<UserRole> getUserRoleList() {
+//        return userRoleList;
+//    }
+//
+//    public void setUserRoleList(List<UserRole> userRoleList) {
+//        this.userRoleList = userRoleList;
+//    }
 
     @Override
     public int hashCode() {

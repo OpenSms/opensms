@@ -5,10 +5,9 @@ import org.opensms.app.db.service.ContactDetailsDAOService;
 import org.opensms.app.view.model.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,10 +23,19 @@ public class ContactDetailsController {
     private ContactDetailsDAOService contactDetailsDAOService;
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public @ResponseBody
-    ResponseMessage saveContactDetails(@RequestBody UserContactDetail contactDetail) {
+    public @ResponseBody ResponseMessage saveContactDetails(@RequestBody UserContactDetail contactDetail) {
         contactDetailsDAOService.saveContactDetails(contactDetail);
 
         return new ResponseMessage(ResponseMessage.Type.success, "Save contact details");
+    }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public @ResponseBody List<UserContactDetail> getAll() {
+        return contactDetailsDAOService.getAll();
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public @ResponseBody List<UserContactDetail> search(@RequestParam("query") String query) {
+        return contactDetailsDAOService.search(query);
     }
 }

@@ -69,16 +69,16 @@ public class User implements Serializable, EntityInterface<Integer> {
     @NotNull
     @Column(name = "account_status")
     private boolean accountStatus;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    private UserContactDetail userContactDetail;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    private Vendor vendor;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    private Customer customer;
-    //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1", fetch = FetchType.LAZY)
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+//    private UserContactDetail userContactDetail;
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+//    private Vendor vendor;
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+//    private Customer customer;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1", fetch = FetchType.LAZY)
 //    private List<UserRole> userRoleList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    private Employee employee;
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+//    private Employee employee;
 
     public User() {
     }
@@ -135,29 +135,29 @@ public class User implements Serializable, EntityInterface<Integer> {
         this.accountStatus = accountStatus;
     }
 
-    public UserContactDetail getUserContactDetail() {
-        return userContactDetail;
-    }
-
-    public void setUserContactDetail(UserContactDetail userContactDetail) {
-        this.userContactDetail = userContactDetail;
-    }
-
-    public Vendor getVendor() {
-        return vendor;
-    }
-
-    public void setVendor(Vendor vendor) {
-        this.vendor = vendor;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
+//    public UserContactDetail getUserContactDetail() {
+//        return userContactDetail;
+//    }
+//
+//    public void setUserContactDetail(UserContactDetail userContactDetail) {
+//        this.userContactDetail = userContactDetail;
+//    }
+//
+//    public Vendor getVendor() {
+//        return vendor;
+//    }
+//
+//    public void setVendor(Vendor vendor) {
+//        this.vendor = vendor;
+//    }
+//
+//    public Customer getCustomer() {
+//        return customer;
+//    }
+//
+//    public void setCustomer(Customer customer) {
+//        this.customer = customer;
+//    }
 
 //    @XmlTransient
 //    @JsonIgnore
@@ -169,13 +169,13 @@ public class User implements Serializable, EntityInterface<Integer> {
 //        this.userRoleList = userRoleList;
 //    }
 
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
+//    public Employee getEmployee() {
+//        return employee;
+//    }
+//
+//    public void setEmployee(Employee employee) {
+//        this.employee = employee;
+//    }
 
     @Override
     public int hashCode() {

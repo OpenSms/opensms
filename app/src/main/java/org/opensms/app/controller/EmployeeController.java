@@ -1,7 +1,10 @@
 package org.opensms.app.controller;
 
 import org.opensms.app.db.entity.Employee;
+import org.opensms.app.db.entity.Role;
+import org.opensms.app.db.entity.User;
 import org.opensms.app.db.service.EmployeeDAOService;
+import org.opensms.app.view.model.EmployeeModel;
 import org.opensms.app.view.model.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,8 +30,8 @@ public class EmployeeController {
     private EmployeeDAOService employeeDAOService;
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public @ResponseBody ResponseMessage saveEmployee(@RequestBody Employee employee) {
-        employeeDAOService.saveEmployee(employee);
+    public @ResponseBody ResponseMessage saveEmployee(@RequestBody EmployeeModel employeeModel) {
+        employeeDAOService.saveEmployee(employeeModel.getEmployee(), employeeModel.getRoles());
 
         return new ResponseMessage(ResponseMessage.Type.success, "employee save");
     }
