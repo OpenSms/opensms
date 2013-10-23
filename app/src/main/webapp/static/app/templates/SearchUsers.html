@@ -1,0 +1,38 @@
+<div ng-controller="SearchUsersCtrl">
+    <form  class="" role="form">
+        <div class="form-group">
+            <div class="col-lg-10">
+                <input ng-model="searchString" type="text" class="form-control" placeholder="Search">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-2">
+                <button  ng-click="search()" class="btn btn-default">Search</button>
+            </div>
+        </div>
+    </form>
+    <br/>
+    <br/>
+    <br/>
+    <table ng-table="tableParams" class="table ng-table-responsive">
+        <tr ng-repeat="user in users">
+            <td data-title="'User ID'">
+                {{user.id}}
+            </td>
+            <td data-title="'Username'">
+                {{user.username}}
+            </td>
+            <td data-title="'Name'">
+                {{user.name}}
+            </td>
+            <td data-title="'Type'">
+                {{user.type}}
+            </td>
+            <td data-title="">
+                <button type="button" class="btn btn-default btn-sm" ng-click="editUser()">
+                    <span class="glyphicon glyphicon-edit"></span> Edit
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>

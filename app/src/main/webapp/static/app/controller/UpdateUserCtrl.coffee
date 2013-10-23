@@ -1,0 +1,1 @@
+UpdateUserCtrl = ($scope, $http, $location) ->
