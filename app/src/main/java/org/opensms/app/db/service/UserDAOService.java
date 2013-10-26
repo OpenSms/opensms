@@ -47,4 +47,8 @@ public class UserDAOService {
     public List<User> search(String query) {
         return userDAOController.search(query);
     }
+
+    public User login(User user) {
+        return userDAOController.login(user);
+    }
 }

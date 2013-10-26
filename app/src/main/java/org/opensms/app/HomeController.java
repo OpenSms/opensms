@@ -30,6 +30,11 @@ public class HomeController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String homeForm(Model model) {
         LOG.info("Welcome home!");
+
+        if(context.getSession().getAttribute("user")!=null){
+            return "home";
+        }
+
         return "index";
     }
 
