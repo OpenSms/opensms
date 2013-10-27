@@ -60,23 +60,23 @@ public class Employee implements Serializable, EntityInterface<Integer> {
     @Size(min = 1, max = 100)
     @Column(name = "name_referred_by_initials")
     private String nameReferredByInitials;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cashierEmployee", fetch = FetchType.LAZY)
-    private List<GrnPayment> grnPaymentList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dataEntryEmployee", fetch = FetchType.LAZY)
-    private List<GrnOrder> grnOrderList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salesEmployee", fetch = FetchType.LAZY)
-    private List<IisOrder> iisOrderList;
-    @OneToMany(mappedBy = "returnCheckEmployee", fetch = FetchType.LAZY)
-    private List<IisOrder> iisOrderList1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemIssuerEmployee", fetch = FetchType.LAZY)
-    private List<IisOrder> iisOrderList2;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<EmployeeType> employeeTypeList;
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
-    private User user;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cashierEmployee", fetch = FetchType.LAZY)
-    private List<GsrPayment> gsrPaymentList;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cashierEmployee", fetch = FetchType.LAZY)
+//    private List<GrnPayment> grnPaymentList;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dataEntryEmployee", fetch = FetchType.LAZY)
+//    private List<GrnOrder> grnOrderList;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salesEmployee", fetch = FetchType.LAZY)
+//    private List<IisOrder> iisOrderList;
+//    @OneToMany(mappedBy = "returnCheckEmployee", fetch = FetchType.LAZY)
+//    private List<IisOrder> iisOrderList1;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemIssuerEmployee", fetch = FetchType.LAZY)
+//    private List<IisOrder> iisOrderList2;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
+//    private List<EmployeeType> employeeTypeList;
+//    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
+//    @OneToOne(optional = false, fetch = FetchType.LAZY)
+//    private User user;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cashierEmployee", fetch = FetchType.LAZY)
+//    private List<GsrPayment> gsrPaymentList;
 
     public Employee() {
     }
@@ -124,83 +124,83 @@ public class Employee implements Serializable, EntityInterface<Integer> {
         this.nameReferredByInitials = nameReferredByInitials;
     }
 
-    @XmlTransient
-    @JsonIgnore
-    public List<GrnPayment> getGrnPaymentList() {
-        return grnPaymentList;
-    }
-
-    public void setGrnPaymentList(List<GrnPayment> grnPaymentList) {
-        this.grnPaymentList = grnPaymentList;
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public List<GrnOrder> getGrnOrderList() {
-        return grnOrderList;
-    }
-
-    public void setGrnOrderList(List<GrnOrder> grnOrderList) {
-        this.grnOrderList = grnOrderList;
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public List<IisOrder> getIisOrderList() {
-        return iisOrderList;
-    }
-
-    public void setIisOrderList(List<IisOrder> iisOrderList) {
-        this.iisOrderList = iisOrderList;
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public List<IisOrder> getIisOrderList1() {
-        return iisOrderList1;
-    }
-
-    public void setIisOrderList1(List<IisOrder> iisOrderList1) {
-        this.iisOrderList1 = iisOrderList1;
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public List<IisOrder> getIisOrderList2() {
-        return iisOrderList2;
-    }
-
-    public void setIisOrderList2(List<IisOrder> iisOrderList2) {
-        this.iisOrderList2 = iisOrderList2;
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public List<EmployeeType> getEmployeeTypeList() {
-        return employeeTypeList;
-    }
-
-    public void setEmployeeTypeList(List<EmployeeType> employeeTypeList) {
-        this.employeeTypeList = employeeTypeList;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public List<GsrPayment> getGsrPaymentList() {
-        return gsrPaymentList;
-    }
-
-    public void setGsrPaymentList(List<GsrPayment> gsrPaymentList) {
-        this.gsrPaymentList = gsrPaymentList;
-    }
+//    @XmlTransient
+//    @JsonIgnore
+//    public List<GrnPayment> getGrnPaymentList() {
+//        return grnPaymentList;
+//    }
+//
+//    public void setGrnPaymentList(List<GrnPayment> grnPaymentList) {
+//        this.grnPaymentList = grnPaymentList;
+//    }
+//
+//    @XmlTransient
+//    @JsonIgnore
+//    public List<GrnOrder> getGrnOrderList() {
+//        return grnOrderList;
+//    }
+//
+//    public void setGrnOrderList(List<GrnOrder> grnOrderList) {
+//        this.grnOrderList = grnOrderList;
+//    }
+//
+//    @XmlTransient
+//    @JsonIgnore
+//    public List<IisOrder> getIisOrderList() {
+//        return iisOrderList;
+//    }
+//
+//    public void setIisOrderList(List<IisOrder> iisOrderList) {
+//        this.iisOrderList = iisOrderList;
+//    }
+//
+//    @XmlTransient
+//    @JsonIgnore
+//    public List<IisOrder> getIisOrderList1() {
+//        return iisOrderList1;
+//    }
+//
+//    public void setIisOrderList1(List<IisOrder> iisOrderList1) {
+//        this.iisOrderList1 = iisOrderList1;
+//    }
+//
+//    @XmlTransient
+//    @JsonIgnore
+//    public List<IisOrder> getIisOrderList2() {
+//        return iisOrderList2;
+//    }
+//
+//    public void setIisOrderList2(List<IisOrder> iisOrderList2) {
+//        this.iisOrderList2 = iisOrderList2;
+//    }
+//
+//    @XmlTransient
+//    @JsonIgnore
+//    public List<EmployeeType> getEmployeeTypeList() {
+//        return employeeTypeList;
+//    }
+//
+//    public void setEmployeeTypeList(List<EmployeeType> employeeTypeList) {
+//        this.employeeTypeList = employeeTypeList;
+//    }
+//
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
+//
+//    @XmlTransient
+//    @JsonIgnore
+//    public List<GsrPayment> getGsrPaymentList() {
+//        return gsrPaymentList;
+//    }
+//
+//    public void setGsrPaymentList(List<GsrPayment> gsrPaymentList) {
+//        this.gsrPaymentList = gsrPaymentList;
+//    }
 
     @Override
     public int hashCode() {

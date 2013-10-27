@@ -38,4 +38,12 @@ public class EmployeeDAOService {
         userRoleDAOComponent.assignRolesToUser(roles, employee.getUserId());
         employeeDAOController.save(employee);
     }
+
+    public Employee getEmployee(Integer userId) {
+        return employeeDAOController.get(userId);
+    }
+
+    public void updateEmployee(Employee employee) {
+        employeeDAOController.update(employee);
+    }
 }

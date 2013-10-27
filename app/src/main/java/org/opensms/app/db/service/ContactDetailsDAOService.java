@@ -32,4 +32,12 @@ public class ContactDetailsDAOService {
     public List<UserContactDetail> search(String query) {
         return contactDetailsDAOController.search(query);
     }
+
+    public UserContactDetail getContactDetails(Integer userId) {
+        return contactDetailsDAOController.get(userId);
+    }
+
+    public void updateContactDetails(UserContactDetail contactDetail) {
+        contactDetailsDAOController.update(contactDetail);
+    }
 }

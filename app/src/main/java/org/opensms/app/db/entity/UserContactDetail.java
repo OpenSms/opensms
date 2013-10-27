@@ -84,7 +84,7 @@ public class UserContactDetail implements Serializable, EntityInterface<Integer>
     @Column(name = "email")
     private String email;
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    @OneToOne(optional = false, fetch = FetchType.EAGER)
     private User user;
 
     public UserContactDetail() {

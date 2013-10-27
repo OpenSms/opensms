@@ -27,13 +27,52 @@ public class UserController {
      * Save user
      *
      * @param user
-     * @return
+     * @return user id
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public @ResponseBody Integer saveUser(@RequestBody User user) {
         Integer userId = userDAOService.saveUser(user);
 
         return userId;
+    }
+
+    /**
+     * Validate user password
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "/validatepassword", method = RequestMethod.POST)
+    public @ResponseBody boolean validatePassword(@RequestBody User user) {
+        return userDAOService.validatePassword(user);
+    }
+
+    @RequestMapping(value = "/changepassword", method = RequestMethod.POST)
+    public @ResponseBody ResponseMessage changePassword(@RequestBody User user) {
+        userDAOService.changePassword(user);
+
+        return new ResponseMessage(ResponseMessage.Type.success, "changePassword()");
+    }
+
+    /**
+     * Change user account state
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "/updatestate", method = RequestMethod.POST)
+    public @ResponseBody ResponseMessage updateUserAccountState(@RequestBody User user) {
+        userDAOService.updateUserAccountState(user);
+
+        return new ResponseMessage(ResponseMessage.Type.success, "updateUserAccountState()");
+    }
+
+    /**
+     * Get user when user id is given
+     * @param userId
+     * @return User object
+     */
+    @RequestMapping(method = RequestMethod.GET, params = {"userId"})
+    public @ResponseBody User getUser(@RequestParam("userId") Integer userId) {
+        return userDAOService.getUser(userId);
     }
 
     /**
@@ -46,6 +85,13 @@ public class UserController {
          return userDAOService.getAll();
     }
 
+    /**
+     *Search user by user id, username, name, email, city and country...
+     *
+     *
+     * @param query
+     * @return  list of users that meet the search criteria
+     */
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public @ResponseBody List<User> search(@RequestParam("query") String query) {
         return userDAOService.search(query);

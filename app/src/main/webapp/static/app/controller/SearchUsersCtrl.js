@@ -2,11 +2,16 @@ var SearchUsersCtrl;
 
 SearchUsersCtrl = function($scope, $http, $location, ngTableParams) {
   $scope.users = [];
-  $http.get("/user/all").success(function(data) {
-    return $scope.users = data;
-  }).error(function(data) {
-    return console.log(data);
-  });
+  $scope.search = function() {
+    return $http.get("/user/search?query=" + $scope.searchString).success(function(data) {
+      return $scope.users = data;
+    }).error(function(data) {
+      return console.log(data);
+    });
+  };
+  $scope.editUser = function(userId) {
+    return console.log(userId);
+  };
   return $scope.tableParams = new ngTableParams({
     page: 1,
     count: 10

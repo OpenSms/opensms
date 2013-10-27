@@ -27,7 +27,7 @@ angular.module("main-app", ["$strap.directives", "ngTable"], function($routeProv
   $routeProvider.when("/SearchUsers", {
     templateUrl: "./static/app/templates/SearchUsers.html"
   });
-  return $routeProvider.when("/UpdateUser", {
+  return $routeProvider.when("/UpdateUser/:userId", {
     templateUrl: "./static/app/templates/UpdateUser.html"
   });
 });

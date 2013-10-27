@@ -29,6 +29,23 @@ public class ContactDetailsController {
         return new ResponseMessage(ResponseMessage.Type.success, "Save contact details");
     }
 
+    /**
+     * Update contact details
+     * @param contactDetail
+     * @return
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public @ResponseBody ResponseMessage updateContactDetails(@RequestBody UserContactDetail contactDetail) {
+        contactDetailsDAOService.updateContactDetails(contactDetail);
+
+        return new ResponseMessage(ResponseMessage.Type.success, "updateContactDetails()");
+    }
+
+    @RequestMapping(method = RequestMethod.GET, params = {"userId"})
+    public @ResponseBody UserContactDetail getContactDetails(@RequestParam("userId") Integer userId) {
+        return contactDetailsDAOService.getContactDetails(userId);
+    }
+
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public @ResponseBody List<UserContactDetail> getAll() {
         return contactDetailsDAOService.getAll();

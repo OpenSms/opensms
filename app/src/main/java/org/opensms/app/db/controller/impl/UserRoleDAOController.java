@@ -1,8 +1,11 @@
 package org.opensms.app.db.controller.impl;
 
+import org.hibernate.Query;
 import org.opensms.app.db.entity.UserRole;
 import org.opensms.app.db.entity.UserRolePK;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,5 +21,10 @@ public class UserRoleDAOController extends AbstractDAOImpl<UserRole, UserRolePK>
     }
 
 
+    public List<UserRole> getUserRoles(Integer userId) {
+        Query query = getCurrentSession().getNamedQuery("UserRole.findByUser");
+        query.setString("user", userId.toString());
 
+        return query.list();
+    }
 }

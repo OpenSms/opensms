@@ -1,11 +1,15 @@
 SearchUsersCtrl = ($scope, $http, $location, ngTableParams) ->
   $scope.users = []
 
-  $http.get("/user/all").success((data) ->
-      $scope.users = data
-  ).error((data) ->
-    console.log data
-  )
+  $scope.search = () ->
+    $http.get("/user/search?query=" + $scope.searchString).success((data) ->
+        $scope.users = data
+    ).error((data) ->
+      console.log data
+    )
+
+  $scope.editUser = (userId) ->
+    console.log userId
 
   $scope.tableParams = new ngTableParams(
     page: 1 # show first page
