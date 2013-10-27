@@ -72,4 +72,8 @@ public class UserDAOService {
     public void changePassword(User user) {
         userDAOController.changePassword(user);
     }
+
+    public User login(User user) {
+        return userDAOController.login(user);
+    }
 }

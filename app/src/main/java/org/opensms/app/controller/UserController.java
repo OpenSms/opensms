@@ -5,9 +5,11 @@ import org.opensms.app.db.entity.User;
 import org.opensms.app.db.service.UserDAOService;
 import org.opensms.app.view.model.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -22,6 +24,9 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserDAOService userDAOService;
+
+    @Autowired
+    private HttpServletRequest request;
 
     /**
      * Save user
@@ -85,6 +90,7 @@ public class UserController {
          return userDAOService.getAll();
     }
 
+
     /**
      *Search user by user id, username, name, email, city and country...
      *
@@ -95,5 +101,27 @@ public class UserController {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public @ResponseBody List<User> search(@RequestParam("query") String query) {
         return userDAOService.search(query);
+    }
+
+
+    /**
+     * Controller For Login Management
+     *
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    public @ResponseBody ResponseMessage login(@RequestBody User user){
+
+        user=userDAOService.login(user);
+        if(user==null){
+            return new ResponseMessage(ResponseMessage.Type.error,"invalid login details");
+        }
+
+         //If Login details are ok then save logged user in Http Session
+        request.getSession().setAttribute("user",user);
+
+
+        return new ResponseMessage(ResponseMessage.Type.success,"Valid Login Details");
     }
 }
