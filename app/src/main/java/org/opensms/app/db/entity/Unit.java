@@ -36,7 +36,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Unit.findAll", query = "SELECT u FROM Unit u"),
     @NamedQuery(name = "Unit.findByUnitId", query = "SELECT u FROM Unit u WHERE u.unitId = :unitId"),
     @NamedQuery(name = "Unit.findByUnit", query = "SELECT u FROM Unit u WHERE u.unit = :unit")})
-public class Unit implements Serializable {
+public class Unit implements Serializable, EntityInterface<Integer> {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,8 +48,6 @@ public class Unit implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "unit")
     private String unit;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unit", fetch = FetchType.LAZY)
-    private List<Item> itemList;
 
     public Unit() {
     }
@@ -79,15 +77,6 @@ public class Unit implements Serializable {
         this.unit = unit;
     }
 
-    @XmlTransient
-    @JsonIgnore
-    public List<Item> getItemList() {
-        return itemList;
-    }
-
-    public void setItemList(List<Item> itemList) {
-        this.itemList = itemList;
-    }
 
     @Override
     public int hashCode() {
@@ -113,5 +102,9 @@ public class Unit implements Serializable {
     public String toString() {
         return "org.opensms.app.db.entity.Unit[ unitId=" + unitId + " ]";
     }
-    
+
+    @Override
+    public Integer getId() {
+        return getUnitId();
+    }
 }

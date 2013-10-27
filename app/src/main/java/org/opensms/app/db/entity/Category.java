@@ -5,39 +5,27 @@
  */
 package org.opensms.app.db.entity;
 
-import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import org.codehaus.jackson.annotate.JsonIgnore;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
+import java.io.Serializable;
+import java.util.List;
 
 /**
- *
  * @author dewmal
  */
 @Entity
 @Table(name = "category")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c"),
-    @NamedQuery(name = "Category.findByCategoryId", query = "SELECT c FROM Category c WHERE c.categoryId = :categoryId"),
-    @NamedQuery(name = "Category.findByCategory", query = "SELECT c FROM Category c WHERE c.category = :category")})
-public class Category implements Serializable {
+        @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c"),
+        @NamedQuery(name = "Category.findByCategoryId", query = "SELECT c FROM Category c WHERE c.categoryId = :categoryId"),
+        @NamedQuery(name = "Category.findByCategory", query = "SELECT c FROM Category c WHERE c.category = :category")})
+public class Category implements Serializable, EntityInterface<Integer> {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -50,12 +38,10 @@ public class Category implements Serializable {
     @Column(name = "category")
     private String category;
     @JoinTable(name = "category_has_item", joinColumns = {
-        @JoinColumn(name = "category", referencedColumnName = "category_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "item", referencedColumnName = "item_id")})
+            @JoinColumn(name = "category", referencedColumnName = "category_id")}, inverseJoinColumns = {
+            @JoinColumn(name = "item", referencedColumnName = "item_id")})
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Item> itemList;
-    @OneToMany(mappedBy = "parentCategory", fetch = FetchType.LAZY)
-    private List<Category> categoryList;
     @JoinColumn(name = "parent_category", referencedColumnName = "category_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Category parentCategory;
@@ -98,15 +84,7 @@ public class Category implements Serializable {
         this.itemList = itemList;
     }
 
-    @XmlTransient
-    @JsonIgnore
-    public List<Category> getCategoryList() {
-        return categoryList;
-    }
 
-    public void setCategoryList(List<Category> categoryList) {
-        this.categoryList = categoryList;
-    }
 
     public Category getParentCategory() {
         return parentCategory;
@@ -138,7 +116,11 @@ public class Category implements Serializable {
 
     @Override
     public String toString() {
-        return "org.opensms.app.db.entity.Category[ categoryId=" + categoryId + " ]";
+        return "org.opensms.app.db.entity.CategoryController[ categoryId=" + categoryId + " ]";
     }
-    
+
+    @Override
+    public Integer getId() {
+        return getCategoryId();
+    }
 }
