@@ -8,10 +8,7 @@ import org.opensms.app.view.model.EmployeeModel;
 import org.opensms.app.view.model.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,5 +31,17 @@ public class EmployeeController {
         employeeDAOService.saveEmployee(employeeModel.getEmployee(), employeeModel.getRoles());
 
         return new ResponseMessage(ResponseMessage.Type.success, "employee save");
+    }
+
+    @RequestMapping(value = "/updatenames", method = RequestMethod.POST)
+    public @ResponseBody ResponseMessage updateEmployee(@RequestBody Employee employee) {
+        employeeDAOService.updateEmployee(employee);
+
+        return  new ResponseMessage(ResponseMessage.Type.success, "employee names updated");
+    }
+
+    @RequestMapping(method = RequestMethod.GET, params = {"userId"})
+    public @ResponseBody Employee getEmployee(@RequestParam("userId") Integer userId) {
+        return employeeDAOService.getEmployee(userId);
     }
 }

@@ -1,4 +1,4 @@
-app=angular.module "main-app", ["$strap.directives", "ngTable"], ($routeProvider, $locationProvider) ->
+angular.module "main-app", ["$strap.directives", "ngTable"], ($routeProvider, $locationProvider) ->
   $routeProvider.when "/",
     templateUrl: "./static/app/templates/index.html"
 
@@ -18,7 +18,7 @@ app=angular.module "main-app", ["$strap.directives", "ngTable"], ($routeProvider
   $routeProvider.when "/SearchUsers",
     templateUrl: "./static/app/templates/SearchUsers.html"
 
-  $routeProvider.when "/UpdateUser",
+  $routeProvider.when "/UpdateUser/:userId",
     templateUrl: "./static/app/templates/UpdateUser.html"
 
 
