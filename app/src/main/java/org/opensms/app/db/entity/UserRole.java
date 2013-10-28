@@ -48,10 +48,10 @@ public class UserRole implements Serializable, EntityInterface<UserRolePK> {
     @Column(name = "active")
     private boolean active;
     @JoinColumn(name = "role", referencedColumnName = "role_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Role role1;
     @JoinColumn(name = "user", referencedColumnName = "user_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private User user1;
 
     public UserRole() {
