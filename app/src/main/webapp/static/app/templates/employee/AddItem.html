@@ -1,0 +1,45 @@
+<form ng-controller="ItemCtrl" class="form-horizontal" role="form">
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Parent Category</label>
+
+        <div class="col-lg-8 col-sm-6">
+
+            <select class="form-control">
+
+                <option ng-repeat="parent in parentCategories" value="{{parent.categoryId}}">{{parent.category}}
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Child Category</label>
+
+        <div class="col-lg-8 col-sm-6">
+
+            <select class="form-control">
+
+                <option ng-repeat="parent in categories" value="{{parent.categoryId}}">{{parent.category}}</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+    <div class="form-group">
+
+        <div class="col-lg-offset-2 col-lg-10">
+
+            <button ng-click="login()" class="btn btn-default">Update</button>
+
+        </div>
+
+    </div>
+
+
+</form>
+

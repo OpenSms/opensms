@@ -15,3 +15,6 @@ LoginCtrl=($scope,$http)->
     ).error((data)->
 
     )
+
+
+app.controller('LoginCtrl',LoginCtrl)

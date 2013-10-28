@@ -10,3 +10,5 @@ LoginCtrl = function($scope, $http) {
     }).error(function(data) {});
   };
 };
+
+app.controller('LoginCtrl', LoginCtrl);

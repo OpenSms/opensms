@@ -1,5 +1,7 @@
 package org.opensms.app.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sadika
@@ -10,5 +12,6 @@ package org.opensms.app.db.entity;
 public interface EntityInterface <E>{
 
 
+    @JsonIgnore
     public E getId();
 }

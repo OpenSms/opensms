@@ -26,11 +26,15 @@ public class ItemDAOService {
     @Autowired
     private CategoryDAOController categoryDAOController;
 
-    public List<Category> getCategoryList(String s) {
-        return categoryDAOController.getAll();
+    public List<Category> getCategoryList(String hint) {
+        return categoryDAOController.getAll(hint);
     }
 
     public List<Unit> getUnitList(String s) {
         return unitDAOController.getAll();
+    }
+
+    public List<Category> getParentCategoryList(String hint) {
+        return categoryDAOController.getAllParents(hint);
     }
 }

@@ -5,7 +5,9 @@
  */
 package org.opensms.app.db.entity;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -37,13 +39,14 @@ public class Category implements Serializable, EntityInterface<Integer> {
     @Size(min = 1, max = 100)
     @Column(name = "category")
     private String category;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinTable(name = "category_has_item", joinColumns = {
             @JoinColumn(name = "category", referencedColumnName = "category_id")}, inverseJoinColumns = {
             @JoinColumn(name = "item", referencedColumnName = "item_id")})
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Item> itemList;
     @JoinColumn(name = "parent_category", referencedColumnName = "category_id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Category parentCategory;
 
     public Category() {
