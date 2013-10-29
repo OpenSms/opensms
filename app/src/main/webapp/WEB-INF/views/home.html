@@ -1,11 +1,269 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Open Source Sales Management System</title>
+
+    <!-- Bootstrap -->
+    <link href="/static/lib/SmartAdmin/libraries/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen"/>
+    <link href="/static/lib/SmartAdmin/libraries/bootstrap/css/bootstrap-responsive.css" rel="stylesheet"
+          media="screen"/>
+
+    <!--Fontawesome-->
+    <link rel="stylesheet" href="/static/lib/SmartAdmin/libraries/font-awesome/css/font-awesome.min.css"/>
+
+    <!--Modified css files-->
+    <link rel="stylesheet" href="/static/lib/SmartAdmin/resources/css/base.css"/>
+    <link rel="stylesheet" href="/static/lib/SmartAdmin/resources/css/sidemenu.css" id="stylesheet"/>
+
+    <!--Custom scroll bars-->
+    <link href="/static/lib/SmartAdmin/libraries/custom-scroll/jquery.mCustomScrollbar.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/static/lib/SmartAdmin/resources/js/base.js"></script>
+    <script type="text/javascript" src="/static/lib/SmartAdmin/resources/js/jquery.js"></script>
+
+    <script type="text/javascript"
+            src="/static/lib/SmartAdmin/libraries/custom-scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script>
+        (function ($) {
+            $(window).load(function () {
+
+                $(".widget-content").mCustomScrollbar({
+                    scrollButtons: {
+                        enable: true
+                    },
+                    theme: "dark"
+                });
+
+            });
+        })(jQuery);
+    </script>
 </head>
-<body>
-           <h1>I am home</h1>
+<body onresize="resize(),redraw()" onload="resize(),startTime(),redraw()">
+<!--header navigation bar-->
+<div class="navbar navbar-inverse navbar-fixed-top" style="position: fixed;">
+    <div class="navbar-inner">
+        <div class="container-fluid" >
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-list-ul"></span>
+            </button>
+
+            <!--Left side brand name and the icon-->
+            <a class="brand" href="#">
+                <i class="icon-plus-sign-alt"></i>
+                OpenSms
+                <br/><span>Open Source Sales Management System.</span>
+            </a>
+
+            <!--Icon set on the right side with the pop up menu-->
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+
+                    <li class="dropdown">
+                        <a id="drop3" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-envelope"></i>
+                            <span class="label label-info">15</span> <br/>
+                            MASSAGES
+                        </a>
+                        <ul class="modified-dropdown massages-menu dropdown-menu hidden-tablet hidden-phone" role="menu" aria-labelledby="drop3">
+                            <li class="top">
+                                <i class="icon-envelope"></i>
+                                MASSAGES
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="#">
+                                    <img src="/static/lib/SmartAdmin/resources/images/pro1.png" alt="user profile image"/>
+                                    <p>
+                                        <span class="sender">Jhon Smith</span><br/>
+                                        <span class="massage">This is a message.</span><br/>
+                                        <span class="recived-time">8.00 AM</span>
+                                    </p>
+                                    <span class="clearfix"></span>
+                                </a>
+                            </li>
+                            <li class="bottom">
+                                <a href="#">VIEW ALL MASSAGES</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a id="drop2" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-bell"></i>
+                            <span class="label label-warning">10</span> <br/>
+                            NOTIFICATIONS
+                        </a>
+                        <ul class="modified-dropdown dropdown-menu hidden-tablet hidden-phone" role="menu" aria-labelledby="drop2">
+                            <li class="top">
+                                <i class="icon-bell"></i>
+                                NOTIFICATIONS
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="#">
+                                    <i class="icon-envelope"></i>
+                                    New Massages
+                                    <span class="label label-info">15</span>
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="#">
+                                    <i class="icon-user"></i>
+                                    New Users
+                                    <span class="label label-success">5</span>
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="#">
+                                    <i class="icon-tasks"></i>
+                                    ToDo tasks
+                                    <span class="label label-warning">20</span>
+                                </a>
+                            </li>
+                            <li class="bottom">
+                                <a href="#">VIEW ALL NOTIFICATIONS</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-user"></i><br/>
+                            ACCOUNT
+                        </a>
+                        <ul class="dropdown-menu hidden-tablet hidden-phone" role="menu" aria-labelledby="drop1">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="icon-user"></i>My Profile</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="icon-adjust"></i>Account Settings</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="icon-power-off"></i>Sign Out</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#contact">
+                            <i class="icon-power-off"></i><br/>
+                            LOG OUT
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Side menu-->
+<div class="pull-left side-menu" id="side-menu">
+
+    <div class="current-user">
+        <img src="/static/lib/SmartAdmin/resources/images/pro2.png" class="pull-left" alt="propic"/>
+        <div class="pull-left">
+            <span class="name" >Jhon Smith</span><br/>
+            <span class="type" >Administrator</span><br/>
+            <div class="c-time" id="txt"></div>
+            <span class="date" >16th of March 2013</span>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <!--collapsible menu-->
+    <div class="accordion" id="accordion2">
+
+        <div class="accordion-group">
+            <div class="accordion-heading current" >
+                <a class="accordion-toggle"  href="" tabindex="-1">
+                    <i class="icon-dashboard icon-2x pull-left"></i>
+                    <p class="menu-button">DASHBOARD</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="accordion-group">
+            <div class="accordion-heading side-menu-level1">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne" tabindex="-1">
+                    <i class="icon-desktop icon-2x pull-left" ></i>
+                    <p class="menu-button">UI LAB</p>
+                    <span class="label" style="float: right; margin-top: -22px;">4</span>
+                </a>
+            </div>
+
+            <div id="collapseOne" class="accordion-body collapse">
+                <div class="accordion-inner side-menu-level2">
+                    <a href="general.html">
+                        <i class="icon-desktop icon-2x"></i>
+                        General
+                    </a>
+                </div>
+                <div class="accordion-inner side-menu-level2">
+                    <a href="buttons.html">
+                        <i class="icon-th-large"></i>
+                        Buttons
+                    </a>
+                </div>
+                <div class="accordion-inner side-menu-level2">
+                    <a href="tabs.html">
+                        <i class="icon-folder-close-alt"></i>
+                        Tabs
+                    </a>
+                </div>
+                <div class="accordion-inner side-menu-level2">
+                    <a href="grid_layout.html">
+                        <i class="icon-sitemap"></i>
+                        Grid Layout
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 
+<div id="main-container">
+    <div class="container-fluid" id="container">
+
+        <!--Page header content start-->
+        <div class="row-fluid">
+            <div class="span12 container-header">
+                <i class="icon-dashboard"></i>
+
+                Dashboard <span class="sub-header hidden-phone ">Welcome to OpenSms</span>
+
+                <div id="pull" class="pull-right" onclick="colapse()">
+                    <i class="icon-chevron-sign-left"></i>
+                </div>
+            </div>
+        </div>
+
+        <ul class="breadcrumb">
+            <li><a href="#"><i class="icon-dashboard"></i>Dashboard</a><span class="divider">/</span></li>
+        </ul>
+        <!--Page header content end-->
+
+        <!--Widget box content can be added as you want-->
+        <div class="row-fluid ">
+            <div class="span12 widget">
+                <div class="header">
+                    <i class="icon-gears widget-icon"></i>
+                    <span class="title">Widget Box Title</span>
+                    <a class="icon-chevron-up collapse-button" data-toggle="collapse" href="#c12"></a>
+                </div>
+                <div id="c12" class="collapse in">
+                    <div class="widget-content">
+                        ...
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!--Widget box content end-->
+
+
+    </div>
+</div>
+
+<!--Java scripts-->
+<script type="text/javascript" src="/static/lib/SmartAdmin/resources/js/base.js"></script>
+<script type="text/javascript" src="/static/lib/SmartAdmin/libraries/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/lib/SmartAdmin/libraries/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="/static/lib/SmartAdmin/libraries/bootstrap/js/bootstrap-dropdown.js"></script>
+<script type="text/javascript" src="/static/lib/SmartAdmin/libraries/bootstrap/js/bootstrap-collapse.js"></script>
+<script type="text/javascript" src="/static/lib/SmartAdmin/libraries/bootstrap/js/bootstrap-tooltip.js"></script>
 </body>
 </html>
