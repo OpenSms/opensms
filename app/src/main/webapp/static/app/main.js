@@ -4,9 +4,6 @@ app = angular.module("main-app", ["$strap.directives", "ngTable"], function($rou
   $routeProvider.when("/", {
     templateUrl: "./static/app/templates/index.html"
   });
-  $routeProvider.when("/test", {
-    templateUrl: "./static/app/templates/test.html"
-  });
   $routeProvider.when("/login", {
     templateUrl: "./static/app/templates/login.html"
   });
@@ -19,7 +16,7 @@ app = angular.module("main-app", ["$strap.directives", "ngTable"], function($rou
   $routeProvider.when("/SearchUsers", {
     templateUrl: "./static/app/templates/SearchUsers.html"
   });
-  $routeProvider.when("/UpdateUser", {
+  $routeProvider.when("/UpdateUser/:userId", {
     templateUrl: "./static/app/templates/UpdateUser.html"
   });
   return $routeProvider.when("/AddItem", {

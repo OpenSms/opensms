@@ -8,15 +8,15 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
   $scope.userType = {}
   $scope.contactDetails = {}
   $scope.employee = {}
-  $scope.userRole = {}
   $scope.userPassword = {}
 
   $scope.userRoles = []
+  $scope.userRole = {}
+
   $scope.roles = []
 
-  # only to bypass isEmployee check remove this later
-  # remove this after user role start working
-  #$scope.userType.type = "employee"
+  #### state changed signals ####
+  # these signals emited when property change is happens
 
   # whether user update any thing
   # e.g. if user update contact details $scope.detailsUpdated.contactDetails becomes true
@@ -25,8 +25,29 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
   $scope.detailsUpdated.userAccountState = false
   $scope.detailsUpdated.contactDetails = false
   $scope.detailsUpdated.employeeNames = false
+  $scope.detailsUpdated.employeeRoles = false
 
- #### populate user data ####
+  $scope.userPasswordChanged = () ->
+    if typeof $scope.userPassword.oldPass isnt "undefined" and typeof $scope.userPassword.newPass isnt "undefined" and typeof $scope.userPassword.confirmPass isnt "undefined"
+      $scope.detailsUpdated.userPassword = true
+    else
+      $scope.detailsUpdated.userPassword = false
+
+  $scope.userAccountStateChanged = () ->
+    $scope.detailsUpdated.userAccountState = true
+
+  $scope.contactDetailsChanged = () ->
+    $scope.detailsUpdated.contactDetails = true
+
+  $scope.employeeNameChanged = () ->
+    $scope.detailsUpdated.employeeNames = true
+
+  $scope.employeeRoleChanged = () ->
+    $scope.detailsUpdated.employeeRoles = true
+
+  #### end of state changed signals ####
+
+  #### populate user data ####
 
   $http.get("/user?userId=" + $routeParams.userId).success((data) ->
     delete data.id
@@ -42,7 +63,6 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
 
   $http.get("/contactdetails?userId=" + $routeParams.userId).success((data) ->
     delete data.user
-    delete data.id
     $scope.contactDetails = data
   ).error((data) ->
     console.log("error while retriving data from '/contactdetails?userId='")
@@ -54,7 +74,6 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
 
   # populate employee
   $http.get("/employee?userId=" + $routeParams.userId).success((data) ->
-    delete data.id
     $scope.employee = data
   ).error((data) ->
     console.log("error while retriving data from '/employee?userId='")
@@ -78,42 +97,69 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
 
   # employee work details page addRole function
   $scope.addRole = () ->
-    console.log $scope.userRole
-
     for userRole in $scope.userRoles
-      if userRole.role1 is $scope.userRole.role1
+      if Number(userRole.role1.roleId) is Number($scope.userRole.role1.roleId) and userRole.resignDate is null
         return
 
+    $scope.userRole.role1.description = $scope.getRoleDescription($scope.userRole.role1.roleId)
+    $scope.userRole.active = true
+
+    # create UserRolePK object
+    uRolePk = {}
+    uRolePk =
+      assignDate: new Date().getTime()
+      role: $scope.userRole.role1.roleId
+      user: $routeParams.userId
+
+    # UserRole object
+    $scope.userRole["resignDate"] = null
+    $scope.userRole["userRolePK"] = uRolePk
+
     $scope.userRoles.unshift (
-      role1: $scope.userRole.role1
-      active: $scope.userRole.active
+      jQuery.extend(true, {}, $scope.userRole)
     )
+    $scope.employeeRoleChanged()
+
 
   $scope.getRoleDescription = (roleId) ->
-    console.log roleId
     for role in $scope.roles
-      console.log role.roleId
       if parseInt(role.roleId) is parseInt(roleId)
         return role.description
 
-  $scope.removeRole = (index)->
-    $scope.userRoles.splice(index, 1)
+  $scope.activateRole = (index) ->
+    if $scope.userRoles[index].active
+      $scope.userRoles[index].resignDate = new Date().getTime()
+      $scope.userRoles[index].active = false
+    else
+      $scope.userRoles[index].resignDate = null
+      $scope.userRoles[index].active = true
+
+    $scope.employeeRoleChanged()
 
   #### end of work details page ####
 
 
   #### get assinged user roles ####
 
-  #  $http.get("/userrole?userId=" + $routeParams.userId).success((data) ->
-  #    #$scope.userRoles = data
-  #    console.log("data", data)
-  #    console.log("data.id:", data.role1)
-  #    for d in data
-  #      console.log $scope.getRoleDescription(d.id.role1)
-  #      console.log("sfsdf", d)
-  #  ).error((data) ->
-  #    console.log("error while retriving data '/userrole?userId='")
-  #  )
+  $http.get("/userrole?userId=" + $routeParams.userId).success((data) ->
+    userType = ""
+    for d in data
+      $scope.userRoles.unshift (
+        jQuery.extend(true, {}, d)
+      )
+
+      if d.role1.description is "Customer"
+        userType = "customer"
+      else if d.role1.description is "Vendor"
+        userType = "vendor"
+      else
+        userType = "employee"
+
+    $scope.userType.type = userType
+    $scope.detailsUpdated.employeeRoles = false
+  ).error((data) ->
+    console.log("error in /userrole/userId=")
+  )
 
   #### end of get assinged user roles ####
 
@@ -154,25 +200,6 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
         $scope.step += 1
 
   #### end of wizard controller ####
-
-  #### state changed signals ####
-
-  $scope.userPasswordChanged = () ->
-    if typeof $scope.userPassword.oldPass isnt "undefined" and typeof $scope.userPassword.newPass isnt "undefined" and typeof $scope.userPassword.confirmPass isnt "undefined"
-      $scope.detailsUpdated.userPassword = true
-    else
-      $scope.detailsUpdated.userPassword = false
-
-  $scope.userAccountStateChanged = () ->
-    $scope.detailsUpdated.userAccountState = true
-
-  $scope.contactDetailsChanged = () ->
-    $scope.detailsUpdated.contactDetails = true
-
-  $scope.employeeNameChanged = () ->
-    $scope.detailsUpdated.employeeNames = true
-
-  #### end of state changed signals ####
 
 
   #### update ####
@@ -221,10 +248,27 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
         console.log("error in /employee/updatenames")
       )
 
+  $scope.updateEmployeeRoles = () ->
+    if $scope.detailsUpdated.employeeRoles is false
+      return
+
+    employeeModel=
+      employee: $scope.employee
+      userRoles: $scope.userRoles
+
+    console.log employeeModel
+
+    $http.post("/employee/updateroles", $scope.userRoles).success((data) ->
+      console.log data
+    ).error((data) ->
+      console.log("error in /employee/updateroles")
+    )
+
   $scope.update = () ->
     $scope.updateUserPassword()
     $scope.updateUserAccountState()
     $scope.updateContactDetails()
     $scope.updateEmployeeNames()
+    $scope.updateEmployeeRoles()
 
 #### end of update ####

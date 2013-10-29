@@ -1,8 +1,10 @@
 package org.opensms.app.db.service;
 
 import org.opensms.app.db.controller.impl.EmployeeDAOController;
+import org.opensms.app.db.controller.impl.UserRoleDAOController;
 import org.opensms.app.db.entity.Employee;
 import org.opensms.app.db.entity.Role;
+import org.opensms.app.db.entity.UserRole;
 import org.opensms.app.db.utils.UserRoleDAOComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,9 @@ public class EmployeeDAOService {
     @Autowired
     private UserRoleDAOComponent userRoleDAOComponent;
 
+    @Autowired
+    private UserRoleDAOController userRoleDAOController;
+
     /**
      * Save employee with roles
      *
@@ -45,5 +50,9 @@ public class EmployeeDAOService {
 
     public void updateEmployee(Employee employee) {
         employeeDAOController.update(employee);
+    }
+
+    public void updateEmployeeRoles(List<UserRole> userRoles) {
+        userRoleDAOController.updateUserRoles(userRoles);
     }
 }

@@ -10,15 +10,35 @@ UpdateUserCtrl = function($scope, $http, $location, $routeParams) {
   $scope.userType = {};
   $scope.contactDetails = {};
   $scope.employee = {};
-  $scope.userRole = {};
   $scope.userPassword = {};
   $scope.userRoles = [];
+  $scope.userRole = {};
   $scope.roles = [];
   $scope.detailsUpdated = {};
   $scope.detailsUpdated.userPassword = false;
   $scope.detailsUpdated.userAccountState = false;
   $scope.detailsUpdated.contactDetails = false;
   $scope.detailsUpdated.employeeNames = false;
+  $scope.detailsUpdated.employeeRoles = false;
+  $scope.userPasswordChanged = function() {
+    if (typeof $scope.userPassword.oldPass !== "undefined" && typeof $scope.userPassword.newPass !== "undefined" && typeof $scope.userPassword.confirmPass !== "undefined") {
+      return $scope.detailsUpdated.userPassword = true;
+    } else {
+      return $scope.detailsUpdated.userPassword = false;
+    }
+  };
+  $scope.userAccountStateChanged = function() {
+    return $scope.detailsUpdated.userAccountState = true;
+  };
+  $scope.contactDetailsChanged = function() {
+    return $scope.detailsUpdated.contactDetails = true;
+  };
+  $scope.employeeNameChanged = function() {
+    return $scope.detailsUpdated.employeeNames = true;
+  };
+  $scope.employeeRoleChanged = function() {
+    return $scope.detailsUpdated.employeeRoles = true;
+  };
   $http.get("/user?userId=" + $routeParams.userId).success(function(data) {
     delete data.id;
     return $scope.user = data;
@@ -27,13 +47,11 @@ UpdateUserCtrl = function($scope, $http, $location, $routeParams) {
   });
   $http.get("/contactdetails?userId=" + $routeParams.userId).success(function(data) {
     delete data.user;
-    delete data.id;
     return $scope.contactDetails = data;
   }).error(function(data) {
     return console.log("error while retriving data from '/contactdetails?userId='");
   });
   $http.get("/employee?userId=" + $routeParams.userId).success(function(data) {
-    delete data.id;
     return $scope.employee = data;
   }).error(function(data) {
     return console.log("error while retriving data from '/employee?userId='");
@@ -47,35 +65,66 @@ UpdateUserCtrl = function($scope, $http, $location, $routeParams) {
     return console.log(data);
   });
   $scope.addRole = function() {
-    var userRole, _i, _len, _ref;
-    console.log($scope.userRole);
+    var uRolePk, userRole, _i, _len, _ref;
     _ref = $scope.userRoles;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       userRole = _ref[_i];
-      if (userRole.role1 === $scope.userRole.role1) {
+      if (Number(userRole.role1.roleId) === Number($scope.userRole.role1.roleId) && userRole.resignDate === null) {
         return;
       }
     }
-    return $scope.userRoles.unshift({
-      role1: $scope.userRole.role1,
-      active: $scope.userRole.active
-    });
+    $scope.userRole.role1.description = $scope.getRoleDescription($scope.userRole.role1.roleId);
+    $scope.userRole.active = true;
+    uRolePk = {};
+    uRolePk = {
+      assignDate: new Date().getTime(),
+      role: $scope.userRole.role1.roleId,
+      user: $routeParams.userId
+    };
+    $scope.userRole["resignDate"] = null;
+    $scope.userRole["userRolePK"] = uRolePk;
+    $scope.userRoles.unshift(jQuery.extend(true, {}, $scope.userRole));
+    return $scope.employeeRoleChanged();
   };
   $scope.getRoleDescription = function(roleId) {
     var role, _i, _len, _ref;
-    console.log(roleId);
     _ref = $scope.roles;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       role = _ref[_i];
-      console.log(role.roleId);
       if (parseInt(role.roleId) === parseInt(roleId)) {
         return role.description;
       }
     }
   };
-  $scope.removeRole = function(index) {
-    return $scope.userRoles.splice(index, 1);
+  $scope.activateRole = function(index) {
+    if ($scope.userRoles[index].active) {
+      $scope.userRoles[index].resignDate = new Date().getTime();
+      $scope.userRoles[index].active = false;
+    } else {
+      $scope.userRoles[index].resignDate = null;
+      $scope.userRoles[index].active = true;
+    }
+    return $scope.employeeRoleChanged();
   };
+  $http.get("/userrole?userId=" + $routeParams.userId).success(function(data) {
+    var d, userType, _i, _len;
+    userType = "";
+    for (_i = 0, _len = data.length; _i < _len; _i++) {
+      d = data[_i];
+      $scope.userRoles.unshift(jQuery.extend(true, {}, d));
+      if (d.role1.description === "Customer") {
+        userType = "customer";
+      } else if (d.role1.description === "Vendor") {
+        userType = "vendor";
+      } else {
+        userType = "employee";
+      }
+    }
+    $scope.userType.type = userType;
+    return $scope.detailsUpdated.employeeRoles = false;
+  }).error(function(data) {
+    return console.log("error in /userrole/userId=");
+  });
   $scope.isFirstStep = function() {
     return $scope.step === 0;
   };
@@ -112,22 +161,6 @@ UpdateUserCtrl = function($scope, $http, $location, $routeParams) {
         return $scope.step += 1;
       }
     }
-  };
-  $scope.userPasswordChanged = function() {
-    if (typeof $scope.userPassword.oldPass !== "undefined" && typeof $scope.userPassword.newPass !== "undefined" && typeof $scope.userPassword.confirmPass !== "undefined") {
-      return $scope.detailsUpdated.userPassword = true;
-    } else {
-      return $scope.detailsUpdated.userPassword = false;
-    }
-  };
-  $scope.userAccountStateChanged = function() {
-    return $scope.detailsUpdated.userAccountState = true;
-  };
-  $scope.contactDetailsChanged = function() {
-    return $scope.detailsUpdated.contactDetails = true;
-  };
-  $scope.employeeNameChanged = function() {
-    return $scope.detailsUpdated.employeeNames = true;
   };
   $scope.updateUserPassword = function() {
     if ($scope.detailsUpdated.userPassword === true) {
@@ -178,10 +211,27 @@ UpdateUserCtrl = function($scope, $http, $location, $routeParams) {
       });
     }
   };
+  $scope.updateEmployeeRoles = function() {
+    var employeeModel;
+    if ($scope.detailsUpdated.employeeRoles === false) {
+      return;
+    }
+    employeeModel = {
+      employee: $scope.employee,
+      userRoles: $scope.userRoles
+    };
+    console.log(employeeModel);
+    return $http.post("/employee/updateroles", $scope.userRoles).success(function(data) {
+      return console.log(data);
+    }).error(function(data) {
+      return console.log("error in /employee/updateroles");
+    });
+  };
   return $scope.update = function() {
     $scope.updateUserPassword();
     $scope.updateUserAccountState();
     $scope.updateContactDetails();
-    return $scope.updateEmployeeNames();
+    $scope.updateEmployeeNames();
+    return $scope.updateEmployeeRoles();
   };
 };

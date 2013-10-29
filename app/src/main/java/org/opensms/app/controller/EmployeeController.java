@@ -1,8 +1,7 @@
 package org.opensms.app.controller;
 
 import org.opensms.app.db.entity.Employee;
-import org.opensms.app.db.entity.Role;
-import org.opensms.app.db.entity.User;
+import org.opensms.app.db.entity.UserRole;
 import org.opensms.app.db.service.EmployeeDAOService;
 import org.opensms.app.view.model.EmployeeModel;
 import org.opensms.app.view.model.ResponseMessage;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -38,6 +36,19 @@ public class EmployeeController {
         employeeDAOService.updateEmployee(employee);
 
         return  new ResponseMessage(ResponseMessage.Type.success, "employee names updated");
+    }
+
+    /**
+     * Updates user roles of a user.
+     * List of UserRoles are needed
+     * @param userRoles
+     * @return
+     */
+    @RequestMapping(value = "/updateroles", method = RequestMethod.POST)
+    public @ResponseBody ResponseMessage updateEmployeeRoles(@RequestBody List<UserRole> userRoles) {
+        employeeDAOService.updateEmployeeRoles(userRoles);
+
+        return new ResponseMessage(ResponseMessage.Type.success, "employee roles updated");
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"userId"})
