@@ -15,6 +15,7 @@
     <br/>
     <br/>
     <table ng-table="tableParams" class="table ng-table-responsive">
+
         <tr ng-repeat="user in users">
             <td data-title="'User ID'">
                 {{user.id}}
@@ -29,7 +30,7 @@
                 {{user.type}}
             </td>
             <td data-title="">
-                <a class="btn btn-default btn-sm" href="#/UpdateUser/{{user.id}}">
+                <a class="btn btn-default btn-sm" href="#/UpdateUser/{{user.userId}}">
                     <span class="glyphicon glyphicon-edit"></span> Edit
                 </a>
             </td>

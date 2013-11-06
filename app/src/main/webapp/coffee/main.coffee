@@ -1,9 +1,6 @@
-app=angular.module "main-app", ["$strap.directives", "ngTable"], ($routeProvider, $locationProvider) ->
+app = angular.module "main-app", ["$strap.directives", "ngTable"], ($routeProvider, $locationProvider) ->
   $routeProvider.when "/",
     templateUrl: "./static/app/templates/index.html"
-
-  $routeProvider.when "/test",
-    templateUrl: "./static/app/templates/test.html"
 
   $routeProvider.when "/login",
     templateUrl: "./static/app/templates/login.html"

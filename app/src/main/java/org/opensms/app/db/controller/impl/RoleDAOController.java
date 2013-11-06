@@ -38,4 +38,11 @@ public class RoleDAOController extends AbstractDAOImpl<Role, Integer> {
 
         return (Role) query.uniqueResult();
     }
+
+    public Role getByRole(Integer roleId) {
+        Query query = getCurrentSession().createQuery("SELECT r FROM Role r WHERE r.roleId=:roleId");
+        query.setInteger("roleId", roleId);
+
+        return (Role) query.uniqueResult();
+    }
 }

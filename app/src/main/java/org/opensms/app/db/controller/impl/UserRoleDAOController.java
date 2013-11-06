@@ -5,7 +5,9 @@ import org.opensms.app.db.entity.UserRole;
 import org.opensms.app.db.entity.UserRolePK;
 import org.springframework.stereotype.Repository;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,5 +28,16 @@ public class UserRoleDAOController extends AbstractDAOImpl<UserRole, UserRolePK>
         query.setString("user", userId.toString());
 
         return query.list();
+    }
+
+    /**
+     * Update user roles
+     *
+     * @param userRoles
+     */
+    public void updateUserRoles(List<UserRole> userRoles) {
+        for (UserRole userRole : userRoles) {
+            update(userRole);
+        }
     }
 }

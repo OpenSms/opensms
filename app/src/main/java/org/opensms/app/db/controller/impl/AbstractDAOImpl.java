@@ -3,6 +3,7 @@ package org.opensms.app.db.controller.impl;
 import org.opensms.app.db.controller.AbstractDAO;
 import org.hibernate.*;
 import org.opensms.app.db.entity.EntityInterface;
+import org.opensms.app.db.entity.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
