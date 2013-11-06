@@ -29,6 +29,44 @@
         </div>
 
     </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Unit</label>
+
+        <div class="col-lg-8 col-sm-6">
+
+            <select class="form-control">
+
+                <option ng-repeat="unit in units" value="{{unit.unitId}}">{{unit.unit}}</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Default profit type</label>
+
+
+        <div class="col-lg-8 ">
+
+            <select ng-model="profit"  class="form-control col-lg-4">
+
+                <option value="MARGIN" >Margin</option>
+                <option value="PERCENTAGE">Percentage</option>
+
+            </select>
+            <select class="form-control col-lg-4">
+
+                <option ng-repeat="profit in profits" value="{{profit.profitId}}">{{profit.value}}</option>
+
+            </select>
+
+
+        </div>
+
+    </div>
+
 
     <div class="form-group">
 

@@ -5,40 +5,30 @@
  */
 package org.opensms.app.db.entity;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
- *
  * @author dewmal
  */
 @Entity
 @Table(name = "profit")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Profit.findAll", query = "SELECT p FROM Profit p"),
-    @NamedQuery(name = "Profit.findByProfitId", query = "SELECT p FROM Profit p WHERE p.profitId = :profitId"),
-    @NamedQuery(name = "Profit.findByValue", query = "SELECT p FROM Profit p WHERE p.value = :value"),
-    @NamedQuery(name = "Profit.findByType", query = "SELECT p FROM Profit p WHERE p.type = :type")})
-public class Profit implements Serializable {
+        @NamedQuery(name = "Profit.findAll", query = "SELECT p FROM Profit p"),
+        @NamedQuery(name = "Profit.findByProfitId", query = "SELECT p FROM Profit p WHERE p.profitId = :profitId"),
+        @NamedQuery(name = "Profit.findByValue", query = "SELECT p FROM Profit p WHERE p.value = :value"),
+        @NamedQuery(name = "Profit.findByType", query = "SELECT p FROM Profit p WHERE p.type = :type")})
+public class Profit implements Serializable, EntityInterface<Integer> {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,8 +45,10 @@ public class Profit implements Serializable {
     @Size(min = 1, max = 11)
     @Column(name = "type")
     private String type;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(mappedBy = "profit", fetch = FetchType.LAZY)
     private List<Batch> batchList;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "defaultProfit", fetch = FetchType.LAZY)
     private List<Item> itemList;
 
@@ -141,5 +133,9 @@ public class Profit implements Serializable {
     public String toString() {
         return "org.opensms.app.db.entity.Profit[ profitId=" + profitId + " ]";
     }
-    
+
+    @Override
+    public Integer getId() {
+        return getProfitId();
+    }
 }
