@@ -23,8 +23,14 @@ ItemCtrl = function($scope, $http, $log) {
     log.info(data);
     return $scope.parentCategories = data;
   }).error(function(data) {});
-  return $http.get('/category/all?hint=Too').success(function(data) {
+  $http.get('/category/all?hint=Too').success(function(data) {
     $log.info(data);
     return $scope.categories = data;
   }).error(function(data) {});
+  return $scope.addItem = function() {
+    console.log($scope.item);
+    return $http.post('/item/save', $scope.item).succsess(function(data) {
+      return console.log(data);
+    }).error(function(data) {});
+  };
 };

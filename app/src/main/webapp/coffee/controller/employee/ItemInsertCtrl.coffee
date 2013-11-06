@@ -43,3 +43,19 @@ ItemCtrl = ($scope, $http, $log)->
 
   )
 
+
+  $scope.addItem=()->
+
+    console.log $scope.item
+
+    $http.post('/item/save',$scope.item).succsess((data)->
+    
+      console.log data
+
+
+    ).error((data)->
+    
+    )
+    
+
+

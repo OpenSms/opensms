@@ -5,39 +5,29 @@
  */
 package org.opensms.app.db.entity;
 
-import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
+import java.io.Serializable;
+import java.util.List;
 
 /**
- *
  * @author dewmal
  */
 @Entity
 @Table(name = "item")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Item.findAll", query = "SELECT i FROM Item i"),
-    @NamedQuery(name = "Item.findByItemId", query = "SELECT i FROM Item i WHERE i.itemId = :itemId")})
-public class Item implements Serializable {
+        @NamedQuery(name = "Item.findAll", query = "SELECT i FROM Item i"),
+        @NamedQuery(name = "Item.findByItemId", query = "SELECT i FROM Item i WHERE i.itemId = :itemId")})
+public class Item implements Serializable, EntityInterface<String> {
+
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -51,10 +41,10 @@ public class Item implements Serializable {
     @Size(min = 1, max = 65535)
     @Column(name = "name")
     private String name;
-    @ManyToMany(mappedBy = "itemList", fetch = FetchType.LAZY)
-    private List<Category> categoryList;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "item1", fetch = FetchType.LAZY)
     private List<PreOrderHasItem> preOrderHasItemList;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "item", fetch = FetchType.LAZY)
     private List<Batch> batchList;
     @JoinColumn(name = "default_profit", referencedColumnName = "profit_id")
@@ -63,6 +53,9 @@ public class Item implements Serializable {
     @JoinColumn(name = "unit", referencedColumnName = "unit_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Unit unit;
+    @JoinColumn(name = "category", referencedColumnName = "category_id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Category category;
 
     public Item() {
     }
@@ -90,16 +83,6 @@ public class Item implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public List<Category> getCategoryList() {
-        return categoryList;
-    }
-
-    public void setCategoryList(List<Category> categoryList) {
-        this.categoryList = categoryList;
     }
 
     @XmlTransient
@@ -162,5 +145,17 @@ public class Item implements Serializable {
     public String toString() {
         return "org.opensms.app.db.entity.Item[ itemId=" + itemId + " ]";
     }
-    
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    @Override
+    public String getId() {
+        return this.itemId;
+    }
 }

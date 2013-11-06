@@ -1,9 +1,11 @@
 package org.opensms.app.db.service;
 
+import org.opensms.app.db.controller.ItemDAO;
 import org.opensms.app.db.controller.impl.CategoryDAOController;
 import org.opensms.app.db.controller.impl.ProfitDAOController;
 import org.opensms.app.db.controller.impl.UnitDAOController;
 import org.opensms.app.db.entity.Category;
+import org.opensms.app.db.entity.Item;
 import org.opensms.app.db.entity.Profit;
 import org.opensms.app.db.entity.Unit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,10 +30,10 @@ public class ItemDAOService {
     private UnitDAOController unitDAOController;
     @Autowired
     private CategoryDAOController categoryDAOController;
-
     @Autowired
     private ProfitDAOController profitDAOController;
-
+    @Autowired
+    private ItemDAO itemDAO;
 
     /**
      * Get All Units As List
@@ -42,7 +45,6 @@ public class ItemDAOService {
         return unitDAOController.getAll();
     }
 
-
     /**
      * Get All Child Categories
      *
@@ -52,7 +54,6 @@ public class ItemDAOService {
     public List<Category> getCategoryList(String hint) {
         return categoryDAOController.getAll(hint);
     }
-
 
     /**
      * Get Parent Categories by Category DAO Controller
@@ -66,10 +67,19 @@ public class ItemDAOService {
 
     /**
      * Get Profits
+     *
      * @param type
      * @return
      */
-    public List<Profit> getAllProfits(String type){
-        return profitDAOController.getAll(type );
+    public List<Profit> getAllProfits(String type) {
+        return profitDAOController.getAll(type);
+    }
+
+    public void saveItem(Item item) {
+
+        String itemId = UUID.randomUUID().toString();
+        item.setItemId(itemId);
+
+        itemDAO.save(item);
     }
 }

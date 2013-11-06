@@ -1,5 +1,6 @@
 SearchUsersCtrl = ($scope, $http, $location, ngTableParams) ->
   $scope.users = []
+  
 
   $scope.search = () ->
     $http.get("/user/search?query=" + $scope.searchString).success((data) ->

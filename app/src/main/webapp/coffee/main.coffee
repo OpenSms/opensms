@@ -23,4 +23,5 @@ app = angular.module "main-app", ["$strap.directives", "ngTable"], ($routeProvid
     templateUrl: "./static/app/templates/employee/AddItem.html"
 
 
-
+test='name'
+console.log test
