@@ -29,7 +29,7 @@ ItemCtrl = function($scope, $http, $log) {
   }).error(function(data) {});
   return $scope.addItem = function() {
     console.log($scope.item);
-    return $http.post('/item/save', $scope.item).succsess(function(data) {
+    return $http.post('/item/save', $scope.item).success(function(data) {
       return console.log(data);
     }).error(function(data) {});
   };
