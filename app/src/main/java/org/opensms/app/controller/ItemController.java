@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: dewmal
@@ -29,5 +31,14 @@ public class ItemController {
     public ResponseMessage saveItem(@RequestBody Item item) {
         itemDAOService.saveItem(item);
         return new ResponseMessage(ResponseMessage.Type.success, "success");
+    }
+
+    /**
+     * Get all items
+     * @return List<Item>
+     */
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public @ResponseBody List<Item> getAllItems() {
+        return itemDAOService.getAllItems();
     }
 }
