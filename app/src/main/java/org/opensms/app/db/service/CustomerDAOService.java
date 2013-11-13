@@ -36,4 +36,8 @@ public class CustomerDAOService {
         //Save customer into db
         customerDAOController.save(customer);
     }
+
+    public Customer getCustomer(Integer customerId) {
+        return customerDAOController.get(customerId);
+    }
 }
