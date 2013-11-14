@@ -27,7 +27,9 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  *
@@ -62,7 +64,8 @@ public class PreOrder implements Serializable, EntityInterface<Long> {
     @NotNull
     @Column(name = "is_open")
     private boolean isOpen;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "preOrder1", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "preOrder1", fetch = FetchType.EAGER)
     private List<PreOrderHasItem> preOrderHasItemList;
     @JoinColumn(name = "iis_order", referencedColumnName = "iis_order_id")
     @ManyToOne(fetch = FetchType.LAZY)
