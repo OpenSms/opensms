@@ -42,7 +42,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "PreOrder.findByPreOrderDate", query = "SELECT p FROM PreOrder p WHERE p.preOrderDate = :preOrderDate"),
     @NamedQuery(name = "PreOrder.findByPriority", query = "SELECT p FROM PreOrder p WHERE p.priority = :priority"),
     @NamedQuery(name = "PreOrder.findByIsOpen", query = "SELECT p FROM PreOrder p WHERE p.isOpen = :isOpen")})
-public class PreOrder implements Serializable {
+public class PreOrder implements Serializable, EntityInterface<Long> {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -89,7 +89,7 @@ public class PreOrder implements Serializable {
         return preOrderId;
     }
 
-    public void setPreOrderId(Long preOrderId) {
+    public void setPreOrderId() {
         this.preOrderId = preOrderId;
     }
 
@@ -167,5 +167,9 @@ public class PreOrder implements Serializable {
     public String toString() {
         return "org.opensms.app.db.entity.PreOrder[ preOrderId=" + preOrderId + " ]";
     }
-    
+
+    @Override
+    public Long getId() {
+        return getPreOrderId();
+    }
 }

@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PreOrderHasItem.findByItem", query = "SELECT p FROM PreOrderHasItem p WHERE p.preOrderHasItemPK.item = :item"),
     @NamedQuery(name = "PreOrderHasItem.findByPreOrder", query = "SELECT p FROM PreOrderHasItem p WHERE p.preOrderHasItemPK.preOrder = :preOrder"),
     @NamedQuery(name = "PreOrderHasItem.findByQuantity", query = "SELECT p FROM PreOrderHasItem p WHERE p.quantity = :quantity")})
-public class PreOrderHasItem implements Serializable {
+public class PreOrderHasItem implements Serializable, EntityInterface<PreOrderHasItemPK> {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected PreOrderHasItemPK preOrderHasItemPK;
@@ -120,5 +120,9 @@ public class PreOrderHasItem implements Serializable {
     public String toString() {
         return "org.opensms.app.db.entity.PreOrderHasItem[ preOrderHasItemPK=" + preOrderHasItemPK + " ]";
     }
-    
+
+    @Override
+    public PreOrderHasItemPK getId() {
+        return getPreOrderHasItemPK();
+    }
 }

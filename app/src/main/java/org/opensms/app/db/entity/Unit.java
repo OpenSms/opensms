@@ -5,6 +5,8 @@
  */
 package org.opensms.app.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -23,7 +25,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -37,6 +38,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Unit.findByUnitId", query = "SELECT u FROM Unit u WHERE u.unitId = :unitId"),
     @NamedQuery(name = "Unit.findByUnit", query = "SELECT u FROM Unit u WHERE u.unit = :unit")})
 public class Unit implements Serializable, EntityInterface<Integer> {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,6 +50,10 @@ public class Unit implements Serializable, EntityInterface<Integer> {
     @Size(min = 1, max = 45)
     @Column(name = "unit")
     private String unit;
+
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unit", fetch = FetchType.LAZY)
+    private List<Item> itemList;
 
     public Unit() {
     }
@@ -77,7 +83,6 @@ public class Unit implements Serializable, EntityInterface<Integer> {
         this.unit = unit;
     }
 
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -106,5 +111,15 @@ public class Unit implements Serializable, EntityInterface<Integer> {
     @Override
     public Integer getId() {
         return getUnitId();
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public List<Item> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<Item> itemList) {
+        this.itemList = itemList;
     }
 }
