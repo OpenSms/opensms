@@ -45,7 +45,7 @@ public class PreOrderHasItem implements Serializable, EntityInterface<PreOrderHa
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private PreOrder preOrder1;
     @JoinColumn(name = "item", referencedColumnName = "item_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Item item1;
 
     public PreOrderHasItem() {
