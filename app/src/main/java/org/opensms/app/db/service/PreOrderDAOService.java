@@ -45,4 +45,12 @@ public class PreOrderDAOService {
         // ** what happens if pre order could not be saved. how can i check whether preOrderId is valid?
         preOrderHasItemDAOController.save(preOrderId, preOrderHasItemList);
     }
+
+    public List<PreOrder> getPreOrdersAt(String location) {
+        return preOrderDAOController.getPreOrdersAt(location);
+    }
+
+    public List<PreOrderHasItem> getPreOrderHasItemsOf(Long preOrderId) {
+        return preOrderHasItemDAOController.getPreOrderHasItemsOf(preOrderId);
+    }
 }
