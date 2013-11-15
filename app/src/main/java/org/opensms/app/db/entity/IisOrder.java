@@ -63,8 +63,7 @@ public class IisOrder implements Serializable {
     @JoinColumn(name = "item_issuer_employee", referencedColumnName = "user_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Employee itemIssuerEmployee;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "iisOrder1", fetch = FetchType.LAZY)
-    private List<IisOrderHasBatch> iisOrderHasBatchList;
+
 
     public IisOrder() {
     }
@@ -128,15 +127,6 @@ public class IisOrder implements Serializable {
         this.itemIssuerEmployee = itemIssuerEmployee;
     }
 
-    @XmlTransient
-    @JsonIgnore
-    public List<IisOrderHasBatch> getIisOrderHasBatchList() {
-        return iisOrderHasBatchList;
-    }
-
-    public void setIisOrderHasBatchList(List<IisOrderHasBatch> iisOrderHasBatchList) {
-        this.iisOrderHasBatchList = iisOrderHasBatchList;
-    }
 
     @Override
     public int hashCode() {

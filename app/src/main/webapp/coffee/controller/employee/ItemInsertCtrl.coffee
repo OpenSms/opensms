@@ -48,7 +48,7 @@ ItemCtrl = ($scope, $http, $log)->
 
     console.log $scope.item
 
-    $http.post('/item/save',$scope.item).succsess((data)->
+    $http.post('/item/save',$scope.item).success((data)->
     
       console.log data
 

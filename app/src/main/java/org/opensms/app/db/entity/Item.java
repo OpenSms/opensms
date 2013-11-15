@@ -48,13 +48,13 @@ public class Item implements Serializable, EntityInterface<String> {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "item", fetch = FetchType.LAZY)
     private List<Batch> batchList;
     @JoinColumn(name = "default_profit", referencedColumnName = "profit_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Profit defaultProfit;
     @JoinColumn(name = "unit", referencedColumnName = "unit_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Unit unit;
     @JoinColumn(name = "category", referencedColumnName = "category_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Category category;
 
     public Item() {
