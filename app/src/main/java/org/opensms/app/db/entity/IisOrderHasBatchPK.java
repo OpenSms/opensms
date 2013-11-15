@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package org.opensms.app.db.entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -24,14 +25,14 @@ public class IisOrderHasBatchPK implements Serializable {
     private long iisOrder;
     @Basic(optional = false)
     @NotNull
-    @Lob
+    @Size(min = 1, max = 100)
     @Column(name = "batch")
-    private byte[] batch;
+    private String batch;
 
     public IisOrderHasBatchPK() {
     }
 
-    public IisOrderHasBatchPK(long iisOrder, byte[] batch) {
+    public IisOrderHasBatchPK(long iisOrder, String batch) {
         this.iisOrder = iisOrder;
         this.batch = batch;
     }
@@ -44,11 +45,11 @@ public class IisOrderHasBatchPK implements Serializable {
         this.iisOrder = iisOrder;
     }
 
-    public byte[] getBatch() {
+    public String getBatch() {
         return batch;
     }
 
-    public void setBatch(byte[] batch) {
+    public void setBatch(String batch) {
         this.batch = batch;
     }
 

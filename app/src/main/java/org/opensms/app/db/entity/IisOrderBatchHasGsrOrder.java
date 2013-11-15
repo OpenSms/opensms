@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package org.opensms.app.db.entity;
 
 import java.io.Serializable;
@@ -26,12 +27,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author dewmal
  */
 @Entity
-@Table(name = "iis_order_batch_has_gsr_order")
+@Table(name = "iis_order_batch_has_gsr_order", catalog = "opensms", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "IisOrderBatchHasGsrOrder.findAll", query = "SELECT i FROM IisOrderBatchHasGsrOrder i"),
-    @NamedQuery(name = "IisOrderBatchHasGsrOrder.findByIisOrder", query = "SELECT i FROM IisOrderBatchHasGsrOrder i WHERE i.iisOrderBatchHasGsrOrderPK.iisOrder = :iisOrder"),
     @NamedQuery(name = "IisOrderBatchHasGsrOrder.findByGsrOrder", query = "SELECT i FROM IisOrderBatchHasGsrOrder i WHERE i.iisOrderBatchHasGsrOrderPK.gsrOrder = :gsrOrder"),
+    @NamedQuery(name = "IisOrderBatchHasGsrOrder.findByIisOrder", query = "SELECT i FROM IisOrderBatchHasGsrOrder i WHERE i.iisOrderBatchHasGsrOrderPK.iisOrder = :iisOrder"),
+    @NamedQuery(name = "IisOrderBatchHasGsrOrder.findByBatch", query = "SELECT i FROM IisOrderBatchHasGsrOrder i WHERE i.iisOrderBatchHasGsrOrderPK.batch = :batch"),
     @NamedQuery(name = "IisOrderBatchHasGsrOrder.findByQuantity", query = "SELECT i FROM IisOrderBatchHasGsrOrder i WHERE i.quantity = :quantity")})
 public class IisOrderBatchHasGsrOrder implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -42,9 +44,6 @@ public class IisOrderBatchHasGsrOrder implements Serializable {
     @NotNull
     @Column(name = "quantity")
     private BigDecimal quantity;
-    @JoinColumn(name = "gsr_order", referencedColumnName = "gsr_order_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private GsrOrder gsrOrder1;
     @JoinColumns({
         @JoinColumn(name = "iis_order", referencedColumnName = "iis_order", insertable = false, updatable = false),
         @JoinColumn(name = "batch", referencedColumnName = "batch", insertable = false, updatable = false)})
@@ -63,8 +62,8 @@ public class IisOrderBatchHasGsrOrder implements Serializable {
         this.quantity = quantity;
     }
 
-    public IisOrderBatchHasGsrOrder(long iisOrder, byte[] batch, long gsrOrder) {
-        this.iisOrderBatchHasGsrOrderPK = new IisOrderBatchHasGsrOrderPK(iisOrder, batch, gsrOrder);
+    public IisOrderBatchHasGsrOrder(long gsrOrder, long iisOrder, String batch) {
+        this.iisOrderBatchHasGsrOrderPK = new IisOrderBatchHasGsrOrderPK(gsrOrder, iisOrder, batch);
     }
 
     public IisOrderBatchHasGsrOrderPK getIisOrderBatchHasGsrOrderPK() {
@@ -81,14 +80,6 @@ public class IisOrderBatchHasGsrOrder implements Serializable {
 
     public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
-    }
-
-    public GsrOrder getGsrOrder1() {
-        return gsrOrder1;
-    }
-
-    public void setGsrOrder1(GsrOrder gsrOrder1) {
-        this.gsrOrder1 = gsrOrder1;
     }
 
     public IisOrderHasBatch getIisOrderHasBatch() {
