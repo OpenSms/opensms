@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: dewmal
@@ -48,5 +50,14 @@ public class ItemController {
     @ResponseBody
     public List<Item> getAllItemsList(@RequestParam String hint) {
         return itemDAOService.getAllItemList(hint);
+    }
+
+    /**
+     * Get all items
+     * @return List<Item>
+     */
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public @ResponseBody List<Item> getAllItems() {
+        return itemDAOService.getAllItems();
     }
 }

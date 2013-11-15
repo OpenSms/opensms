@@ -77,8 +77,8 @@ public class ItemDAOService {
 
     public void saveItem(Item item) {
 
-       // String itemId = UUID.randomUUID().toString();
-       // item.setItemId(itemId);
+        String itemId = UUID.randomUUID().toString();
+        item.setItemId(itemId);
 
         itemDAO.save(item);
     }
@@ -86,5 +86,9 @@ public class ItemDAOService {
     public List<Item> getAllItemList(String hint) {
 
         return itemDAO.getAll(hint);
+    }
+
+    public List<Item> getAllItems() {
+        return itemDAO.getAll();
     }
 }

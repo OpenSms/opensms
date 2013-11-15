@@ -32,6 +32,9 @@ app = angular.module "main-app", ["$strap.directives", "ngTable"], ($routeProvid
 
 
 
+  $routeProvider.when "/PreOrder",
+    templateUrl: "./static/app/templates/customer/PreOrder.html"
+
 
 test='name'
 console.log test

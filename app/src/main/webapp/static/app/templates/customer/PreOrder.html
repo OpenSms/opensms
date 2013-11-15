@@ -1,0 +1,68 @@
+<form ng-controller="PreOrderCtrl" class="form-horizontal" role="form">
+
+
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Priority</label>
+
+        <div class="col-lg-8 col-sm-6">
+            <input ng-model="preOrder.priority" type="number" min="0" max="10" class="form-control"/>
+        </div>
+
+    </div>
+
+    <div class="form-group form-group-wizard">
+        <label class="col-lg-2 control-label">Items</label>
+
+        <div class="col-lg-10 table-responsive">
+            <table class="table table-hover">
+
+
+                <thead>
+
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th></th>
+                </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                <tr>
+                    <td>
+                        <select ng-model="selectedItem.itemId" class="form-control" required>
+                            <option ng-repeat="item in items" value={{item.itemId}}>{{item.name}}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input ng-model="selectedItem.quantity" type="number" min="0.0" max="999999999999.999" class="form-control" required/>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-default btn-sm" ng-click="addItem()">
+                            <span class="glyphicon glyphicon-plus"></span> Add
+                        </button>
+                    </td>
+                </tr>
+
+                <tr ng-repeat="preOrderHasItem in preOrderHasItems">
+                    <td>{{ preOrderHasItem.item1.name }}</td>
+                    <td>{{ preOrderHasItem.quantity }}</td>
+                    <td>
+                        <button type="button" class="btn btn-default btn-sm" ng-click="removeItem($index)">
+                            <span class="glyphicon glyphicon-remove"></span> Remove
+                        </button>
+                    </td>
+                </tr>
+
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
+
+    <button class="btn btn-default" ng-click="submitRequest()">Submit Request</button>
+
+</form>
