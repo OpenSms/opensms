@@ -76,4 +76,8 @@ public class UserDAOService {
     public User login(User user) {
         return userDAOController.login(user);
     }
+
+    public List<User> search(String query, String type) {
+        return userDAOController.search(query,type);
+    }
 }
