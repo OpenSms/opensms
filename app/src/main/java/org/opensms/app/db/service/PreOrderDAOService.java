@@ -53,4 +53,8 @@ public class PreOrderDAOService {
     public List<PreOrderHasItem> getPreOrderHasItemsOf(Long preOrderId) {
         return preOrderHasItemDAOController.getPreOrderHasItemsOf(preOrderId);
     }
+
+    public List<PreOrder> getAll() {
+        return preOrderDAOController.getAll();
+    }
 }

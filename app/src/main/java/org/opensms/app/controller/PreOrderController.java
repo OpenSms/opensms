@@ -48,6 +48,25 @@ public class PreOrderController {
         return new ResponseMessage(ResponseMessage.Type.success, "pre-order saved.");
     }
 
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public @ResponseBody List<PreOrderModel> getAllPreOrders() {
+
+        List<PreOrderModel> preOrderModelList = new ArrayList<PreOrderModel>();
+
+
+        List<PreOrder> preOrderList = preOrderDAOService.getAll();
+
+        for (PreOrder p : preOrderList) {
+            PreOrderModel model = new PreOrderModel();
+            model.setPreOrder(p);
+            model.setPreOrderHasItemList(preOrderDAOService.getPreOrderHasItemsOf(p.getPreOrderId()));
+
+            preOrderModelList.add(model);
+        }
+
+        return preOrderModelList;
+    }
+
     @RequestMapping(value = "/at", method = RequestMethod.GET, params = {"location"})
     public @ResponseBody List<PreOrderModel> getPreOrdersAt(@RequestParam("location") String location) {
          List<PreOrderModel> preOrderModelList = new ArrayList<PreOrderModel>();
