@@ -1,7 +1,6 @@
 package org.opensms.app.db.controller.impl;
 
 import org.hibernate.Query;
-import org.hibernate.Session;
 import org.opensms.app.db.entity.User;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +14,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class UserDAOController extends AbstractDAOImpl<User, Integer>{
+public class UserDAOController extends AbstractDAOImpl<User, Integer> {
     public UserDAOController() {
         super(User.class, Integer.class);
     }
@@ -43,6 +42,7 @@ public class UserDAOController extends AbstractDAOImpl<User, Integer>{
 
     /**
      * Update user account state
+     *
      * @param user
      */
     public void updateUserAccountState(User user) {
@@ -56,6 +56,7 @@ public class UserDAOController extends AbstractDAOImpl<User, Integer>{
 
     /**
      * Validate user password
+     *
      * @param user
      * @return
      */
@@ -70,6 +71,7 @@ public class UserDAOController extends AbstractDAOImpl<User, Integer>{
 
     /**
      * Change password
+     *
      * @param user
      */
     public void changePassword(User user) {
@@ -87,9 +89,43 @@ public class UserDAOController extends AbstractDAOImpl<User, Integer>{
      * @return
      */
     public User login(User user) {
-        Query query=getCurrentSession().createQuery("SELECT u FROM User u WHERE u.username=:username AND u.password=:password");
-        query.setString("username",user.getUsername());
-        query.setString("password",user.getPassword());
+        Query query = getCurrentSession().createQuery("SELECT u FROM User u WHERE u.username=:username AND u.password=:password");
+        query.setString("username", user.getUsername());
+        query.setString("password", user.getPassword());
         return (User) query.uniqueResult();
+    }
+
+    public List<User> search(String queryString, String type) {
+
+        System.out.println(queryString);
+        System.out.println(type);
+
+        String queryIdString = queryString;
+        queryString = "%" + queryString + "%";
+
+        Query query = null;
+        if (type.equals("vendor")) {
+            query = getCurrentSession().createQuery("SELECT u FROM Vendor u WHERE u.name LIKE  :queryString");
+
+        } else if (type.equals("customer")) {
+            query = getCurrentSession().createQuery("SELECT u FROM Customer u, UserContactDetail c WHERE " +
+                    "u.userId = :queryIdString OR u.user.username LIKE :queryString OR " +
+                    "c.name LIKE :queryString OR c.email LIKE :queryString OR " +
+                    "c.city LIKE :queryString OR c.country LIKE :queryString GROUP BY u.userId");
+        } else {
+            query = getCurrentSession().createQuery("SELECT u FROM Employee u, UserContactDetail c, EmployeeType  et WHERE " +
+                    "u.userId = :queryIdString OR u.user.username LIKE :queryString OR " +
+                    "c.name LIKE :queryString OR c.email LIKE :queryString OR " +
+                    "c.city LIKE :queryString OR c.country LIKE :queryString " +
+                    "AND et.type1.description = :type " +
+                    "GROUP BY u.userId");
+
+            query.setString("type", type);
+        }
+
+       // query.setString("queryIdString", queryIdString);
+        query.setString("queryString", queryString);
+
+        return query.list();
     }
 }

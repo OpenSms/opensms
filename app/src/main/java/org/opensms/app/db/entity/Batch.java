@@ -3,48 +3,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package org.opensms.app.db.entity;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.opensms.app.db.entity.helper.BatchIdGenerator;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
  * @author dewmal
  */
 @Entity
-@Table(name = "batch")
+@Table(name = "batch", catalog = "opensms", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Batch.findAll", query = "SELECT b FROM Batch b"),
+    @NamedQuery(name = "Batch.findByBatchCode", query = "SELECT b FROM Batch b WHERE b.batchCode = :batchCode"),
     @NamedQuery(name = "Batch.findByBuyingUnitPrice", query = "SELECT b FROM Batch b WHERE b.buyingUnitPrice = :buyingUnitPrice"),
     @NamedQuery(name = "Batch.findByQuantity", query = "SELECT b FROM Batch b WHERE b.quantity = :quantity")})
-public class Batch implements Serializable {
+public class Batch implements Serializable ,EntityInterface<String>{
     private static final long serialVersionUID = 1L;
     @Id
+    @GenericGenerator(name="seq_id",strategy = "org.opensms.app.db.entity.helper.BatchIdGenerator")
+    @GeneratedValue(generator="seq_id")
     @Basic(optional = false)
     @NotNull
-    @Lob
+    @Size(min = 1, max = 100)
     @Column(name = "batch_code")
-    private byte[] batchCode;
+    private String batchCode;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -54,36 +47,34 @@ public class Batch implements Serializable {
     @NotNull
     @Column(name = "quantity")
     private BigDecimal quantity;
-    @JoinColumn(name = "grn_order", referencedColumnName = "grn_order_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private GrnOrder grnOrder;
     @JoinColumn(name = "profit", referencedColumnName = "profit_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Profit profit;
     @JoinColumn(name = "item", referencedColumnName = "item_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Item item;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "batch1", fetch = FetchType.LAZY)
-    private List<IisOrderHasBatch> iisOrderHasBatchList;
+    @JoinColumn(name = "grn_order", referencedColumnName = "grn_order_id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private GrnOrder grnOrder;
 
     public Batch() {
     }
 
-    public Batch(byte[] batchCode) {
+    public Batch(String batchCode) {
         this.batchCode = batchCode;
     }
 
-    public Batch(byte[] batchCode, BigDecimal buyingUnitPrice, BigDecimal quantity) {
+    public Batch(String batchCode, BigDecimal buyingUnitPrice, BigDecimal quantity) {
         this.batchCode = batchCode;
         this.buyingUnitPrice = buyingUnitPrice;
         this.quantity = quantity;
     }
 
-    public byte[] getBatchCode() {
+    public String getBatchCode() {
         return batchCode;
     }
 
-    public void setBatchCode(byte[] batchCode) {
+    public void setBatchCode(String batchCode) {
         this.batchCode = batchCode;
     }
 
@@ -103,14 +94,6 @@ public class Batch implements Serializable {
         this.quantity = quantity;
     }
 
-    public GrnOrder getGrnOrder() {
-        return grnOrder;
-    }
-
-    public void setGrnOrder(GrnOrder grnOrder) {
-        this.grnOrder = grnOrder;
-    }
-
     public Profit getProfit() {
         return profit;
     }
@@ -127,14 +110,12 @@ public class Batch implements Serializable {
         this.item = item;
     }
 
-    @XmlTransient
-    @JsonIgnore
-    public List<IisOrderHasBatch> getIisOrderHasBatchList() {
-        return iisOrderHasBatchList;
+    public GrnOrder getGrnOrder() {
+        return grnOrder;
     }
 
-    public void setIisOrderHasBatchList(List<IisOrderHasBatch> iisOrderHasBatchList) {
-        this.iisOrderHasBatchList = iisOrderHasBatchList;
+    public void setGrnOrder(GrnOrder grnOrder) {
+        this.grnOrder = grnOrder;
     }
 
     @Override
@@ -160,6 +141,11 @@ public class Batch implements Serializable {
     @Override
     public String toString() {
         return "org.opensms.app.db.entity.Batch[ batchCode=" + batchCode + " ]";
+    }
+
+    @Override
+    public String getId() {
+       return getBatchCode();
     }
     
 }

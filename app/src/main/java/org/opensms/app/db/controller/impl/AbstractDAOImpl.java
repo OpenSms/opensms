@@ -31,7 +31,7 @@ public abstract class AbstractDAOImpl<T extends EntityInterface<E>, E extends Se
     private SessionFactory sessionFactory;
 
     public Session getCurrentSession() {
-        return sessionFactory.getCurrentSession();
+        return sessionFactory.openSession();
     }
 
 
@@ -60,8 +60,13 @@ public abstract class AbstractDAOImpl<T extends EntityInterface<E>, E extends Se
 
     @Override
     public E save(T entity) {
-        getCurrentSession().save(entity);
+        Session session = getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(entity);
+        transaction.commit();
+
         System.out.println(entity.getId());
+
         return entity.getId();  //To change body of implemented methods use File | Settings | File Templates.
     }
 

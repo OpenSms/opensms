@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package org.opensms.app.db.entity;
 
 import java.io.Serializable;
@@ -30,11 +31,12 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  * @author dewmal
  */
 @Entity
-@Table(name = "iis_order_has_batch")
+@Table(name = "iis_order_has_batch", catalog = "opensms", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "IisOrderHasBatch.findAll", query = "SELECT i FROM IisOrderHasBatch i"),
     @NamedQuery(name = "IisOrderHasBatch.findByIisOrder", query = "SELECT i FROM IisOrderHasBatch i WHERE i.iisOrderHasBatchPK.iisOrder = :iisOrder"),
+    @NamedQuery(name = "IisOrderHasBatch.findByBatch", query = "SELECT i FROM IisOrderHasBatch i WHERE i.iisOrderHasBatchPK.batch = :batch"),
     @NamedQuery(name = "IisOrderHasBatch.findByIssuedQuantity", query = "SELECT i FROM IisOrderHasBatch i WHERE i.issuedQuantity = :issuedQuantity"),
     @NamedQuery(name = "IisOrderHasBatch.findByReturnQuantity", query = "SELECT i FROM IisOrderHasBatch i WHERE i.returnQuantity = :returnQuantity")})
 public class IisOrderHasBatch implements Serializable {
@@ -53,9 +55,6 @@ public class IisOrderHasBatch implements Serializable {
     @JoinColumn(name = "batch", referencedColumnName = "batch_code", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Batch batch1;
-    @JoinColumn(name = "iis_order", referencedColumnName = "iis_order_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private IisOrder iisOrder1;
 
     public IisOrderHasBatch() {
     }
@@ -69,7 +68,7 @@ public class IisOrderHasBatch implements Serializable {
         this.issuedQuantity = issuedQuantity;
     }
 
-    public IisOrderHasBatch(long iisOrder, byte[] batch) {
+    public IisOrderHasBatch(long iisOrder, String batch) {
         this.iisOrderHasBatchPK = new IisOrderHasBatchPK(iisOrder, batch);
     }
 
@@ -113,14 +112,6 @@ public class IisOrderHasBatch implements Serializable {
 
     public void setBatch1(Batch batch1) {
         this.batch1 = batch1;
-    }
-
-    public IisOrder getIisOrder1() {
-        return iisOrder1;
-    }
-
-    public void setIisOrder1(IisOrder iisOrder1) {
-        this.iisOrder1 = iisOrder1;
     }
 
     @Override

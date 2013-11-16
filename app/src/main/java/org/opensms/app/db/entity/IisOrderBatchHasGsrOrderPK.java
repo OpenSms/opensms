@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package org.opensms.app.db.entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -20,40 +21,24 @@ import javax.validation.constraints.NotNull;
 public class IisOrderBatchHasGsrOrderPK implements Serializable {
     @Basic(optional = false)
     @NotNull
+    @Column(name = "gsr_order")
+    private long gsrOrder;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "iis_order")
     private long iisOrder;
     @Basic(optional = false)
     @NotNull
-    @Lob
+    @Size(min = 1, max = 100)
     @Column(name = "batch")
-    private byte[] batch;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "gsr_order")
-    private long gsrOrder;
+    private String batch;
 
     public IisOrderBatchHasGsrOrderPK() {
     }
 
-    public IisOrderBatchHasGsrOrderPK(long iisOrder, byte[] batch, long gsrOrder) {
-        this.iisOrder = iisOrder;
-        this.batch = batch;
+    public IisOrderBatchHasGsrOrderPK(long gsrOrder, long iisOrder, String batch) {
         this.gsrOrder = gsrOrder;
-    }
-
-    public long getIisOrder() {
-        return iisOrder;
-    }
-
-    public void setIisOrder(long iisOrder) {
         this.iisOrder = iisOrder;
-    }
-
-    public byte[] getBatch() {
-        return batch;
-    }
-
-    public void setBatch(byte[] batch) {
         this.batch = batch;
     }
 
@@ -65,12 +50,28 @@ public class IisOrderBatchHasGsrOrderPK implements Serializable {
         this.gsrOrder = gsrOrder;
     }
 
+    public long getIisOrder() {
+        return iisOrder;
+    }
+
+    public void setIisOrder(long iisOrder) {
+        this.iisOrder = iisOrder;
+    }
+
+    public String getBatch() {
+        return batch;
+    }
+
+    public void setBatch(String batch) {
+        this.batch = batch;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
+        hash += (int) gsrOrder;
         hash += (int) iisOrder;
         hash += (batch != null ? batch.hashCode() : 0);
-        hash += (int) gsrOrder;
         return hash;
     }
 
@@ -81,13 +82,13 @@ public class IisOrderBatchHasGsrOrderPK implements Serializable {
             return false;
         }
         IisOrderBatchHasGsrOrderPK other = (IisOrderBatchHasGsrOrderPK) object;
+        if (this.gsrOrder != other.gsrOrder) {
+            return false;
+        }
         if (this.iisOrder != other.iisOrder) {
             return false;
         }
         if ((this.batch == null && other.batch != null) || (this.batch != null && !this.batch.equals(other.batch))) {
-            return false;
-        }
-        if (this.gsrOrder != other.gsrOrder) {
             return false;
         }
         return true;
@@ -95,7 +96,7 @@ public class IisOrderBatchHasGsrOrderPK implements Serializable {
 
     @Override
     public String toString() {
-        return "org.opensms.app.db.entity.IisOrderBatchHasGsrOrderPK[ iisOrder=" + iisOrder + ", batch=" + batch + ", gsrOrder=" + gsrOrder + " ]";
+        return "org.opensms.app.db.entity.IisOrderBatchHasGsrOrderPK[ gsrOrder=" + gsrOrder + ", iisOrder=" + iisOrder + ", batch=" + batch + " ]";
     }
     
 }
