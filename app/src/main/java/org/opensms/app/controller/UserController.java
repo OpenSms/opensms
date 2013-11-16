@@ -1,11 +1,9 @@
 package org.opensms.app.controller;
 
-import org.opensms.app.db.entity.Role;
 import org.opensms.app.db.entity.User;
 import org.opensms.app.db.service.UserDAOService;
 import org.opensms.app.view.model.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -98,9 +96,24 @@ public class UserController {
      * @param query
      * @return  list of users that meet the search criteria
      */
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    @RequestMapping(value = "/search", method = RequestMethod.GET,params = {"query"})
     public @ResponseBody List<User> search(@RequestParam("query") String query) {
         return userDAOService.search(query);
+    }
+
+
+
+    /**
+     *Search user by user id, username, name, email, city and country...
+     * for given type
+     *
+     *
+     * @param query
+     * @return  list of users that meet the search criteria
+     */
+    @RequestMapping(value = "/search", method = RequestMethod.GET,params = {"query","type"})
+    public @ResponseBody List<User> searchTypedUser(@RequestParam("query") String query,@RequestParam("type") String type) {
+        return userDAOService.search(query,type);
     }
 
 

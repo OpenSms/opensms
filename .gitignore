@@ -13,3 +13,6 @@
 /app/target/
 /app/.idea/
 /app/webapp.iml
+/app/src/main/webapp/static/app/controller/*.js
+/app/src/main/webapp/static/app/*.js
+

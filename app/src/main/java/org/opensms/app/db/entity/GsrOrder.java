@@ -55,10 +55,10 @@ public class GsrOrder implements Serializable {
     @JoinColumn(name = "customer", referencedColumnName = "user_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Customer customer;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gsrOrder1", fetch = FetchType.LAZY)
-    private List<IisOrderBatchHasGsrOrder> iisOrderBatchHasGsrOrderList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gsrOrder", fetch = FetchType.LAZY)
-    private List<GsrPayment> gsrPaymentList;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gsrOrder1", fetch = FetchType.LAZY)
+//    private List<IisOrderBatchHasGsrOrder> iisOrderBatchHasGsrOrderList;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gsrOrder", fetch = FetchType.LAZY)
+//    private List<GsrPayment> gsrPaymentList;
 
     public GsrOrder() {
     }
@@ -96,25 +96,25 @@ public class GsrOrder implements Serializable {
         this.customer = customer;
     }
 
-    @XmlTransient
-    @JsonIgnore
-    public List<IisOrderBatchHasGsrOrder> getIisOrderBatchHasGsrOrderList() {
-        return iisOrderBatchHasGsrOrderList;
-    }
-
-    public void setIisOrderBatchHasGsrOrderList(List<IisOrderBatchHasGsrOrder> iisOrderBatchHasGsrOrderList) {
-        this.iisOrderBatchHasGsrOrderList = iisOrderBatchHasGsrOrderList;
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public List<GsrPayment> getGsrPaymentList() {
-        return gsrPaymentList;
-    }
-
-    public void setGsrPaymentList(List<GsrPayment> gsrPaymentList) {
-        this.gsrPaymentList = gsrPaymentList;
-    }
+//    @XmlTransient
+//    @JsonIgnore
+//    public List<IisOrderBatchHasGsrOrder> getIisOrderBatchHasGsrOrderList() {
+//        return iisOrderBatchHasGsrOrderList;
+//    }
+//
+//    public void setIisOrderBatchHasGsrOrderList(List<IisOrderBatchHasGsrOrder> iisOrderBatchHasGsrOrderList) {
+//        this.iisOrderBatchHasGsrOrderList = iisOrderBatchHasGsrOrderList;
+//    }
+//
+//    @XmlTransient
+//    @JsonIgnore
+//    public List<GsrPayment> getGsrPaymentList() {
+//        return gsrPaymentList;
+//    }
+//
+//    public void setGsrPaymentList(List<GsrPayment> gsrPaymentList) {
+//        this.gsrPaymentList = gsrPaymentList;
+//    }
 
     @Override
     public int hashCode() {

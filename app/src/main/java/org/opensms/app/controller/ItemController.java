@@ -5,10 +5,9 @@ import org.opensms.app.db.service.ItemDAOService;
 import org.opensms.app.view.model.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import java.util.List;
 
@@ -26,11 +25,31 @@ public class ItemController {
     @Autowired
     private ItemDAOService itemDAOService;
 
+    /**
+     * Save new Item
+     *
+     * @param item
+     * @return
+     */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage saveItem(@RequestBody Item item) {
         itemDAOService.saveItem(item);
         return new ResponseMessage(ResponseMessage.Type.success, "success");
+
+
+    }
+
+    /**
+     * get all items related with hint
+     *
+     * @param hint
+     * @return
+     */
+    @RequestMapping(value = "/all", method = RequestMethod.GET, params = {"hint"})
+    @ResponseBody
+    public List<Item> getAllItemsList(@RequestParam String hint) {
+        return itemDAOService.getAllItemList(hint);
     }
 
     /**

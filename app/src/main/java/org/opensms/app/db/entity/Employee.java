@@ -5,39 +5,24 @@
  */
 package org.opensms.app.db.entity;
 
-import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
+import java.io.Serializable;
 
 /**
- *
  * @author dewmal
  */
 @Entity
 @Table(name = "employee")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e"),
-    @NamedQuery(name = "Employee.findByUserId", query = "SELECT e FROM Employee e WHERE e.userId = :userId"),
-    @NamedQuery(name = "Employee.findBySurname", query = "SELECT e FROM Employee e WHERE e.surname = :surname"),
-    @NamedQuery(name = "Employee.findByInitials", query = "SELECT e FROM Employee e WHERE e.initials = :initials"),
-    @NamedQuery(name = "Employee.findByNameReferredByInitials", query = "SELECT e FROM Employee e WHERE e.nameReferredByInitials = :nameReferredByInitials")})
+        @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e"),
+        @NamedQuery(name = "Employee.findByUserId", query = "SELECT e FROM Employee e WHERE e.userId = :userId"),
+        @NamedQuery(name = "Employee.findBySurname", query = "SELECT e FROM Employee e WHERE e.surname = :surname"),
+        @NamedQuery(name = "Employee.findByInitials", query = "SELECT e FROM Employee e WHERE e.initials = :initials"),
+        @NamedQuery(name = "Employee.findByNameReferredByInitials", query = "SELECT e FROM Employee e WHERE e.nameReferredByInitials = :nameReferredByInitials")})
 public class Employee implements Serializable, EntityInterface<Integer> {
     private static final long serialVersionUID = 1L;
     @Id
@@ -60,7 +45,7 @@ public class Employee implements Serializable, EntityInterface<Integer> {
     @Size(min = 1, max = 100)
     @Column(name = "name_referred_by_initials")
     private String nameReferredByInitials;
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cashierEmployee", fetch = FetchType.LAZY)
+    //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cashierEmployee", fetch = FetchType.LAZY)
 //    private List<GrnPayment> grnPaymentList;
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dataEntryEmployee", fetch = FetchType.LAZY)
 //    private List<GrnOrder> grnOrderList;
@@ -73,8 +58,8 @@ public class Employee implements Serializable, EntityInterface<Integer> {
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
 //    private List<EmployeeType> employeeTypeList;
 //    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
-//    @OneToOne(optional = false, fetch = FetchType.LAZY)
-//    private User user;
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    private User user;
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cashierEmployee", fetch = FetchType.LAZY)
 //    private List<GsrPayment> gsrPaymentList;
 
@@ -184,13 +169,13 @@ public class Employee implements Serializable, EntityInterface<Integer> {
 //        this.employeeTypeList = employeeTypeList;
 //    }
 //
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 //
 //    @XmlTransient
 //    @JsonIgnore

@@ -83,6 +83,11 @@ public class ItemDAOService {
         itemDAO.save(item);
     }
 
+    public List<Item> getAllItemList(String hint) {
+
+        return itemDAO.getAll(hint);
+    }
+
     public List<Item> getAllItems() {
         return itemDAO.getAll();
     }
