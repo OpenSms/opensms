@@ -50,4 +50,6 @@ public interface AbstractDAO<T, E extends Serializable> {
      * @return
      */
     public List<T> retriveQuery(Class<T> entityClass, String query);
+
+    public void detach(Object entity);
 }
