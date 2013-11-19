@@ -69,6 +69,7 @@ public abstract class AbstractDAOImpl<T extends EntityInterface<E>, E extends Se
 
     @Override
     public E save(T entity) {
+        System.out.println(entity);
         Session session = getCurrentSession();
         //  Transaction transaction = session.beginTransaction();
         session.save(entity);
@@ -77,12 +78,12 @@ public abstract class AbstractDAOImpl<T extends EntityInterface<E>, E extends Se
 
         // System.out.println(entity.getId());
 
-        return entity.getId();  //To change body of implemented methods use File | Settings | File Templates.
+        return entity.getId();
     }
 
     @Override
     public T get(E id) {
-        return (T) getCurrentSession().get(entityClass, id);  //To change body of implemented methods use File | Settings | File Templates.
+        return (T) getCurrentSession().get(entityClass, id);
     }
 
     /**

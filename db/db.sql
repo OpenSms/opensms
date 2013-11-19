@@ -2,36 +2,7 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
 CREATE SCHEMA IF NOT EXISTS `opensms` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
-
--- -----------------------------------------------------
--- Table `mydb`.`user`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`user` (
-  `username` VARCHAR(16) NOT NULL,
-  `email` VARCHAR(255) NULL,
-  `password` VARCHAR(32) NOT NULL,
-  `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP);
-
-
--- -----------------------------------------------------
--- Table `mydb`.`category`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`category` (
-  `category_id` INT NOT NULL,
-  `name` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`category_id`));
-
-
--- -----------------------------------------------------
--- Table `mydb`.`timestamps`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`timestamps` (
-  `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` TIMESTAMP NULL);
-
 USE `opensms` ;
 
 -- -----------------------------------------------------
@@ -46,7 +17,6 @@ CREATE TABLE IF NOT EXISTS `opensms`.`user` (
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC))
 ENGINE = InnoDB
-AUTO_INCREMENT = 54
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -119,7 +89,6 @@ CREATE TABLE IF NOT EXISTS `opensms`.`profit` (
   `type` ENUM('PERCENTAGE','MARGIN') NOT NULL,
   PRIMARY KEY (`profit_id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -132,7 +101,6 @@ CREATE TABLE IF NOT EXISTS `opensms`.`unit` (
   PRIMARY KEY (`unit_id`),
   UNIQUE INDEX `unit_id_UNIQUE` (`unit_id` ASC))
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -376,7 +344,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `opensms`.`iis_order` (
   `iis_order_id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `item_issuer_employee` INT(10) UNSIGNED NOT NULL,
-  `return_check_employee` INT(10) UNSIGNED NULL DEFAULT NULL COMMENT ' /* comment truncated */ /*accepts end of the day returns*/',
+  `return_check_employee` INT(10) UNSIGNED NULL DEFAULT NULL COMMENT 'accepts end of the day returns',
   `sales_employee` INT(10) UNSIGNED NOT NULL,
   `iss_order_date_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`iis_order_id`),
@@ -385,7 +353,9 @@ CREATE TABLE IF NOT EXISTS `opensms`.`iis_order` (
   INDEX `fk_iis_order_employee3_idx` (`sales_employee` ASC),
   CONSTRAINT `fk_iis_order_employee1`
     FOREIGN KEY (`item_issuer_employee`)
-    REFERENCES `opensms`.`employee` (`user_id`),
+    REFERENCES `opensms`.`employee` (`user_id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT,
   CONSTRAINT `fk_iis_order_employee2`
     FOREIGN KEY (`return_check_employee`)
     REFERENCES `opensms`.`employee` (`user_id`),
@@ -394,7 +364,7 @@ CREATE TABLE IF NOT EXISTS `opensms`.`iis_order` (
     REFERENCES `opensms`.`employee` (`user_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
-COMMENT = ' /* comment truncated */ /*Item issue order*/';
+COMMENT = 'Item issue order';
 
 
 -- -----------------------------------------------------
@@ -506,7 +476,6 @@ CREATE TABLE IF NOT EXISTS `opensms`.`role` (
   `description` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`role_id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8;
 
 
