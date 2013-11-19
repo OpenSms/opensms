@@ -11,6 +11,7 @@ import org.opensms.app.db.entity.helper.BatchIdGenerator;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -56,6 +57,13 @@ public class Batch implements Serializable ,EntityInterface<String>{
     @JoinColumn(name = "grn_order", referencedColumnName = "grn_order_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private GrnOrder grnOrder;
+    @Basic(optional = true)
+    @Column(name = "expire_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date expireDate;
+    @Basic(optional = true)
+    @Column(name = "remaining_quantity")
+    private BigDecimal remainingQuantity;
 
     public Batch() {
     }
@@ -147,5 +155,20 @@ public class Batch implements Serializable ,EntityInterface<String>{
     public String getId() {
        return getBatchCode();
     }
-    
+
+    public Date getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(Date expireDate) {
+        this.expireDate = expireDate;
+    }
+
+    public BigDecimal getRemainingQuantity() {
+        return remainingQuantity;
+    }
+
+    public void setRemainingQuantity(BigDecimal remainingQuantity) {
+        this.remainingQuantity = remainingQuantity;
+    }
 }
