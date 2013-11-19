@@ -104,7 +104,10 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
     $scope.userRole.role1.description = $scope.getRoleDescription($scope.userRole.role1.roleId)
     $scope.userRole.active = true
 
-    # create UserRolePK object
+    if $scope.userRole.role1.description is "vendor" or $scope.userRole.role1.description is "customer"
+      return
+
+      # create UserRolePK object
     uRolePk = {}
     uRolePk =
       assignDate: new Date().getTime()
@@ -148,12 +151,14 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
         jQuery.extend(true, {}, d)
       )
 
-      if d.role1.description is "Customer"
+      if d.role1.description is "customer"
         userType = "customer"
-      else if d.role1.description is "Vendor"
+      else if d.role1.description is "vendor"
         userType = "vendor"
-      else
+      else if d.role1.description is "employee"
         userType = "employee"
+      else
+        userType = "undefined"
 
     $scope.userType.type = userType
     $scope.detailsUpdated.employeeRoles = false
