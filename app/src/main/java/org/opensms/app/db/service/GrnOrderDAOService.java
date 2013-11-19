@@ -60,6 +60,12 @@ public class GrnOrderDAOService {
 
 
             batch.setGrnOrder(grnOrder);
+
+            Calendar instance = Calendar.getInstance();
+            instance.add(Calendar.MONTH,1);
+
+            batch.setExpireDate(instance.getTime());
+            batch.setRemainingQuantity(batch.getQuantity());
             batchDAO.save(batch);
         }
 
