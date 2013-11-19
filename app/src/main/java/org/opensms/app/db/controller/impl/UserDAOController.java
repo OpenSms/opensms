@@ -107,19 +107,24 @@ public class UserDAOController extends AbstractDAOImpl<User, Integer> {
         if (type.equals("vendor")) {
             query = getCurrentSession().createQuery("SELECT u FROM Vendor u WHERE u.name LIKE  :queryString");
 
-        } else if (type.equals("customer")) {
+        }
+        else if (type.equals("customer")) {
             query = getCurrentSession().createQuery("SELECT u FROM Customer u, UserContactDetail c WHERE " +
                     "u.userId = :queryIdString OR u.user.username LIKE :queryString OR " +
                     "c.name LIKE :queryString OR c.email LIKE :queryString OR " +
                     "c.city LIKE :queryString OR c.country LIKE :queryString GROUP BY u.userId");
-        } else {
-            query = getCurrentSession().createQuery("SELECT u FROM Employee u, UserContactDetail c, EmployeeType  et WHERE " +
-                    "u.userId = :queryIdString OR u.user.username LIKE :queryString OR " +
-                    "c.name LIKE :queryString OR c.email LIKE :queryString OR " +
-                    "c.city LIKE :queryString OR c.country LIKE :queryString " +
-                    "AND et.type1.description = :type " +
+
+
+            query.setString("queryIdString", queryIdString);
+        }
+        else {
+            query = getCurrentSession().createQuery("SELECT u FROM User u, UserContactDetail c, UserRole  r WHERE " +
+                    "(u.userId = :queryIdString OR u.username LIKE :queryString OR " +
+                    "c.name LIKE :queryString OR c.email LIKE :queryString) " +
+                    "AND r.role1.description = :type " +
                     "GROUP BY u.userId");
 
+            query.setString("queryIdString", queryIdString);
             query.setString("type", type);
         }
 

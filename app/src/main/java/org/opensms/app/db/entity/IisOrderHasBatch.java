@@ -39,7 +39,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "IisOrderHasBatch.findByBatch", query = "SELECT i FROM IisOrderHasBatch i WHERE i.iisOrderHasBatchPK.batch = :batch"),
     @NamedQuery(name = "IisOrderHasBatch.findByIssuedQuantity", query = "SELECT i FROM IisOrderHasBatch i WHERE i.issuedQuantity = :issuedQuantity"),
     @NamedQuery(name = "IisOrderHasBatch.findByReturnQuantity", query = "SELECT i FROM IisOrderHasBatch i WHERE i.returnQuantity = :returnQuantity")})
-public class IisOrderHasBatch implements Serializable {
+public class IisOrderHasBatch implements Serializable, EntityInterface<IisOrderHasBatchPK> {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected IisOrderHasBatchPK iisOrderHasBatchPK;
@@ -138,5 +138,9 @@ public class IisOrderHasBatch implements Serializable {
     public String toString() {
         return "org.opensms.app.db.entity.IisOrderHasBatch[ iisOrderHasBatchPK=" + iisOrderHasBatchPK + " ]";
     }
-    
+
+    @Override
+    public IisOrderHasBatchPK getId() {
+        return getIisOrderHasBatchPK();
+    }
 }

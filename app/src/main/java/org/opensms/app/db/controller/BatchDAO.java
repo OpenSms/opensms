@@ -1,6 +1,9 @@
 package org.opensms.app.db.controller;
 
 import org.opensms.app.db.entity.Batch;
+import org.opensms.app.db.entity.Item;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,4 +13,5 @@ import org.opensms.app.db.entity.Batch;
  * To change this template use File | Settings | File Templates.
  */
 public interface BatchDAO extends AbstractDAO<Batch, String>{
+    List<Batch> getBatchesWithItemId(Item item);
 }

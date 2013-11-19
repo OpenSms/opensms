@@ -1,5 +1,6 @@
 package org.opensms.app.db.controller.impl;
 
+import org.hibernate.Query;
 import org.opensms.app.db.entity.PreOrderHasItem;
 import org.opensms.app.db.entity.PreOrderHasItemPK;
 import org.springframework.stereotype.Repository;
@@ -32,5 +33,13 @@ public class PreOrderHasItemDAOController extends AbstractDAOImpl<PreOrderHasIte
             preOrderHasItem.getPreOrderHasItemPK().setPreOrder(preOrderId);
             save(preOrderHasItem);
         }
+    }
+
+    public List<PreOrderHasItem> getPreOrderHasItemsOf(Long preOrderId) {
+
+        Query query = getCurrentSession().getNamedQuery("PreOrderHasItem.findByPreOrder");
+        query.setLong("preOrder", preOrderId);
+
+        return query.list();
     }
 }
