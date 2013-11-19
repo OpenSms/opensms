@@ -67,6 +67,25 @@ public class PreOrderController {
         return preOrderModelList;
     }
 
+    @RequestMapping(value = "/all/open", method = RequestMethod.GET)
+    public @ResponseBody List<PreOrderModel> getAllOpenPreOrders() {
+
+        List<PreOrderModel> preOrderModelList = new ArrayList<PreOrderModel>();
+
+
+        List<PreOrder> preOrderList = preOrderDAOService.getAllOpenPreOrders();
+
+        for (PreOrder p : preOrderList) {
+            PreOrderModel model = new PreOrderModel();
+            model.setPreOrder(p);
+            model.setPreOrderHasItemList(preOrderDAOService.getPreOrderHasItemsOf(p.getPreOrderId()));
+
+            preOrderModelList.add(model);
+        }
+
+        return preOrderModelList;
+    }
+
     @RequestMapping(value = "/at", method = RequestMethod.GET, params = {"location"})
     public @ResponseBody List<PreOrderModel> getPreOrdersAt(@RequestParam("location") String location) {
          List<PreOrderModel> preOrderModelList = new ArrayList<PreOrderModel>();

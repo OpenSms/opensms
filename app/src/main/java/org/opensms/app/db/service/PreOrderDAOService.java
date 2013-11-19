@@ -57,4 +57,8 @@ public class PreOrderDAOService {
     public List<PreOrder> getAll() {
         return preOrderDAOController.getAll();
     }
+
+    public List<PreOrder> getAllOpenPreOrders() {
+        return preOrderDAOController.getAllOpenPreOrders();
+    }
 }

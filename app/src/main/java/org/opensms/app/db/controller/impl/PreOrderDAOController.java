@@ -30,4 +30,12 @@ public class PreOrderDAOController extends AbstractDAOImpl<PreOrder, Long>{
 
         return query.list();
     }
+
+    public List<PreOrder> getAllOpenPreOrders() {
+        Query query = getCurrentSession().getNamedQuery("PreOrder.findByIsOpen");
+
+        query.setBoolean("isOpen", true);
+
+        return query.list();
+    }
 }
