@@ -30,6 +30,9 @@ RegistrationWizardCtrl = ($scope, $http, $location) ->
       if userRole.role1 is $scope.userRole.role1
         return
 
+    if $scope.getRoleDescription($scope.userRole.role1) is "vendor" or $scope.getRoleDescription($scope.userRole.role1) is "customer"
+      return
+
     $scope.userRoles.unshift (
       role1: $scope.userRole.role1
       active: $scope.userRole.active
