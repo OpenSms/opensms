@@ -1,6 +1,7 @@
 package org.opensms.app.view.model;
 
 import org.opensms.app.db.entity.IisOrder;
+import org.opensms.app.db.entity.PreOrder;
 
 import java.util.List;
 
@@ -14,6 +15,15 @@ import java.util.List;
 public class IisOrderModel {
     private IisOrder iisOrder;
     private List<ItemModel> itemModelList;
+    private List<PreOrder> preOrderList;
+
+    public List<PreOrder> getPreOrderList() {
+        return preOrderList;
+    }
+
+    public void setPreOrderList(List<PreOrder> preOrderList) {
+        this.preOrderList = preOrderList;
+    }
 
     public IisOrder getIisOrder() {
         return iisOrder;

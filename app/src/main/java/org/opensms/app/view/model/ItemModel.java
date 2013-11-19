@@ -11,6 +11,9 @@ import java.math.BigDecimal;
  * Time: 12:49 PM
  * To change this template use File | Settings | File Templates.
  */
+/*
+ * This model use inside
+ */
 public class ItemModel {
 
     private Item item;
