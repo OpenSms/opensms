@@ -112,27 +112,4 @@ public class Role implements Serializable, EntityInterface<Integer> {
     public Integer getId() {
         return getRoleId();
     }
-
-    public enum ROLES {
-        ADMINISTRATOR_ROLE(1, "Administrator"),
-        MANAGER_ROLE(2, "Manager"),
-        SALES_REPRESENTATIVE_ROLE(3, "Sales Representative"),
-        CUSTOMER_ROLE(4, "Customer"),
-        VENDOR_ROLE(5, "Vendor");
-
-        private Role role;
-
-        ROLES(int id, String description) {
-            role = new Role(id, description);
-        }
-
-        public Role getRole() {
-            return role;
-        }
-
-        @Override
-        public String toString() {
-            return role.getDescription();
-        }
-    }
 }

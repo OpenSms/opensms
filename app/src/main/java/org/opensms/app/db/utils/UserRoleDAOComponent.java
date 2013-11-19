@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
@@ -35,11 +36,6 @@ public class UserRoleDAOComponent {
      * @param userId
      */
     public void assignRoleToUser(Role role, Integer userId) {
-        //  If role does not exists on database add it
-        if (roleDAOController.getByRole(role.getDescription()) == null) {
-            roleDAOController.save(role);
-        }
-
         // assigning role to user
         UserRolePK userRolePK = new UserRolePK(role.getRoleId(), userId, Calendar.getInstance().getTime());
         UserRole userRole = new UserRole(userRolePK);
@@ -58,6 +54,46 @@ public class UserRoleDAOComponent {
         //  If role does not exists on database add it
         for (Role role : roles) {
             assignRoleToUser(role, userId);
+        }
+    }
+
+    /**
+     * Add roles to Employee
+     * @param roles
+     * @param userId
+     */
+    public void assignRolesToEmployee(List<Role> roles, Integer userId) {
+
+        boolean hasEmployeeRole = false;    // does employee role exists in roles.
+
+        List<Role> roleList = new ArrayList<Role>();
+
+        for (Role r : roles) {
+            String desc = r.getDescription();
+
+            if (("customer".equals(desc) == false) && ("vendor".equals(desc) == false)) {  // cannot have customer or vendor role to an employee
+                roleList.add(r);
+
+                if ("employee".equals(desc)) {
+                    hasEmployeeRole = true;
+                }
+            }
+        }
+
+        // if roles does not have employee role add it.
+        if (!hasEmployeeRole) {
+            Role role = roleDAOController.getByRole("employee");
+            roleList.add(role);
+        }
+
+        // assign roles to employee
+        for (Role role : roleList) {
+
+            UserRolePK userRolePK = new UserRolePK(role.getRoleId(), userId, Calendar.getInstance().getTime());
+            UserRole userRole = new UserRole(userRolePK);
+            userRole.setActive(true);
+
+            userRoleDAOController.save(userRole);
         }
     }
 }

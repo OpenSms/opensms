@@ -30,6 +30,8 @@ public class VendorDAOService {
     @Autowired
     private UserRoleDAOComponent userRoleDAOComponent;
 
+    @Autowired RoleDAOController roleDAOController;
+
     /**
      * Save vendor
      *
@@ -37,7 +39,7 @@ public class VendorDAOService {
      */
     public void save(Vendor vendor) {
         //Assign 'Vendor' Role to vendor
-        userRoleDAOComponent.assignRoleToUser(Role.ROLES.VENDOR_ROLE.getRole(), vendor.getUserId());
+        userRoleDAOComponent.assignRoleToUser(roleDAOController.getByRole("vendor"), vendor.getUserId());
 
         vendorDAOController.save(vendor);
     }

@@ -35,7 +35,7 @@
                             <div class="col-lg-9">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" ng-model="user.accountStatus"/> Activate user
+                                            <input type="checkbox" ng-model="user.accountStatus"/> Activated
                                         </label>
                                     </div>
                             </div>
@@ -178,7 +178,7 @@
                                     </tr>
                                     <tr ng-repeat="userRole in userRoles">
                                         <td>{{ getRoleDescription(userRole.role1) }}</td>
-                                        <td>{{ userRole.active }}</td>
+                                        <td>{{ userRole.active && 'Activated' || 'Deactivated' }}</td>
                                         <td>
                                             <button type="button" class="btn btn-danger btn-sm" ng-click="removeRole($$index)">
                                                 <span class="glyphicon glyphicon-remove"  ></span> Remove

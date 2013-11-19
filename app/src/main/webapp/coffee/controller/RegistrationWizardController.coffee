@@ -1,5 +1,6 @@
 RegistrationWizardCtrl = ($scope, $http, $location) ->
   $scope.user = {}
+  $scope.user.accountStatus = true # user activated by default
 
   $scope.userType = {}
 
@@ -9,6 +10,7 @@ RegistrationWizardCtrl = ($scope, $http, $location) ->
 
   $scope.userRoles = []
   $scope.userRole = {}
+  $scope.userRole.active = true # active by default
 
   $scope.roles = []
 
@@ -19,13 +21,11 @@ RegistrationWizardCtrl = ($scope, $http, $location) ->
   $http.get("/role/all").success((data) ->
     $scope.roles = data
   ).error((data) ->
-    console.log data
+    console.log("error in role/all")
   )
 
   # employee work details page addRole function
   $scope.addRole = ()->
-    console.log $scope.userRole
-
     for userRole in $scope.userRoles
       if userRole.role1 is $scope.userRole.role1
         return
@@ -36,9 +36,7 @@ RegistrationWizardCtrl = ($scope, $http, $location) ->
     )
 
   $scope.getRoleDescription = (roleId) ->
-    console.log roleId
     for role in $scope.roles
-      console.log role.roleId
       if parseInt(role.roleId) is parseInt(roleId)
         return role.description
 
@@ -52,11 +50,10 @@ RegistrationWizardCtrl = ($scope, $http, $location) ->
 
   $scope.saveUser = (postMethod) ->
     $http.post("/user/save", $scope.user).success((data) ->
-      console.log data
       $scope.user.userId = data
       postMethod()
     ).error((data) ->
-      console.log data
+      console.log("error in user/save")
     )
 
   $scope.saveContactDetails = () ->
@@ -65,7 +62,7 @@ RegistrationWizardCtrl = ($scope, $http, $location) ->
     $http.post("/contactdetails/save", $scope.contactDetails).success((data) ->
       console.log data
     ).error((data) ->
-      console.log data
+      console.log("error in contactdetails/save")
     )
 
   $scope.saveEmployee = () ->
@@ -79,18 +76,14 @@ RegistrationWizardCtrl = ($scope, $http, $location) ->
         description:$scope.getRoleDescription(role.role1)
       )
 
-
     employeeModel=
       employee:$scope.employee
       roles: employeeRoles
 
-    console.log employeeModel
-
-
     $http.post("/employee/save",employeeModel ).success((data) ->
       console.log data
     ).error((data) ->
-      console.log data
+      console.log("error in employee/save")
     )
 
   $scope.saveCustomer = () ->
@@ -102,7 +95,7 @@ RegistrationWizardCtrl = ($scope, $http, $location) ->
     $http.post("/customer/save", customer).success((data) ->
       console.log data
     ).error((data) ->
-      console.log data
+      console.log("error in customer/save")
     )
 
   $scope.saveVendor = () ->
@@ -114,14 +107,10 @@ RegistrationWizardCtrl = ($scope, $http, $location) ->
     $http.post("/vendor/save", vendor).success((data) ->
       console.log data
     ).error((data) ->
-      console.log data
+      console.log("error in vendor/save")
     )
 
-  $scope.saveEmployeeRoles = () ->
-    console.log "save employee roles"
-
   $scope.save = () ->
-    console.log "save()"
     $scope.saveUser(()->
       $scope.saveContactDetails()
 
@@ -159,7 +148,6 @@ RegistrationWizardCtrl = ($scope, $http, $location) ->
     (if ($scope.isLastStep()) then "Submit" else "Next")
 
   $scope.handlePrevious = ->
-    #console.log $scope.step
     if $scope.isFirstStep()
       $scope.step = 0
     else
@@ -170,7 +158,6 @@ RegistrationWizardCtrl = ($scope, $http, $location) ->
 
 
   $scope.handleNext = () ->
-    #console.log $scope.step
     if $scope.isLastStep()
       $scope.save()
 

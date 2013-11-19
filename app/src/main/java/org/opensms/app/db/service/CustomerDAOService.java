@@ -1,6 +1,7 @@
 package org.opensms.app.db.service;
 
 import org.opensms.app.db.controller.impl.CustomerDAOController;
+import org.opensms.app.db.controller.impl.RoleDAOController;
 import org.opensms.app.db.entity.Customer;
 import org.opensms.app.db.entity.Role;
 import org.opensms.app.db.utils.UserRoleDAOComponent;
@@ -24,6 +25,9 @@ public class CustomerDAOService {
     @Autowired
     private UserRoleDAOComponent userRoleDAOComponent;
 
+    @Autowired
+    private RoleDAOController roleDAOController;
+
     /**
      * Save customer with Roles
      *
@@ -31,7 +35,7 @@ public class CustomerDAOService {
      */
     public void saveCustomer(Customer customer) {
         //Assign 'Customer' Role to customer
-        userRoleDAOComponent.assignRoleToUser(Role.ROLES.CUSTOMER_ROLE.getRole(), customer.getUserId());
+        userRoleDAOComponent.assignRoleToUser(roleDAOController.getByRole("customer"), customer.getUserId());
 
         //Save customer into db
         customerDAOController.save(customer);

@@ -40,7 +40,7 @@ public class EmployeeDAOService {
      * @param roles
      */
     public void saveEmployee(Employee employee, List<Role> roles) {
-        userRoleDAOComponent.assignRolesToUser(roles, employee.getUserId());
+        userRoleDAOComponent.assignRolesToEmployee(roles, employee.getUserId());
         employeeDAOController.save(employee);
     }
 

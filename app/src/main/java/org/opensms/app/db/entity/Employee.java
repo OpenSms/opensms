@@ -45,7 +45,7 @@ public class Employee implements Serializable, EntityInterface<Integer> {
     @Size(min = 1, max = 100)
     @Column(name = "name_referred_by_initials")
     private String nameReferredByInitials;
-    //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cashierEmployee", fetch = FetchType.LAZY)
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cashierEmployee", fetch = FetchType.LAZY)
 //    private List<GrnPayment> grnPaymentList;
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dataEntryEmployee", fetch = FetchType.LAZY)
 //    private List<GrnOrder> grnOrderList;
@@ -57,7 +57,7 @@ public class Employee implements Serializable, EntityInterface<Integer> {
 //    private List<IisOrder> iisOrderList2;
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
 //    private List<EmployeeType> employeeTypeList;
-//    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     private User user;
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cashierEmployee", fetch = FetchType.LAZY)
@@ -209,7 +209,13 @@ public class Employee implements Serializable, EntityInterface<Integer> {
 
     @Override
     public String toString() {
-        return "org.opensms.app.db.entity.Employee[ userId=" + userId + " ]";
+        return "Employee{" +
+                "userId=" + userId +
+                ", surname='" + surname + '\'' +
+                ", initials='" + initials + '\'' +
+                ", nameReferredByInitials='" + nameReferredByInitials + '\'' +
+                ", user=" + user +
+                '}';
     }
 
     @Override
