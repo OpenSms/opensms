@@ -2,17 +2,13 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-DROP SCHEMA IF EXISTS `mydb` ;
 CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
-DROP SCHEMA IF EXISTS `opensms` ;
 CREATE SCHEMA IF NOT EXISTS `opensms` DEFAULT CHARACTER SET utf8 ;
 USE `mydb` ;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`user`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`user` ;
-
 CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `username` VARCHAR(16) NOT NULL,
   `email` VARCHAR(255) NULL,
@@ -23,8 +19,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
 -- -----------------------------------------------------
 -- Table `mydb`.`category`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`category` ;
-
 CREATE TABLE IF NOT EXISTS `mydb`.`category` (
   `category_id` INT NOT NULL,
   `name` VARCHAR(255) NOT NULL,
@@ -34,8 +28,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`category` (
 -- -----------------------------------------------------
 -- Table `mydb`.`timestamps`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`timestamps` ;
-
 CREATE TABLE IF NOT EXISTS `mydb`.`timestamps` (
   `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` TIMESTAMP NULL);
@@ -45,8 +37,6 @@ USE `opensms` ;
 -- -----------------------------------------------------
 -- Table `opensms`.`user`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`user` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`user` (
   `user_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
@@ -63,8 +53,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`employee`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`employee` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`employee` (
   `user_id` INT(10) UNSIGNED NOT NULL,
   `surname` VARCHAR(100) NOT NULL,
@@ -83,8 +71,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`vendor`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`vendor` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`vendor` (
   `user_id` INT(10) UNSIGNED NOT NULL,
   `name` VARCHAR(45) NOT NULL,
@@ -102,8 +88,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`grn_order`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`grn_order` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`grn_order` (
   `grn_order_id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `receive_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -129,8 +113,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`profit`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`profit` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`profit` (
   `profit_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `value` DECIMAL(12,2) NOT NULL,
@@ -144,8 +126,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`unit`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`unit` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`unit` (
   `unit_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `unit` VARCHAR(45) NOT NULL,
@@ -159,8 +139,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`category`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`category` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`category` (
   `category_id` INT(11) NOT NULL,
   `category` VARCHAR(100) NOT NULL,
@@ -179,8 +157,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`item`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`item` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`item` (
   `item_id` VARCHAR(100) NOT NULL,
   `unit` INT(10) UNSIGNED NOT NULL,
@@ -214,8 +190,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`batch`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`batch` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`batch` (
   `batch_code` VARCHAR(100) NOT NULL,
   `item` VARCHAR(100) NOT NULL,
@@ -251,8 +225,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`customer`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`customer` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`customer` (
   `user_id` INT(10) UNSIGNED NOT NULL,
   `name` VARCHAR(100) NOT NULL,
@@ -270,8 +242,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`type` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`type` (
   `type_id` INT(11) NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(45) NOT NULL,
@@ -283,8 +253,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`employee_type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`employee_type` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`employee_type` (
   `user` INT(10) UNSIGNED NOT NULL,
   `type` INT(11) NOT NULL,
@@ -310,8 +278,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`payment_method`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`payment_method` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`payment_method` (
   `payment_method_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(45) NOT NULL,
@@ -323,8 +289,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`grn_payment`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`grn_payment` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`grn_payment` (
   `payement_id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `cashier_employee` INT(10) UNSIGNED NOT NULL,
@@ -358,8 +322,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`gsr_order`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`gsr_order` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`gsr_order` (
   `gsr_order_id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `customer` INT(10) UNSIGNED NOT NULL,
@@ -378,8 +340,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`gsr_payment`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`gsr_payment` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`gsr_payment` (
   `gsr_payment_id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `payment_method` INT(10) UNSIGNED NOT NULL,
@@ -413,12 +373,10 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`iis_order`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`iis_order` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`iis_order` (
   `iis_order_id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `item_issuer_employee` INT(10) UNSIGNED NOT NULL,
-  `return_check_employee` INT(10) UNSIGNED NULL DEFAULT NULL COMMENT 'accepts end of the day returns',
+  `return_check_employee` INT(10) UNSIGNED NULL DEFAULT NULL COMMENT ' /* comment truncated */ /*accepts end of the day returns*/',
   `sales_employee` INT(10) UNSIGNED NOT NULL,
   `iss_order_date_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`iis_order_id`),
@@ -436,14 +394,12 @@ CREATE TABLE IF NOT EXISTS `opensms`.`iis_order` (
     REFERENCES `opensms`.`employee` (`user_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
-COMMENT = 'Item issue order';
+COMMENT = ' /* comment truncated */ /*Item issue order*/';
 
 
 -- -----------------------------------------------------
 -- Table `opensms`.`iis_order_has_batch`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`iis_order_has_batch` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`iis_order_has_batch` (
   `iis_order` BIGINT(20) UNSIGNED NOT NULL,
   `batch` VARCHAR(100) NOT NULL,
@@ -469,8 +425,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`iis_order_batch_has_gsr_order`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`iis_order_batch_has_gsr_order` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`iis_order_batch_has_gsr_order` (
   `gsr_order` BIGINT(20) UNSIGNED NOT NULL,
   `iis_order` BIGINT(20) UNSIGNED NOT NULL,
@@ -496,8 +450,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`pre_order`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`pre_order` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`pre_order` (
   `pre_order_id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `customer` INT(10) UNSIGNED NOT NULL,
@@ -525,8 +477,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`pre_order_has_item`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`pre_order_has_item` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`pre_order_has_item` (
   `item` VARCHAR(100) NOT NULL,
   `pre_order` BIGINT(20) UNSIGNED NOT NULL,
@@ -551,8 +501,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`role`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`role` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`role` (
   `role_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(45) NOT NULL,
@@ -565,8 +513,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`user_contact_detail`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`user_contact_detail` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`user_contact_detail` (
   `user_id` INT(10) UNSIGNED NOT NULL,
   `name` VARCHAR(100) NOT NULL,
@@ -591,8 +537,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `opensms`.`user_role`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `opensms`.`user_role` ;
-
 CREATE TABLE IF NOT EXISTS `opensms`.`user_role` (
   `role` INT(10) UNSIGNED NOT NULL,
   `user` INT(10) UNSIGNED NOT NULL,
