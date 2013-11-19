@@ -5,6 +5,8 @@
  */
 package org.opensms.app.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -51,6 +53,7 @@ public class User implements Serializable, EntityInterface<Integer> {
     @Size(min = 1, max = 45)
     @Column(name = "username")
     private String username;
+    @JsonIgnore
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
