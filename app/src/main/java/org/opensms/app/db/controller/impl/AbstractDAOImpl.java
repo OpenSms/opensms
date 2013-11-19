@@ -37,7 +37,10 @@ public abstract class AbstractDAOImpl<T extends EntityInterface<E>, E extends Se
 
     @Override
     public void update(T entity) {
-        getCurrentSession().saveOrUpdate(entity);
+        Session session = getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        session.saveOrUpdate(entity);
+        transaction.commit();
     }
 
 
