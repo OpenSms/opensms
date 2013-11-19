@@ -1,18 +1,18 @@
 <div ng-controller="GrnOrderCtrl">
     <div class="modal-header">
-        <h3>User Registration Wizard</h3>
+        <h3>GRN Order</h3>
     </div>
     <div class="modal-body">
         <div>
             <div class="btn-group">
-                <button class="btn" ng-class="{'btn-primary':isCurrentStep(0)}">Select vendor
+                <button class="btn" ng-class="{'btn-primary':isCurrentStep(0)}">Select Vendor
                 </button>
-                <button class="btn" ng-class="{'btn-primary':isCurrentStep(1)}">Select item</button>
+                <button class="btn" ng-class="{'btn-primary':isCurrentStep(1)}">Select Item</button>
 
-                <button class="btn" ng-class="{'btn-primary':isCurrentStep(2)}">Update batch details</button>
+                <button class="btn" ng-class="{'btn-primary':isCurrentStep(2)}">Update Batch Details</button>
 
                 <button class="btn" ng-class="{'btn-primary':isCurrentStep(3)}" ng-show="isCompleteOrder()">Finish
-                    order
+                    Order
                 </button>
 
             </div>
@@ -85,7 +85,7 @@
                             <td data-title="'Name'">
                                 {{item.name}}
                             </td>
-                            <td data-title="'unit'">
+                            <td data-title="'Unit'">
                                 {{item.unit.unit}}
                             </td>
                             <td data-title="'Category'">
@@ -152,8 +152,8 @@
         </div>
     </div>
     <div class="modal-footer">
-        <a class="btn" ng-click="clearOrderForm()">Clear Order details</a>
-        <a class="btn btn-primary" ng-click="finishOrder()" ng-disabled="isOrderHasntItems()">Finish order</a>
+        <a class="btn" ng-click="clearOrderForm()">Clear Order Details</a>
+        <a class="btn btn-primary" ng-click="finishOrder()" ng-disabled="isOrderHasntItems()">Finish Order</a>
     </div>
 
 
@@ -167,7 +167,7 @@
             <td data-title="'Name'">
                 {{batch.item.name}}
             </td>
-            <td data-title="'unit'">
+            <td data-title="'Unit'">
                 {{batch.item.unit.unit}}
             </td>
             <td data-title="'Category'">
