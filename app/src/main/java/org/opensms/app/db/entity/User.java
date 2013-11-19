@@ -53,7 +53,7 @@ public class User implements Serializable, EntityInterface<Integer> {
     @Size(min = 1, max = 45)
     @Column(name = "username")
     private String username;
-    @JsonIgnore
+    // @JsonIgnore
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
