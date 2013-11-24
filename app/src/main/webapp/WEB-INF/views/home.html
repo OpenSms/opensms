@@ -161,14 +161,14 @@
 </div>
 
 <!--Side menu-->
-<div class="pull-left side-menu" id="side-menu">
+<div ng-controller="SideMenuCtrl" class="pull-left side-menu" id="side-menu">
 
     <div class="current-user">
         <img src="/static/lib/SmartAdmin/resources/images/pro2.png" class="pull-left" alt="propic"/>
 
         <div class="pull-left">
-            <span class="name">Jhon Smith</span><br/>
-            <span class="type">Administrator</span><br/>
+            <span class="name">{{user.username}}</span><br/>
+            <span class="type">{{userRoles.size}} Role(s)</span><br/>
 
             <div class="c-time" id="txt"></div>
             <span class="date">

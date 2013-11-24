@@ -28,3 +28,31 @@ app = angular.module "main-app", ["$strap.directives", "ngTable"], ($routeProvid
 
   $routeProvider.otherwise
     redirectTo: "/"
+
+
+
+app.run ($http,$rootScope) ->
+
+  $http.get("/currentuser").success((data) ->
+    console.log "ssss"
+    console.log data
+    $rootScope.user = data
+  ).error((data) ->
+    console.log "erere"
+  )
+
+  $http.get("/currentuser").success((data) ->
+    $rootScope.userRoles = data
+  ).error((data) ->
+  )
+
+
+SideMenuCtrl = ($scope,$http,$rootScope) ->
+  console.log "dfsf"
+  console.log $rootScope.user
+  console.log $rootScope.userRoles
+
+  $scope.user = $rootScope.user
+  $scope.userRoles = $rootScope.userRoles
+
+app.controller('SideMenuCtrl',SideMenuCtrl)
