@@ -51,6 +51,7 @@ public class ItemDAOService {
      * @param hint
      * @return
      */
+    @Transactional
     public List<Category> getCategoryList(String hint) {
         return categoryDAOController.getAll(hint);
     }

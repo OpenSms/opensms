@@ -22,7 +22,7 @@ public class CategoryDAOController extends AbstractDAOImpl<Category, Integer> {
 
 
     public List<Category> getAll(String hint) {
-        Query query = getCurrentSession().createQuery("SELECT c FROM Category c WHERE c.category LIKE :hint OR c.parentCategory.category LIKE :hint ");
+        Query query = getCurrentSession().createQuery("SELECT c FROM Category c WHERE c.category LIKE :hint ");
         query.setString("hint", "%" + hint + "%");
 
         return query.list();
