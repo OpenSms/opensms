@@ -26,6 +26,9 @@ app = angular.module "main-app", ["$strap.directives", "ngTable"], ($routeProvid
   $routeProvider.when "/AddUnit",
     templateUrl: "./static/app/templates/employee/AddUnit.html"
 
+  $routeProvider.when "/AddProfit",
+    templateUrl: "./static/app/templates/employee/AddProfit.html"
+
   $routeProvider.when "/PreOrder",
     templateUrl: "./static/app/templates/customer/PreOrder.html"
 

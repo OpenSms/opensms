@@ -1,0 +1,35 @@
+<div ng-controller="AddProfitCtrl">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Add Profit</h3>
+    </div>
+    <div class="modal-body">
+
+        <form class="" role="form">
+
+            <div class="form-group form-group-wizard">
+                <label class="col-lg-3 control-label">Value</label>
+
+                <div class="col-lg-9">
+                    <input ng-model="profit.value" ng-init="profit.value=0" type="number" min="0.0" max="9999999999.99" class="form-control" required/>
+                </div>
+            </div>
+
+            <div class="form-group form-group-wizard">
+                <label class="col-lg-3 control-label">Type</label>
+                <div class="col-lg-9">
+                    <select ng-model="profit.type" ng-init="profit.type='PERCENTAGE'" class="form-control">
+                        <option value="PERCENTAGE">Percentage</option>
+                        <option value="MARGIN">Margin</option>
+                    </select>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn" ng-click="hide()">Close</button>
+        <button class="btn btn-primary" ng-click="save();modal.saved=true;hide()">Add</button>
+    </div>
+</div>

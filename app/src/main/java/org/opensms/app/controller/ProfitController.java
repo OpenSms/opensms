@@ -2,12 +2,11 @@ package org.opensms.app.controller;
 
 import org.opensms.app.db.entity.Profit;
 import org.opensms.app.db.service.ItemDAOService;
+import org.opensms.app.db.service.ProfitDAOService;
+import org.opensms.app.view.model.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +21,8 @@ import java.util.List;
 @RequestMapping(value = "profit")
 public class ProfitController {
 
+    @Autowired
+    private ProfitDAOService profitDAOService;
 
     @Autowired
     private ItemDAOService itemDAOService;
@@ -32,4 +33,11 @@ public class ProfitController {
         return itemDAOService.getAllProfits(type);
     }
 
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public @ResponseBody ResponseMessage saveProfit(@RequestBody Profit profit) {
+
+        profitDAOService.saveProfit(profit);
+
+        return new ResponseMessage(ResponseMessage.Type.success, "profit saved.");
+    }
 }
