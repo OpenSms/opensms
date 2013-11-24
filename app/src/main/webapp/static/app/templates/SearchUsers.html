@@ -18,16 +18,10 @@
 
         <tr ng-repeat="user in users">
             <td data-title="'User ID'">
-                {{user.id}}
+                {{user.userId}}
             </td>
             <td data-title="'Username'">
                 {{user.username}}
-            </td>
-            <td data-title="'Name'">
-                {{user.name}}
-            </td>
-            <td data-title="'Type'">
-                {{user.type}}
             </td>
             <td data-title="">
                 <a class="btn btn-default btn-sm" href="#/UpdateUser/{{user.userId}}">
