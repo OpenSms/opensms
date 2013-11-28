@@ -6,26 +6,20 @@
 package org.opensms.app.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author dewmal
@@ -40,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
         @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
         @NamedQuery(name = "User.findByCreatedate", query = "SELECT u FROM User u WHERE u.createdate = :createdate"),
         @NamedQuery(name = "User.findByAccountStatus", query = "SELECT u FROM User u WHERE u.accountStatus = :accountStatus")})
-public class User implements Serializable, EntityInterface<Integer> {
+public class User implements Serializable,UserDetails, EntityInterface<Integer> {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -74,8 +68,8 @@ public class User implements Serializable, EntityInterface<Integer> {
 //    private Vendor vendor;
 //    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
 //    private Customer customer;
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1", fetch = FetchType.LAZY)
-//    private List<UserRole> userRoleList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1", fetch = FetchType.EAGER)
+    private List<UserRole> userRoleList;
 //    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
 //    private Employee employee;
 
@@ -106,8 +100,41 @@ public class User implements Serializable, EntityInterface<Integer> {
         return username;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return isEnabled();  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return isEnabled();  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return isEnabled();  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return accountStatus;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+
+
+        List<GrantedAuthority> authorities=new ArrayList<GrantedAuthority>();
+        for (UserRole userRole:userRoleList){
+            authorities.add(new SimpleGrantedAuthority(userRole.getRole1().getDescription()));
+        }
+
+
+        return authorities;
     }
 
     public String getPassword() {
@@ -158,15 +185,14 @@ public class User implements Serializable, EntityInterface<Integer> {
 //        this.customer = customer;
 //    }
 
-//    @XmlTransient
-//    @JsonIgnore
-//    public List<UserRole> getUserRoleList() {
-//        return userRoleList;
-//    }
-//
-//    public void setUserRoleList(List<UserRole> userRoleList) {
-//        this.userRoleList = userRoleList;
-//    }
+    @XmlTransient
+    public List<UserRole> getUserRoleList() {
+        return userRoleList;
+    }
+
+    public void setUserRoleList(List<UserRole> userRoleList) {
+        this.userRoleList = userRoleList;
+    }
 
 //    public Employee getEmployee() {
 //        return employee;
@@ -203,7 +229,7 @@ public class User implements Serializable, EntityInterface<Integer> {
 
     @Override
     public Integer getId() {
-        return getUserId();  //To change body of implemented methods use File | Settings | File Templates.
+        return getUserId();
     }
 
 

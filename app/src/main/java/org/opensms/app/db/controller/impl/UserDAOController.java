@@ -95,6 +95,28 @@ public class UserDAOController extends AbstractDAOImpl<User, Integer> {
         return (User) query.uniqueResult();
     }
 
+
+    /**
+     * Get user by username
+     *
+     * @param username
+     * @return
+     */
+    public User getUserByUserName(String username){
+
+        Query query=getCurrentSession().createQuery("SELECT u FROM  User u WHERE u.username = :username");
+        query.setString("username",username);
+
+        return (User) query.uniqueResult();
+
+    }
+
+    /**
+     *
+     * @param queryString
+     * @param type
+     * @return
+     */
     public List<User> search(String queryString, String type) {
 
         System.out.println(queryString);

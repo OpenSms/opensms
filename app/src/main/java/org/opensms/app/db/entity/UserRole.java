@@ -5,6 +5,8 @@
  */
 package org.opensms.app.db.entity;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -50,8 +52,9 @@ public class UserRole implements Serializable, EntityInterface<UserRolePK> {
     @JoinColumn(name = "role", referencedColumnName = "role_id", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Role role1;
+    @JsonIgnore
     @JoinColumn(name = "user", referencedColumnName = "user_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private User user1;
 
     public UserRole() {

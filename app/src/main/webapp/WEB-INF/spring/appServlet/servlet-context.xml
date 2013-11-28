@@ -9,6 +9,8 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 
+
+
     <beans:import resource="config-spring-hibernate.xml"></beans:import>
 
     <!-- DispatcherServlet Context: defines this servlet's request-processing
