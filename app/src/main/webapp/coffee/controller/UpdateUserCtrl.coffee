@@ -27,6 +27,12 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
   $scope.detailsUpdated.employeeNames = false
   $scope.detailsUpdated.employeeRoles = false
 
+  ##When update
+  $scope.$watch('detailsUpdated',(newvalue)->
+    console.log newvalue
+  )
+
+
   $scope.userPasswordChanged = () ->
     if typeof $scope.userPassword.oldPass isnt "undefined" and typeof $scope.userPassword.newPass isnt "undefined" and typeof $scope.userPassword.confirmPass isnt "undefined"
       $scope.detailsUpdated.userPassword = true
@@ -275,5 +281,8 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
     $scope.updateContactDetails()
     $scope.updateEmployeeNames()
     $scope.updateEmployeeRoles()
+
+    $location.path('SearchUsers')
+
 
 #### end of update ####
