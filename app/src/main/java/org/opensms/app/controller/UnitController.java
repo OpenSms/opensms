@@ -2,9 +2,13 @@ package org.opensms.app.controller;
 
 import org.opensms.app.db.entity.Unit;
 import org.opensms.app.db.service.ItemDAOService;
+import org.opensms.app.db.service.UnitDAOService;
+import org.opensms.app.view.model.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -23,6 +27,9 @@ public class UnitController {
     @Autowired
     private ItemDAOService itemDAOService;
 
+    @Autowired
+    private UnitDAOService unitDAOService;
+
     /**
      *
      * @return
@@ -30,5 +37,14 @@ public class UnitController {
     @RequestMapping(value = "/all")
     public @ResponseBody List<Unit> getUnitList() {
         return itemDAOService.getUnitList("");
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseMessage saveUnit(@RequestBody Unit unit) {
+
+        unitDAOService.saveUnit(unit);
+
+        return new ResponseMessage(ResponseMessage.Type.success, "unit saved.");
     }
 }

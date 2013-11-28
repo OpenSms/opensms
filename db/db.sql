@@ -108,7 +108,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `opensms`.`category`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `opensms`.`category` (
-  `category_id` INT(11) NOT NULL,
+  `category_id` INT(11) NOT NULL AUTO_INCREMENT,
   `category` VARCHAR(100) NOT NULL,
   `parent_category` INT(11) NULL DEFAULT NULL,
   PRIMARY KEY (`category_id`),

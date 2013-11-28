@@ -161,14 +161,14 @@
 </div>
 
 <!--Side menu-->
-<div class="pull-left side-menu" id="side-menu">
+<div ng-controller="SideMenuCtrl" class="pull-left side-menu" id="side-menu">
 
     <div class="current-user">
         <img src="/static/lib/SmartAdmin/resources/images/pro2.png" class="pull-left" alt="propic"/>
 
         <div class="pull-left">
-            <span class="name">Jhon Smith</span><br/>
-            <span class="type">Administrator</span><br/>
+            <span class="name">{{user.username}}</span><br/>
+            <span class="type">{{userRoles.size}} Role(s)</span><br/>
 
             <div class="c-time" id="txt"></div>
             <span class="date">
@@ -241,8 +241,8 @@
                    tabindex="-1">
                     <i class="icon-desktop icon-2x pull-left"></i>
 
-                    <p class="menu-button">Items</p>
-                    <span class="label" style="float: right; margin-top: -22px;">1</span>
+                    <p class="menu-button">Item Management</p>
+                    <span class="label" style="float: right; margin-top: -22px;">4</span>
                 </a>
             </div>
 
@@ -250,7 +250,25 @@
                 <div class="accordion-inner side-menu-level2">
                     <a href="#/AddItem">
                         <i class="icon-desktop icon-2x"></i>
-                        Add
+                        Add Item
+                    </a>
+                </div>
+                <div class="accordion-inner side-menu-level2">
+                    <a href="#/AddProfit">
+                        <i class="icon-desktop icon-2x"></i>
+                        Add Profit
+                    </a>
+                </div>
+                <div class="accordion-inner side-menu-level2">
+                    <a href="#/AddCategory">
+                        <i class="icon-desktop icon-2x"></i>
+                        Add Category
+                    </a>
+                </div>
+                <div class="accordion-inner side-menu-level2">
+                    <a href="#/AddUnit">
+                        <i class="icon-desktop icon-2x"></i>
+                        Add Unit
                     </a>
                 </div>
             </div>
@@ -348,6 +366,7 @@
 </div>
 
 <!--Java scripts-->
+<script type="text/javascript" src="/static/lib/jquery/jquery-2.0.3.min.js"></script>
 <script type="text/javascript" src="/static/lib/SmartAdmin/resources/js/base.js"></script>
 <script type="text/javascript" src="/static/lib/SmartAdmin/libraries/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/static/lib/SmartAdmin/libraries/bootstrap/js/bootstrap.js"></script>
@@ -356,22 +375,23 @@
 <script type="text/javascript" src="/static/lib/SmartAdmin/libraries/bootstrap/js/bootstrap-tooltip.js"></script>
 
 <!--OpenSMS includes-->
-<script type="text/javascript" src="/static/lib/jquery/jquery-2.0.3.min.js"></script>
 <script type="text/javascript" src="/static/lib/bs/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/static/lib/angularjs/angular.min.js"></script>
 <script type="text/javascript" src="/static/lib/angularstrap/angular-strap.min.js"></script>
 <script type="text/javascript" src="/static/lib/ngtable/js/ng-table.js"></script>
-<script type="text/javascript" src="/static/app/main.js"></script>
-<script type="text/javascript" src="/static/app/controller/indexController.js"></script>
+<script type="text/javascript" src="/static/app/main-home.js"></script>
+
 <script type="text/javascript" src="/static/app/controller/RegistrationWizardController.js"></script>
 <script type="text/javascript" src="/static/app/controller/SearchUsersCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/UpdateUserCtrl.js"></script>
-<script type="text/javascript" src="/static/app/controller/LoginCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/employee/ItemInsertCtrl.js"></script>
 
 <script type="text/javascript" src="/static/app/controller/employee/ItemListCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/employee/GrnOrderCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/customer/PreOrderCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/employee/CreateIISOrderCtrl.js"></script>
+<script type="text/javascript" src="/static/app/controller/employee/AddUnitCtrl.js"></script>
+<script type="text/javascript" src="/static/app/controller/employee/AddProfitCtrl.js"></script>
+<script type="text/javascript" src="/static/app/controller/employee/AddCategoryCtrl.js"></script>
 </body>
 </html>

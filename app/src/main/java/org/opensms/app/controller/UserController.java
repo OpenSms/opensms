@@ -130,10 +130,12 @@ public class UserController {
         if(user==null){
             return new ResponseMessage(ResponseMessage.Type.error,"invalid login details");
         }
+        else if(user.getAccountStatus() == false){
+            return new ResponseMessage(ResponseMessage.Type.error,"deactivated user.");
+        }
 
          //If Login details are ok then save logged user in Http Session
         request.getSession().setAttribute("user",user);
-
 
         return new ResponseMessage(ResponseMessage.Type.success,"Valid Login Details");
     }
