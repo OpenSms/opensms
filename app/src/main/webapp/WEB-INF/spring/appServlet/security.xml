@@ -6,13 +6,18 @@
                 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
     <http auto-config="true" use-expressions="true">
-        <intercept-url pattern="/" access="hasAnyRole('create_user')"/>
-        <intercept-url pattern="/category/**" access="hasAnyRole('customer')"/>
-        <http-basic/>
+        <intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS')"/>
+        <intercept-url pattern="/category/**" access="hasAnyRole('customer','insert_item')"/>
+
+
+        <form-login login-page="/login"  authentication-failure-url="/error"   default-target-url="/" authentication-success-handler-ref="customBasicAuthFilter" />
+        <logout  logout-success-url="/logout" invalidate-session="true"/>
+
     </http>
 
     <authentication-manager>
-        <authentication-provider user-service-ref="customUserService">
+
+        <authentication-provider user-service-ref="customUserService" >
         </authentication-provider>
     </authentication-manager>
 

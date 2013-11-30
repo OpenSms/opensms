@@ -1,7 +1,10 @@
 package org.opensms.app.db.controller;
 
+import org.opensms.app.db.entity.IisOrder;
 import org.opensms.app.db.entity.IisOrderHasBatch;
 import org.opensms.app.db.entity.IisOrderHasBatchPK;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,4 +14,6 @@ import org.opensms.app.db.entity.IisOrderHasBatchPK;
  * To change this template use File | Settings | File Templates.
  */
 public interface IisOrderHasBatchDAO extends AbstractDAO<IisOrderHasBatch, IisOrderHasBatchPK> {
+
+
 }

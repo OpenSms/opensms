@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html ng-app="main-app">
+<html ng-app="main-app"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+        >
 <head>
     <title>Open Source Sales Management System</title>
     <script type="text/javascript" src="/static/lib/SmartAdmin/resources/js/jquery.js"></script>
@@ -149,7 +152,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#contact">
+                        <a  th:href="@{/logout}">
                             <i class="icon-power-off"></i><br/>
                             LOG OUT
                         </a>

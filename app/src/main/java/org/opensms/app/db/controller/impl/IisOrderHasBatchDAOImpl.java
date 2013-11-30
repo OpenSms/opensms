@@ -1,9 +1,13 @@
 package org.opensms.app.db.controller.impl;
 
+import org.hibernate.Query;
 import org.opensms.app.db.controller.IisOrderHasBatchDAO;
+import org.opensms.app.db.entity.IisOrder;
 import org.opensms.app.db.entity.IisOrderHasBatch;
 import org.opensms.app.db.entity.IisOrderHasBatchPK;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,4 +21,7 @@ public class IisOrderHasBatchDAOImpl extends AbstractDAOImpl<IisOrderHasBatch, I
     public IisOrderHasBatchDAOImpl() {
         super(IisOrderHasBatch.class, IisOrderHasBatchPK.class);
     }
+
+
+
 }
