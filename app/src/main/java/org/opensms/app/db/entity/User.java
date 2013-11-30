@@ -5,7 +5,6 @@
  */
 package org.opensms.app.db.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,7 +33,7 @@ import java.util.List;
         @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
         @NamedQuery(name = "User.findByCreatedate", query = "SELECT u FROM User u WHERE u.createdate = :createdate"),
         @NamedQuery(name = "User.findByAccountStatus", query = "SELECT u FROM User u WHERE u.accountStatus = :accountStatus")})
-public class User implements Serializable,UserDetails, EntityInterface<Integer> {
+public class User implements Serializable, UserDetails, EntityInterface<Integer> {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -62,7 +61,7 @@ public class User implements Serializable,UserDetails, EntityInterface<Integer> 
     @NotNull
     @Column(name = "account_status")
     private boolean accountStatus;
-//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    //    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
 //    private UserContactDetail userContactDetail;
 //    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
 //    private Vendor vendor;
@@ -100,6 +99,10 @@ public class User implements Serializable,UserDetails, EntityInterface<Integer> 
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return isEnabled();  //To change body of implemented methods use File | Settings | File Templates.
@@ -120,17 +123,17 @@ public class User implements Serializable,UserDetails, EntityInterface<Integer> 
         return accountStatus;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
 
-        List<GrantedAuthority> authorities=new ArrayList<GrantedAuthority>();
-        for (UserRole userRole:userRoleList){
-            authorities.add(new SimpleGrantedAuthority(userRole.getRole1().getDescription()));
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        for (UserRole userRole : userRoleList) {
+            if (userRole.getResignDate() == null) {
+
+                authorities.add(new SimpleGrantedAuthority(userRole.getRole1().getDescription()));
+
+            }
         }
 
 
