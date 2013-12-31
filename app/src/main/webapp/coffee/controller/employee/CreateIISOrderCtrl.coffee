@@ -25,8 +25,9 @@ CreateIISOrderCtrl = ($scope, $http, $location, $routeParams) ->
 
   $scope.searchSalesPerson = () ->
     console.log $scope.search.query
-    $http.get("user/search?query=" + $scope.search.query + "&type=Sales Rep").success((data) ->
+    $http.get("user/search?query=" + $scope.search.query + "&type=sales_person").success((data) ->
       $scope.users = data
+      console.log data
     ).error((data) ->
       console.log("error in 'user/search?query=_x_?type=Sales Rep")
     )

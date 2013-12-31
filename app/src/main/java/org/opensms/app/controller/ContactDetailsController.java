@@ -19,6 +19,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/contactdetails")
 public class ContactDetailsController {
+
     @Autowired
     private ContactDetailsDAOService contactDetailsDAOService;
 

@@ -40,9 +40,7 @@ public class CategoryController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public @ResponseBody ResponseMessage saveCategory(@RequestBody Category category) {
-
         categoryDAOService.saveCategory(category);
-
         return new ResponseMessage(ResponseMessage.Type.success, "category saved.");
     }
 }

@@ -56,6 +56,8 @@ public class IisOrderDAOService {
         iisOrder.setIssOrderDateTime(Calendar.getInstance().getTime());
         iisOrderDAO.save(iisOrderModel.getIisOrder());
 
+
+
         // update pre orders. set iis order and close it.
         List<PreOrder> preOrderList = iisOrderModel.getPreOrderList();
         for (PreOrder p : preOrderList) {

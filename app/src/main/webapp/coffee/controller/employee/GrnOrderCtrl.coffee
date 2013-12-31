@@ -15,6 +15,11 @@ GrnOrderCtrl = ($scope, $http,ngTableParams)->
       vendor:$scope.vendor
       batchList:$scope.batchList
 
+
+
+    delete grnOrder.vendor.user
+
+
     console.log grnOrder
 
     $http.post('/grnorder/save',grnOrder).success((data)->

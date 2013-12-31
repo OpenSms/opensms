@@ -52,7 +52,6 @@ public class UserController {
     @RequestMapping(value = "/changepassword", method = RequestMethod.POST)
     public @ResponseBody ResponseMessage changePassword(@RequestBody User user) {
         userDAOService.changePassword(user);
-
         return new ResponseMessage(ResponseMessage.Type.success, "changePassword()");
     }
 

@@ -1,6 +1,8 @@
 package org.opensms.app.db.controller.impl;
 
 import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.opensms.app.db.entity.User;
 import org.springframework.stereotype.Repository;
 
@@ -102,22 +104,22 @@ public class UserDAOController extends AbstractDAOImpl<User, Integer> {
      * @param username
      * @return
      */
-    public User getUserByUserName(String username){
+    public User getUserByUserName(String username) {
 
-        Query query=getCurrentSession().createQuery("SELECT u FROM  User u WHERE u.username = :username");
-        query.setString("username",username);
+        Query query = getCurrentSession().createQuery("SELECT u FROM  User u WHERE u.username = :username");
+        query.setString("username", username);
 
         return (User) query.uniqueResult();
 
     }
 
     /**
-     *
      * @param queryString
      * @param type
      * @return
      */
     public List<User> search(String queryString, String type) {
+        List<User> list = null;
 
         System.out.println(queryString);
         System.out.println(type);
@@ -126,21 +128,24 @@ public class UserDAOController extends AbstractDAOImpl<User, Integer> {
         queryString = "%" + queryString + "%";
 
         Query query = null;
-        if (type.equals("vendor")) {
-            query = getCurrentSession().createQuery("SELECT u FROM Vendor u WHERE u.name LIKE  :queryString");
 
-        }
-        else if (type.equals("customer")) {
-            query = getCurrentSession().createQuery("SELECT u FROM Customer u, UserContactDetail c WHERE " +
+        Session currentSession = getCurrentSession().getSessionFactory().openSession();
+        Transaction tx = currentSession.beginTransaction();
+
+        if (type.equals("vendor")) {
+            query = currentSession.createQuery("SELECT u FROM Vendor u WHERE u.name LIKE  :queryString");
+
+        } else if (type.equals("customer")) {
+            query = currentSession.createQuery("SELECT u FROM Customer u, UserContactDetail c WHERE " +
                     "u.userId = :queryIdString OR u.user.username LIKE :queryString OR " +
                     "c.name LIKE :queryString OR c.email LIKE :queryString OR " +
                     "c.city LIKE :queryString OR c.country LIKE :queryString GROUP BY u.userId");
 
 
             query.setString("queryIdString", queryIdString);
-        }
-        else {
-            query = getCurrentSession().createQuery("SELECT u FROM User u, UserContactDetail c, UserRole  r WHERE " +
+        } else if (type.equals("sales_person")) {
+
+            query = currentSession.createQuery("SELECT u FROM User u, UserContactDetail c, UserRole  r WHERE " +
                     "(u.userId = :queryIdString OR u.username LIKE :queryString OR " +
                     "c.name LIKE :queryString OR c.email LIKE :queryString) " +
                     "AND r.role1.description = :type " +
@@ -148,11 +153,17 @@ public class UserDAOController extends AbstractDAOImpl<User, Integer> {
 
             query.setString("queryIdString", queryIdString);
             query.setString("type", type);
+
+
+
+
         }
 
-       // query.setString("queryIdString", queryIdString);
         query.setString("queryString", queryString);
+        list = query.list();
+        tx.commit();
+        // query.setString("queryIdString", queryIdString);
 
-        return query.list();
+        return list;
     }
 }

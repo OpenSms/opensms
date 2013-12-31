@@ -24,13 +24,16 @@ import java.util.Set;
  * Time: 1:18 AM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AbstractDAOImpl<T extends EntityInterface<E>, E extends Serializable> implements AbstractDAO<T, E> {
+public  class AbstractDAOImpl<T extends EntityInterface<E>, E extends Serializable> implements AbstractDAO<T, E> {
 
 
     private Class<T> entityClass;
     private Class<E> entityIdClass;
     @Autowired
     private SessionFactory sessionFactory;
+
+    public AbstractDAOImpl() {
+    }
 
     public AbstractDAOImpl(Class<T> entityClass, Class<E> entityIdClass) {
         this.entityClass = entityClass;
@@ -69,15 +72,13 @@ public abstract class AbstractDAOImpl<T extends EntityInterface<E>, E extends Se
 
     @Override
     public E save(T entity) {
-        System.out.println(entity);
-        Session session = getCurrentSession();
-        //  Transaction transaction = session.beginTransaction();
+        // System.out.println(entity);
+        Session session = getCurrentSession().getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
         session.save(entity);
-        // transaction.commit();
-        // session.close();
-
+        transaction.commit();
+        session.close();
         // System.out.println(entity.getId());
-
         return entity.getId();
     }
 

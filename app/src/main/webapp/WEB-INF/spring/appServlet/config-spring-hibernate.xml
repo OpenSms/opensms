@@ -20,7 +20,7 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd
     <!-- Creates an in-memory "rewards" database populated with test data for fast testing -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/opensms"/>
+        <property name="url" value="jdbc:mysql://192.168.1.2:3306/opensms"/>
         <property name="username" value="root"/>
         <property name="password" value="pass"/>
     </bean>

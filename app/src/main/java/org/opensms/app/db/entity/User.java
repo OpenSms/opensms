@@ -5,6 +5,9 @@
  */
 package org.opensms.app.db.entity;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,8 +15,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,7 +26,6 @@ import java.util.List;
  */
 @Entity
 @Table(name = "user")
-@XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
         @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId"),
@@ -67,7 +67,9 @@ public class User implements Serializable, UserDetails, EntityInterface<Integer>
 //    private Vendor vendor;
 //    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
 //    private Customer customer;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1", fetch = FetchType.EAGER)
+    @JsonIgnore
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1", fetch = FetchType.LAZY)
     private List<UserRole> userRoleList;
 //    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
 //    private Employee employee;
@@ -188,7 +190,7 @@ public class User implements Serializable, UserDetails, EntityInterface<Integer>
 //        this.customer = customer;
 //    }
 
-    @XmlTransient
+
     public List<UserRole> getUserRoleList() {
         return userRoleList;
     }

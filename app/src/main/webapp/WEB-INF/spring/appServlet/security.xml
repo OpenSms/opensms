@@ -18,11 +18,11 @@
 
         <!-- update user -->
         <intercept-url pattern="/user?userId=" access="hasAnyRole('edit_user')"/>
-        <intercept-url pattern="/contactdetails?userId=" access="hasAnyRole('edit_user')"/>
+        <intercept-url pattern="/contactdetails" access="hasAnyRole('edit_user')"/>
         <intercept-url pattern="/employee?userId=" access="hasAnyRole('edit_user')"/>
         <intercept-url pattern="/role/all" access="hasAnyRole('edit_user')"/>
-        <intercept-url pattern="/userrole?userId=" access="hasAnyRole('edit_user')"/>
-        <intercept-url pattern="/userrole?userId=" access="hasAnyRole('edit_user')"/>
+        <intercept-url pattern="/userrole" access="hasAnyRole('edit_user')"/>
+        <intercept-url pattern="/userrole" access="hasAnyRole('edit_user')"/>
         <intercept-url pattern="/user/validatepassword" access="hasAnyRole('edit_user')"/>
         <intercept-url pattern="/user/changepassword" access="hasAnyRole('edit_user')"/>
         <intercept-url pattern="/user/updatestate" access="hasAnyRole('edit_user')"/>
@@ -38,45 +38,50 @@
         <intercept-url pattern="/preorder/save" access="hasAnyRole('customer')"/>
 
         <!-- add category -->
-        <intercept-url pattern="/category/all?hint=" access="hasAnyRole('insert_item', 'edit_item')"/>
-        <intercept-url pattern="/category/allparents?hint=" access="hasAnyRole('insert_item', 'edit_item')"/>
+        <intercept-url pattern="/category/all" access="hasAnyRole('insert_item', 'edit_item')"/>
+        <intercept-url pattern="/category/allparents" access="hasAnyRole('insert_item', 'edit_item')"/>
         <intercept-url pattern="/category/save" access="hasAnyRole('insert_item', 'edit_item')"/>
 
         <!-- add profit -->
-        <intercept-url pattern="/profit/save" access="hasAnyRole('insert_item', 'edit_item', 'create_grn_order', 'edit_grn_order')"/>
+        <intercept-url pattern="/profit/save"
+                       access="hasAnyRole('insert_item', 'edit_item', 'create_grn_order', 'edit_grn_order')"/>
 
         <!-- add unit -->
         <intercept-url pattern="/unit/save" access="hasAnyRole('insert_item', 'edit_item')"/>
 
         <!-- create iis order -->
         <intercept-url pattern="/preorder/all/open" access="hasAnyRole('create_iis_order')"/>
-        <intercept-url pattern="/user/search?query=" access="hasAnyRole('create_iis_order')"/>
+        <intercept-url pattern="/user/search" access="hasAnyRole('create_iis_order')"/>
         <intercept-url pattern="/iisorder/save" access="hasAnyRole('create_iis_order')"/>
 
         <!-- create grn order -->
         <intercept-url pattern="/grnorder/save" access="hasAnyRole('create_grn_order')"/>
-        <intercept-url pattern="/profit/all?type=" access="hasAnyRole('create_grn_order')"/>
-        <intercept-url pattern="/item/all?hint=" access="hasAnyRole('create_grn_order')"/>
-        <intercept-url pattern="/user/search?query=" access="hasAnyRole('create_grn_order')"/>
+        <intercept-url pattern="/profit/all" access="hasAnyRole('create_grn_order')"/>
+        <intercept-url pattern="/item/all" access="hasAnyRole('create_grn_order')"/>
+        <intercept-url pattern="/user/search" access="hasAnyRole('create_grn_order')"/>
 
         <!-- insert item -->
-        <intercept-url pattern="/profit/all?type=" access="hasAnyRole('insert_item')"/>
-        <intercept-url pattern="/unit/all" access="hasAnyRole('insert_item')"/>
-        <intercept-url pattern="/category/allparents?hint=Too" access="hasAnyRole('insert_item')"/>
-        <intercept-url pattern="/category/all?hint=Too" access="hasAnyRole('insert_item')"/>
         <intercept-url pattern="/item/save" access="hasAnyRole('insert_item')"/>
 
         <!-- list all items -->
-        <intercept-url pattern="/item/all?hint=" access="hasAnyRole('employee', 'customer', 'vendor')"/>
+        <intercept-url pattern="/item/all" access="hasAnyRole('employee', 'customer', 'vendor')"/>
 
-        <form-login login-page="/login"  authentication-failure-url="/error"   default-target-url="/" authentication-success-handler-ref="customBasicAuthFilter" />
-        <logout  logout-success-url="/logout" invalidate-session="true"/>
+
+        <!--List All Units-->
+        <intercept-url pattern="/unit/all" access="hasAnyRole('employee','customer','vendor')"/>
+        <intercept-url pattern="/profit/all" access="hasAnyRole('employee','customer','vendor')"/>
+        <intercept-url pattern="/category/allparents" access="hasAnyRole('employee','customer','vendor')"/>
+        <intercept-url pattern="/category/all" access="hasAnyRole('employee','customer','vendor')"/>
+
+        <form-login login-page="/login" authentication-failure-url="/error" default-target-url="/"
+                    authentication-success-handler-ref="customBasicAuthFilter"/>
+        <logout logout-success-url="/logout" invalidate-session="true"/>
 
     </http>
 
     <authentication-manager>
 
-        <authentication-provider user-service-ref="customUserService" >
+        <authentication-provider user-service-ref="customUserService">
         </authentication-provider>
     </authentication-manager>
 
