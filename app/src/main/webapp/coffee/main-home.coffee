@@ -1,6 +1,6 @@
 app = angular.module "main-app", ["$strap.directives", "ngTable"], ($routeProvider, $locationProvider) ->
   $routeProvider.when "/",
-    templateUrl: "./static/app/templates/home.html"
+    templateUrl: "./static/app/templates/index.html"
 
   $routeProvider.when "/RegistrationWizard",
     templateUrl: "./static/app/templates/RegistrationWizard.html"
@@ -39,7 +39,6 @@ app = angular.module "main-app", ["$strap.directives", "ngTable"], ($routeProvid
     redirectTo: "/"
 
 
-
 app.run ($http,$rootScope) ->
 
   $http.get("/currentuser").success((data) ->
@@ -54,14 +53,3 @@ app.run ($http,$rootScope) ->
     $rootScope.userRoles = data
   ).error((data) ->
   )
-
-
-SideMenuCtrl = ($scope,$http,$rootScope) ->
-  console.log "dfsf"
-  console.log $rootScope.user
-  console.log $rootScope.userRoles
-
-  $scope.user = $rootScope.user
-  $scope.userRoles = $rootScope.userRoles
-
-app.controller('SideMenuCtrl',SideMenuCtrl)
