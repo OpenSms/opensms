@@ -26,7 +26,7 @@ ItemCtrl = ($scope, $http, $log)->
   )
 
 
-  $http.get('/category/allparents?hint=Too').success((data)->
+  $http.get('/category/allparents?hint=').success((data)->
     log.info(data)
     $scope.parentCategories = data
 
@@ -35,7 +35,7 @@ ItemCtrl = ($scope, $http, $log)->
   )
 
 
-  $http.get('/category/all?hint=Too').success((data)->
+  $http.get('/category/all?hint=').success((data)->
     $log.info(data)
     $scope.categories = data
 

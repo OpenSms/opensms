@@ -5,3 +5,4 @@ app = angular.module "main-app",[], ($routeProvider, $locationProvider) ->
 
   $routeProvider.otherwise
     redirectTo: "/login"
+

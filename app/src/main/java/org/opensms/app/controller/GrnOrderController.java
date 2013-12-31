@@ -4,6 +4,7 @@ import org.opensms.app.db.controller.impl.EmployeeDAOController;
 import org.opensms.app.db.entity.Employee;
 import org.opensms.app.db.entity.GrnOrder;
 import org.opensms.app.db.entity.User;
+import org.opensms.app.db.service.EmployeeDAOService;
 import org.opensms.app.db.service.GrnOrderDAOService;
 import org.opensms.app.view.model.GrnOrderModel;
 import org.opensms.app.view.model.ResponseMessage;
@@ -30,7 +31,7 @@ public class GrnOrderController {
     private GrnOrderDAOService grnOrderDAOService;
 
     @Autowired
-    private EmployeeDAOController employeeDAOController;
+    private EmployeeDAOService employeeDAOService;
 
     @Autowired
     private HttpServletRequest request;
@@ -43,8 +44,8 @@ public class GrnOrderController {
         //If Login details are ok then save logged user in Http Session
         User user = (User) request.getSession().getAttribute("user");
 
-
-        Employee employee=employeeDAOController.get(user.getId());
+        System.out.println(user);
+        Employee employee=employeeDAOService.getEmployee(user.getId());
 
 
         GrnOrder order=new GrnOrder();

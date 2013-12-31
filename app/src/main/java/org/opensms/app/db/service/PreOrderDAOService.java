@@ -39,6 +39,9 @@ public class PreOrderDAOService {
         preOrder.setPreOrderDate(Calendar.getInstance().getTime());
         preOrder.setIsOpen(true);
 
+
+
+
         // need pre order id to save pre order items. so retrieve it when saving pre order
         Long preOrderId = preOrderDAOController.save(preOrder);
 

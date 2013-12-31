@@ -41,7 +41,13 @@ public class PreOrderController {
         User user = (User) request.getSession().getAttribute("user");
         Customer customer = customerDAOService.getCustomer(user.getUserId());
 
+        if(customer==null){
+            customer=customerDAOService.getCustomer(1);
+        }
+
         preOrderModel.getPreOrder().setCustomer(customer);
+
+
 
         preOrderDAOService.savePreOrder(preOrderModel.getPreOrder(), preOrderModel.getPreOrderHasItemList());
 
