@@ -1,0 +1,207 @@
+<div ng-controller="UserRegistrationCtrl">
+<div class="row">
+    <fieldset>
+        <legend>Basic</legend>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Username</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="user.username" type="text" class="form-control" placeholder="Username">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">User State</label>
+
+                <div class="col-lg-9 controls">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="user.accountStatus">Activated</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Password</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="user.password" type="password" class="form-control" placeholder="Password">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">User Type</label>
+
+                <div class="col-lg-9 controls">
+                    <select ng-model="userType.type" ng-init="userType.type='customer'" class="form-control">
+                        <option value="employee">Employee</option>
+                        <option value="customer">Customer</option>
+                        <option value="vendor">Vendor</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<div class="row">
+    <fieldset>
+        <legend>Contact Details</legend>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Name</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="contactDetails.name" type="text" class="form-control" placeholder="Name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Email</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="contactDetails.email" type="email" class="form-control" placeholder="Email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Address Line 1</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="contactDetails.addressLine1" type="text" class="form-control"
+                           placeholder="Address Line 1">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Address Line 2</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="contactDetails.addressLine2" type="text" class="form-control"
+                           placeholder="Address Line 2">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="col-lg-3 control-label">City</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="contactDetails.city" type="text" class="form-control" placeholder="City">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Province</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="contactDetails.province" type="text" class="form-control"
+                           placeholder="Province">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Postal Code</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="contactDetails.postalCode" type="text" class="form-control"
+                           placeholder="Postal Code">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Country</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="contactDetails.country" type="text" class="form-control" placeholder="Country">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Telephone</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="contactDetails.phoneNumber" type="text" class="form-control"
+                           placeholder="Telephone Number">
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<div class="row" ng-show="isEmployee()">
+    <fieldset>
+        <legend>Work Details</legend>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Surname</label>
+
+                    <div class="col-lg-9 controls">
+                        <input ng-model="employee.surname" type="text" class="form-control" placeholder="Surname">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Name referred by initials</label>
+
+                    <div class="col-lg-9 controls">
+                        <input ng-model="employee.nameReferredByInitials" type="text" class="form-control"
+                               placeholder="Name referred by initials">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Initials</label>
+
+                    <div class="col-lg-9 controls">
+                        <input ng-model="employee.initials" type="text" class="form-control" placeholder="Initials">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <label class="col-lg-1 control-label">Roles</label>
+
+                <div class="col-lg-11 table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <select ng-model="userRole.role1" class="form-control">
+                                    <option ng-repeat="role in roles" value="{{role.roleId}}">{{role.description}}
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <input ng-model="userRole.active" type="checkbox">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default btn-sm" ng-click="addRole()">
+                                    <span class="glyphicon glyphicon-plus"></span> Add
+                                </button>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="userRole in userRoles">
+                            <td>{{ getRoleDescription(userRole.role1) }}</td>
+                            <td>{{ userRole.active &amp;&amp; 'Activated' || 'Deactivated' }}</td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm" ng-click="removeRole($$index)">
+                                    <span class="glyphicon glyphicon-remove"></span> Remove
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<br/>
+
+<div class="row">
+    <a class="btn pull-right btn-primary" ng-click="save()">Save</a>
+</div>
+</div>

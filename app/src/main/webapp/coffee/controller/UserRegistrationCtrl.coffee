@@ -1,4 +1,4 @@
-RegistrationWizardCtrl = ($scope, $http, $location) ->
+UserRegistrationCtrl = ($scope, $http, $location) ->
   $scope.user = {}
   $scope.user.accountStatus = true # user activated by default
 
@@ -14,6 +14,8 @@ RegistrationWizardCtrl = ($scope, $http, $location) ->
 
   $scope.roles = []
 
+  $scope.isEmployee = () ->
+    $scope.userType.type is "employee"
 
   #### work details page ####
 
@@ -71,19 +73,19 @@ RegistrationWizardCtrl = ($scope, $http, $location) ->
   $scope.saveEmployee = () ->
     $scope.employee.userId = $scope.user.userId
 
-    employeeRoles=[]
+    employeeRoles = []
 
     for role in $scope.userRoles
       employeeRoles.push(
         roleId: role.role1
-        description:$scope.getRoleDescription(role.role1)
+        description: $scope.getRoleDescription(role.role1)
       )
 
-    employeeModel=
-      employee:$scope.employee
+    employeeModel =
+      employee: $scope.employee
       roles: employeeRoles
 
-    $http.post("/employee/save",employeeModel ).success((data) ->
+    $http.post("/employee/save", employeeModel).success((data) ->
       console.log data
     ).error((data) ->
       console.log("error in employee/save")
@@ -123,54 +125,9 @@ RegistrationWizardCtrl = ($scope, $http, $location) ->
         $scope.saveCustomer()
       else
         $scope.saveVendor()
+
+      $location.path("/")
+      $scope.$apply()
     )
 
-  #### end of submit user registration ####
-
-
-  #### wizard controller ####
-
-  $scope.steps = ["one", "two", "three", "four"]
-  $scope.step = 0
-  $scope.wizard =
-    tacos: 2
-  $scope.isFirstStep = ->
-    $scope.step is 0
-
-  $scope.isLastStep = ->
-    $scope.step is ($scope.steps.length - 1)
-
-  $scope.isCurrentStep = (step) ->
-    $scope.step is step
-
-
-  $scope.getCurrentStep = ->
-    $scope.steps[$scope.step]
-
-  $scope.getNextLabel = ->
-    (if ($scope.isLastStep()) then "Submit" else "Next")
-
-  $scope.handlePrevious = ->
-    if $scope.isFirstStep()
-      $scope.step = 0
-    else
-      if not $scope.isEmployee() && $scope.step == 3
-        $scope.step -= 2
-      else
-        $scope.step -= 1
-
-
-  $scope.handleNext = () ->
-    if $scope.isLastStep()
-      $scope.save()
-
-    else
-      if not $scope.isEmployee() && $scope.step == 1
-        $scope.step += 2
-      else
-        $scope.step += 1
-
-  $scope.isEmployee = () ->
-    $scope.userType.type is "employee"
-
-#### end of wizard controller ####
+#### end of submit user registration ####

@@ -2,8 +2,8 @@ app = angular.module "main-app", ["$strap.directives", "ngTable"], ($routeProvid
   $routeProvider.when "/",
     templateUrl: "./static/app/templates/index.html"
 
-  $routeProvider.when "/RegistrationWizard",
-    templateUrl: "./static/app/templates/RegistrationWizard.html"
+  $routeProvider.when "/UserRegistration",
+    templateUrl: "./static/app/templates/UserRegistration.html"
 
   $routeProvider.when "/SearchUsers",
     templateUrl: "./static/app/templates/SearchUsers.html"
