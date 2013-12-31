@@ -50,23 +50,29 @@
         </dependency>
 
 
-        <dependency> <!-- MySQL database driver -->
-            <groupId>mysql</groupId>
+        <!-- MySQL database driver -->
+        <dependency>
+        <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.20</version>
         </dependency>
 
-        <!-- Thymeleaf -->
 
+        <!-- Thymeleaf -->
         <dependency>
             <groupId>org.thymeleaf</groupId>
             <artifactId>thymeleaf</artifactId>
-            <version>1.1.2</version>
+            <version>2.1.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.thymeleaf</groupId>
             <artifactId>thymeleaf-spring3</artifactId>
-            <version>1.1.2</version>
+            <version>2.1.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity3</artifactId>
+            <version>2.1.0.RELEASE</version>
         </dependency>
 
 
@@ -93,10 +99,6 @@
             <artifactId>spring-orm</artifactId>
             <version>${org.springframework-version}</version>
         </dependency>
-
-
-
-
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
@@ -111,7 +113,6 @@
 
 
         <!-- Logging -->
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
