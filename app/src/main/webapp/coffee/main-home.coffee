@@ -39,17 +39,15 @@ app = angular.module "main-app", ["$strap.directives", "ngTable"], ($routeProvid
     redirectTo: "/"
 
 
-app.run ($http,$rootScope) ->
-
+app.run ($http, $rootScope) ->
   $http.get("/currentuser").success((data) ->
-    console.log "ssss"
-    console.log data
-    $rootScope.user = data
+    $rootScope.currentUser = data
   ).error((data) ->
-    console.log "erere"
+    console.log "error in /currentuser"
   )
 
-  $http.get("/currentuser").success((data) ->
+  $http.get("/currentuserroles").success((data) ->
     $rootScope.userRoles = data
   ).error((data) ->
+    console.log "error in /currentuserroles"
   )
