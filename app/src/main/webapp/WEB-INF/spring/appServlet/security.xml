@@ -49,9 +49,9 @@
         <intercept-url pattern="/unit/save" access="hasAnyRole('insert_item', 'edit_item')"/>
 
         <!-- create iis order -->
-        <intercept-url pattern="/preorder/all/open" access="hasAnyRole('create_gsr_order')"/>
-        <intercept-url pattern="/user/search?query=" access="hasAnyRole('create_gsr_order')"/>
-        <intercept-url pattern="/iisorder/save" access="hasAnyRole('create_gsr_order')"/>
+        <intercept-url pattern="/preorder/all/open" access="hasAnyRole('create_iis_order')"/>
+        <intercept-url pattern="/user/search?query=" access="hasAnyRole('create_iis_order')"/>
+        <intercept-url pattern="/iisorder/save" access="hasAnyRole('create_iis_order')"/>
 
         <!-- create grn order -->
         <intercept-url pattern="/grnorder/save" access="hasAnyRole('create_grn_order')"/>
