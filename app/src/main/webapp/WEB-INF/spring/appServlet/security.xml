@@ -22,7 +22,6 @@
         <intercept-url pattern="/employee" access="hasAnyRole('edit_user')"/>
         <intercept-url pattern="/role/all" access="hasAnyRole('edit_user')"/>
         <intercept-url pattern="/userrole" access="hasAnyRole('edit_user')"/>
-        <intercept-url pattern="/userrole" access="hasAnyRole('edit_user')"/>
         <intercept-url pattern="/user/validatepassword" access="hasAnyRole('edit_user')"/>
         <intercept-url pattern="/user/changepassword" access="hasAnyRole('edit_user')"/>
         <intercept-url pattern="/user/updatestate" access="hasAnyRole('edit_user')"/>

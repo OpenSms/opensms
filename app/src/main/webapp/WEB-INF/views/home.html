@@ -53,9 +53,9 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>
                         User Management <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li sec:authorize="hasRole('create_user')"><a href="#/UserRegistration"> Register User</a>
-                        </li>
-                        <li sec:authorize="hasRole('edit_user')"><a href="#/SearchUsers"> Edit User</a></li>
+                        <li sec:authorize="hasRole('create_user')"><a href="#/UserRegistration"> Register User</a></li>
+                        <li sec:authorize="hasRole('edit_user')"><a href="#/UpdateUser/-1"> Edit User</a></li>
+                        <li sec:authorize="hasRole('edit_user')"><a href="#/SearchUsers"> Search</a></li>
                     </ul>
                 </li>
 
@@ -63,7 +63,7 @@
                     Add Pre Order</a></li>
 
                 <li sec:authorize="hasRole('insert_item')"><a href="#/AddItem"><i class="fa fa-edit"></i>
-                    Add Item</a></li>
+                    Add New Item</a></li>
 
                 <li sec:authorize="hasAnyRole('insert_item', 'edit_item', 'create_grn_order', 'edit_grn_order')">
                     <a href="#/AddProfit"><i class="fa fa-table"></i> Add Profit</a></li>

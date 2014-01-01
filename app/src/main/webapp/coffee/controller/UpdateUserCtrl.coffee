@@ -27,9 +27,22 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
   $scope.detailsUpdated.employeeNames = false
   $scope.detailsUpdated.employeeRoles = false
 
+
   # open modal and ask for user name when user id is not passed through url
   if Number($routeParams.userId) is -1
     $("#getUserNameModal").modal('show')
+  else
+    $http.get("/user?userId=" + $routeParams.userId).success((data) ->
+      $scope.user = data
+
+      $scope.getUserContactDetails()
+      $scope.getEmployeeDetails()
+      $scope.getUserType()
+
+    ).error((data) ->
+      console.log("error while retriving data '/user?userId='")
+    )
+
 
   $scope.dontRememberUsername = () ->
     $("#getUserNameModal").modal('hide')
@@ -38,19 +51,22 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
     $location.path("/SearchUsers")
     $scope.apply()
 
-  $scope.getUserId = () ->
+  $scope.getUserByUsername = () ->
     $("#getUserNameModal").modal('hide')
     $("body").removeClass('modal-open')
     $(".modal-backdrop").remove()
 
     $http.get("/user?username=" + $scope.user.username).success((data) ->
-      delete data.id
       $scope.user = data
+
+      $scope.getUserContactDetails()
+      $scope.getEmployeeDetails()
+      $scope.getUserType()
+
     ).error((data) ->
       console.log("error while retriving data '/user?username='")
     )
-    console.log $scope.user
-    console.log "get user id"
+
 
   $scope.userPasswordChanged = () ->
     if typeof $scope.userPassword.oldPass isnt "undefined" and typeof $scope.userPassword.newPass isnt "undefined" and typeof $scope.userPassword.confirmPass isnt "undefined"
@@ -72,42 +88,27 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
 
   #### end of state changed signals ####
 
-  #### populate user data ####
-
-  $http.get("/user?userId=" + $routeParams.userId).success((data) ->
-    delete data.id
-    $scope.user = data
-    delete $scope.user.authorities
-    delete $scope.user.accountNonExpired
-    delete $scope.user.accountNonLocked
-    delete $scope.user.credentialsNonExpired
-    delete $scope.user.enabled
-  ).error((data) ->
-    console.log("error while retriving data '/user?userId='")
-  )
-
-  #### end of populate user data ####
-
 
   #### populate contact details ####
-
-  $http.get("/contactdetails?userId=" + $routeParams.userId).success((data) ->
-    delete data.user
-    $scope.contactDetails = data
-  ).error((data) ->
-    console.log("error while retriving data from '/contactdetails?userId='")
-  )
+  $scope.getUserContactDetails = () ->
+    $http.get("/contactdetails?userId=" + $scope.user.userId).success((data) ->
+      delete data.user
+      $scope.contactDetails = data
+    ).error((data) ->
+      console.log("error while retriving data from '/contactdetails?userId='")
+    )
 
   #### end of populate contact details ####
 
   #### get employee ####
 
   # populate employee
-  $http.get("/employee?userId=" + $routeParams.userId).success((data) ->
-    $scope.employee = data
-  ).error((data) ->
-    console.log("error while retriving data from '/employee?userId='")
-  )
+  $scope.getEmployeeDetails = () ->
+    $http.get("/employee?userId=" + $scope.user.userId).success((data) ->
+      $scope.employee = data
+    ).error((data) ->
+      console.log("error while retriving data from '/employee?userId='")
+    )
 
   # check userRoles for customer role or vendor role if those does not exists that means use is a employee
   $scope.isEmployee = () ->
@@ -142,7 +143,7 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
     uRolePk =
       assignDate: new Date().getTime()
       role: $scope.userRole.role1.roleId
-      user: $routeParams.userId
+      user: $scope.user.userId
 
     # UserRole object
     $scope.userRole["resignDate"] = null
@@ -174,27 +175,33 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
 
   #### get assinged user roles ####
 
-  $http.get("/userrole?userId=" + $routeParams.userId).success((data) ->
-    userType = ""
-    for d in data
-      $scope.userRoles.unshift (
-        jQuery.extend(true, {}, d)
-      )
+  $scope.getUserType = () ->
+    $http.get("/userrole?userId=" + $scope.user.userId).success((data) ->
+      userType = ""
+      for d in data
+        $scope.userRoles.unshift (
+          jQuery.extend(true, {}, d)
+        )
 
-      if d.role1.description is "customer"
-        userType = "customer"
-      else if d.role1.description is "vendor"
-        userType = "vendor"
-      else if d.role1.description is "employee"
-        userType = "employee"
-      else
-        userType = "undefined"
+      #get user type
+      for d in data
+        if d.role1.description is "customer"
+          userType = "customer"
+          break
+        else if d.role1.description is "vendor"
+          userType = "vendor"
+          break
+        else if d.role1.description is "employee"
+          userType = "employee"
+          break
+        else
+          userType = "undefined"
 
-    $scope.userType.type = userType
-    $scope.detailsUpdated.employeeRoles = false
-  ).error((data) ->
-    console.log("error in /userrole/userId=")
-  )
+      $scope.userType.type = userType
+      $scope.detailsUpdated.employeeRoles = false
+    ).error((data) ->
+      console.log("error in /userrole/userId=")
+    )
 
   #### end of get assinged user roles ####
 
@@ -269,7 +276,7 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
     $scope.updateEmployeeNames()
     $scope.updateEmployeeRoles()
 
-    $location.path('/')
+    $location.path("/")
     $scope.apply()
 
 

@@ -106,26 +106,31 @@ public class User implements Serializable, UserDetails, EntityInterface<Integer>
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return isEnabled();  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return isEnabled();  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return isEnabled();  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return accountStatus;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
 
