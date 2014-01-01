@@ -1,19 +1,16 @@
 AddCategoryCtrl = ($scope, $http, $location, $routeParams) ->
-
   $scope.category = {}
   $scope.parentCategoryName = ""
 
 
   $scope.getParentTypeahead = (query, callback) ->
     $http.get("/category/all?hint=" + query).success (stations) ->
-
       arr = []
       for s in stations
         arr.unshift(
           s.category
         )
       callback arr
-
 
 
   $scope.save = () ->
@@ -25,6 +22,7 @@ AddCategoryCtrl = ($scope, $http, $location, $routeParams) ->
 
     $http.post("category/save", $scope.category).success((data) ->
       console.log "category saved"
+      $location.path("/")
     ).error((data) ->
       console.log "error in category/save"
     )

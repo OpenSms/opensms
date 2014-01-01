@@ -1,21 +1,20 @@
 <div ng-controller="AddUnitCtrl">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3>Add Unit</h3>
-    </div>
-    <div class="modal-body">
-        <form class="" role="form">
-            <div class="form-group form-group-wizard">
-                <label class="col-lg-3 control-label">Unit</label>
+    <div class="row">
+        <fieldset>
+            <legend>Category</legend>
+            <div class="form-group">
+            <label class="col-lg-3 control-label">Unit</label>
 
                 <div class="col-lg-9">
                     <input ng-model="unit.unit" type="text" class="form-control" placeholder="Unit"/>
                 </div>
             </div>
-        </form>
+        </fieldset>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn" ng-click="hide()">Close</button>
-        <button class="btn btn-primary" ng-click="save();modal.saved=true;hide()">Add</button>
+    <br/>
+    <br/>
+
+    <div class="row">
+        <button class="btn pull-right btn-default btn-primary" ng-click="save()">Add</button>
     </div>
 </div>
