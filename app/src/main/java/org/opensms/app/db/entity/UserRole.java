@@ -7,6 +7,10 @@ package org.opensms.app.db.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.opensms.app.config.JsonDateDeserializer;
+import org.opensms.app.config.JsonDateSerializer;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -25,24 +29,25 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 /**
- *
  * @author dewmal
  */
 @Entity
 @Table(name = "user_role")
 @NamedQueries({
-    @NamedQuery(name = "UserRole.findAll", query = "SELECT u FROM UserRole u"),
-    @NamedQuery(name = "UserRole.findByRole", query = "SELECT u FROM UserRole u WHERE u.userRolePK.role = :role"),
-    @NamedQuery(name = "UserRole.findByUser", query = "SELECT u FROM UserRole u WHERE u.userRolePK.user = :user"),
-    @NamedQuery(name = "UserRole.findByAssignDate", query = "SELECT u FROM UserRole u WHERE u.userRolePK.assignDate = :assignDate"),
-    @NamedQuery(name = "UserRole.findByResignDate", query = "SELECT u FROM UserRole u WHERE u.resignDate = :resignDate"),
-    @NamedQuery(name = "UserRole.findByActive", query = "SELECT u FROM UserRole u WHERE u.active = :active")})
+        @NamedQuery(name = "UserRole.findAll", query = "SELECT u FROM UserRole u"),
+        @NamedQuery(name = "UserRole.findByRole", query = "SELECT u FROM UserRole u WHERE u.userRolePK.role = :role"),
+        @NamedQuery(name = "UserRole.findByUser", query = "SELECT u FROM UserRole u WHERE u.userRolePK.user = :user"),
+        @NamedQuery(name = "UserRole.findByAssignDate", query = "SELECT u FROM UserRole u WHERE u.userRolePK.assignDate = :assignDate"),
+        @NamedQuery(name = "UserRole.findByResignDate", query = "SELECT u FROM UserRole u WHERE u.resignDate = :resignDate"),
+        @NamedQuery(name = "UserRole.findByActive", query = "SELECT u FROM UserRole u WHERE u.active = :active")})
 public class UserRole implements Serializable, EntityInterface<UserRolePK> {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected UserRolePK userRolePK;
     @Column(name = "resign_date")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonDeserialize(using = JsonDateDeserializer.class)
+    @JsonSerialize(using = JsonDateSerializer.class)
     private Date resignDate;
     @Basic(optional = false)
     @NotNull

@@ -78,6 +78,18 @@ public class UserController {
     }
 
     /**
+     * Get user when username is given
+     * @param username
+     * @return User object
+     */
+    @RequestMapping(method = RequestMethod.GET, params = {"username"})
+    public
+    @ResponseBody
+    User getUser(@RequestParam("username") String username) {
+        return userDAOService.getUser(username);
+    }
+
+    /**
      * Get all users
      *
      * @return

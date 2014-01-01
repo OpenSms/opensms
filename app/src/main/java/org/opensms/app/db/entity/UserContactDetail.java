@@ -5,6 +5,8 @@
  */
 package org.opensms.app.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -18,14 +20,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author dewmal
  */
 @Entity
 @Table(name = "user_contact_detail")
-@XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "UserContactDetail.findAll", query = "SELECT u FROM UserContactDetail u"),
         @NamedQuery(name = "UserContactDetail.findByUserId", query = "SELECT u FROM UserContactDetail u WHERE u.userId = :userId"),
@@ -83,8 +83,9 @@ public class UserContactDetail implements Serializable, EntityInterface<Integer>
     @Size(max = 100)
     @Column(name = "email")
     private String email;
+    @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
-    @OneToOne(optional = false, fetch = FetchType.EAGER)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     private User user;
 
     public UserContactDetail() {

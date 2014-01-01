@@ -45,7 +45,7 @@ public class Employee implements Serializable, EntityInterface<Integer> {
     @Size(min = 1, max = 100)
     @Column(name = "name_referred_by_initials")
     private String nameReferredByInitials;
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cashierEmployee", fetch = FetchType.LAZY)
+    //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cashierEmployee", fetch = FetchType.LAZY)
 //    private List<GrnPayment> grnPaymentList;
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dataEntryEmployee", fetch = FetchType.LAZY)
 //    private List<GrnOrder> grnOrderList;
@@ -109,7 +109,7 @@ public class Employee implements Serializable, EntityInterface<Integer> {
         this.nameReferredByInitials = nameReferredByInitials;
     }
 
-//    @XmlTransient
+    //    @XmlTransient
 //    @JsonIgnore
 //    public List<GrnPayment> getGrnPaymentList() {
 //        return grnPaymentList;
@@ -211,10 +211,6 @@ public class Employee implements Serializable, EntityInterface<Integer> {
     public String toString() {
         return "Employee{" +
                 "userId=" + userId +
-                ", surname='" + surname + '\'' +
-                ", initials='" + initials + '\'' +
-                ", nameReferredByInitials='" + nameReferredByInitials + '\'' +
-                ", user=" + user +
                 '}';
     }
 

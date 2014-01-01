@@ -57,6 +57,10 @@ public class UserDAOService {
         return userDAOController.get(userId);
     }
 
+    public User getUser(String username) {
+        return userDAOController.getUserByUserName(username);
+    }
+
     public List<UserRole> getUserRoles(Integer userId) {
         return userRoleDAOController.getUserRoles(userId);
     }
@@ -78,6 +82,6 @@ public class UserDAOService {
     }
 
     public List<User> search(String query, String type) {
-        return userDAOController.search(query,type);
+        return userDAOController.search(query, type);
     }
 }

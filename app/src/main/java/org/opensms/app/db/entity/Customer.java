@@ -25,20 +25,16 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
  * @author dewmal
  */
 @Entity
 @Table(name = "customer")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
-    @NamedQuery(name = "Customer.findByUserId", query = "SELECT c FROM Customer c WHERE c.userId = :userId"),
-    @NamedQuery(name = "Customer.findByName", query = "SELECT c FROM Customer c WHERE c.name = :name")})
+        @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
+        @NamedQuery(name = "Customer.findByUserId", query = "SELECT c FROM Customer c WHERE c.userId = :userId"),
+        @NamedQuery(name = "Customer.findByName", query = "SELECT c FROM Customer c WHERE c.name = :name")})
 public class Customer implements Serializable, EntityInterface<Integer> {
     private static final long serialVersionUID = 1L;
     @Id
@@ -102,7 +98,7 @@ public class Customer implements Serializable, EntityInterface<Integer> {
         this.remark = remark;
     }
 
-    @XmlTransient
+
     @JsonIgnore
     public List<GsrOrder> getGsrOrderList() {
         return gsrOrderList;
@@ -120,7 +116,7 @@ public class Customer implements Serializable, EntityInterface<Integer> {
         this.user = user;
     }
 
-    @XmlTransient
+
     @JsonIgnore
     public List<PreOrder> getPreOrderList() {
         return preOrderList;

@@ -24,7 +24,7 @@ import java.util.Set;
  * Time: 1:18 AM
  * To change this template use File | Settings | File Templates.
  */
-public  class AbstractDAOImpl<T extends EntityInterface<E>, E extends Serializable> implements AbstractDAO<T, E> {
+public class AbstractDAOImpl<T extends EntityInterface<E>, E extends Serializable> implements AbstractDAO<T, E> {
 
 
     private Class<T> entityClass;
@@ -84,7 +84,7 @@ public  class AbstractDAOImpl<T extends EntityInterface<E>, E extends Serializab
 
     @Override
     public T get(E id) {
-        return (T) getCurrentSession().get(entityClass, id);
+        return (T) getCurrentSession().getSessionFactory().openSession().get(entityClass, id);
     }
 
     /**

@@ -17,9 +17,9 @@
         <intercept-url pattern="/vendor/save" access="hasAnyRole('create_user')"/>
 
         <!-- update user -->
-        <intercept-url pattern="/user?userId=" access="hasAnyRole('edit_user')"/>
+        <intercept-url pattern="/user" access="hasAnyRole('edit_user')"/>
         <intercept-url pattern="/contactdetails" access="hasAnyRole('edit_user')"/>
-        <intercept-url pattern="/employee?userId=" access="hasAnyRole('edit_user')"/>
+        <intercept-url pattern="/employee" access="hasAnyRole('edit_user')"/>
         <intercept-url pattern="/role/all" access="hasAnyRole('edit_user')"/>
         <intercept-url pattern="/userrole" access="hasAnyRole('edit_user')"/>
         <intercept-url pattern="/userrole" access="hasAnyRole('edit_user')"/>

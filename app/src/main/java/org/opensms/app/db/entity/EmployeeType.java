@@ -18,21 +18,18 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
  * @author dewmal
  */
 @Entity
 @Table(name = "employee_type")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "EmployeeType.findAll", query = "SELECT e FROM EmployeeType e"),
-    @NamedQuery(name = "EmployeeType.findByUser", query = "SELECT e FROM EmployeeType e WHERE e.employeeTypePK.user = :user"),
-    @NamedQuery(name = "EmployeeType.findByType", query = "SELECT e FROM EmployeeType e WHERE e.employeeTypePK.type = :type"),
-    @NamedQuery(name = "EmployeeType.findByAssignDate", query = "SELECT e FROM EmployeeType e WHERE e.employeeTypePK.assignDate = :assignDate"),
-    @NamedQuery(name = "EmployeeType.findByResignDate", query = "SELECT e FROM EmployeeType e WHERE e.resignDate = :resignDate")})
+        @NamedQuery(name = "EmployeeType.findAll", query = "SELECT e FROM EmployeeType e"),
+        @NamedQuery(name = "EmployeeType.findByUser", query = "SELECT e FROM EmployeeType e WHERE e.employeeTypePK.user = :user"),
+        @NamedQuery(name = "EmployeeType.findByType", query = "SELECT e FROM EmployeeType e WHERE e.employeeTypePK.type = :type"),
+        @NamedQuery(name = "EmployeeType.findByAssignDate", query = "SELECT e FROM EmployeeType e WHERE e.employeeTypePK.assignDate = :assignDate"),
+        @NamedQuery(name = "EmployeeType.findByResignDate", query = "SELECT e FROM EmployeeType e WHERE e.resignDate = :resignDate")})
 public class EmployeeType implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -114,5 +111,5 @@ public class EmployeeType implements Serializable {
     public String toString() {
         return "org.opensms.app.db.entity.EmployeeType[ employeeTypePK=" + employeeTypePK + " ]";
     }
-    
+
 }

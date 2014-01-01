@@ -27,11 +27,30 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
   $scope.detailsUpdated.employeeNames = false
   $scope.detailsUpdated.employeeRoles = false
 
-  ##When update
-  $scope.$watch('detailsUpdated',(newvalue)->
-    console.log newvalue
-  )
+  # open modal and ask for user name when user id is not passed through url
+  if Number($routeParams.userId) is -1
+    $("#getUserNameModal").modal('show')
 
+  $scope.dontRememberUsername = () ->
+    $("#getUserNameModal").modal('hide')
+    $("body").removeClass('modal-open')
+    $(".modal-backdrop").remove()
+    $location.path("/SearchUsers")
+    $scope.apply()
+
+  $scope.getUserId = () ->
+    $("#getUserNameModal").modal('hide')
+    $("body").removeClass('modal-open')
+    $(".modal-backdrop").remove()
+
+    $http.get("/user?username=" + $scope.user.username).success((data) ->
+      delete data.id
+      $scope.user = data
+    ).error((data) ->
+      console.log("error while retriving data '/user?username='")
+    )
+    console.log $scope.user
+    console.log "get user id"
 
   $scope.userPasswordChanged = () ->
     if typeof $scope.userPassword.oldPass isnt "undefined" and typeof $scope.userPassword.newPass isnt "undefined" and typeof $scope.userPassword.confirmPass isnt "undefined"
@@ -58,6 +77,11 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
   $http.get("/user?userId=" + $routeParams.userId).success((data) ->
     delete data.id
     $scope.user = data
+    delete $scope.user.authorities
+    delete $scope.user.accountNonExpired
+    delete $scope.user.accountNonLocked
+    delete $scope.user.credentialsNonExpired
+    delete $scope.user.enabled
   ).error((data) ->
     console.log("error while retriving data '/user?userId='")
   )
@@ -113,7 +137,7 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
     if $scope.userRole.role1.description is "vendor" or $scope.userRole.role1.description is "customer"
       return
 
-      # create UserRolePK object
+    # create UserRolePK object
     uRolePk = {}
     uRolePk =
       assignDate: new Date().getTime()
@@ -175,49 +199,12 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
   #### end of get assinged user roles ####
 
 
-  #### wizard controller ####
-
-  $scope.isFirstStep = ->
-    $scope.step is 0
-
-  $scope.isLastStep = ->
-    $scope.step is ($scope.steps.length - 1)
-
-  $scope.isCurrentStep = (step) ->
-    $scope.step is step
-
-  $scope.setCurrentStep = (step) ->
-    $scope.step = step
-
-  $scope.getCurrentStep = ->
-    $scope.steps[$scope.step]
-
-  $scope.handlePrevious = ->
-    if $scope.isFirstStep()
-      $scope.step -= 0
-    else
-      if not $scope.isEmployee() && $scope.step == 2
-        $scope.step -= 2
-      else
-        $scope.step -= 1
-
-  $scope.handleNext = () ->
-    if $scope.isLastStep()
-      $scope.step += 0
-    else
-      if not $scope.isEmployee() && $scope.step == 0
-        $scope.step += 2
-      else
-        $scope.step += 1
-
-  #### end of wizard controller ####
-
-
   #### update ####
 
   $scope.updateUserPassword = () ->
     if $scope.detailsUpdated.userPassword is true
       $scope.user.password = $scope.userPassword.oldPass
+      console.log $scope.user
       $http.post("/user/validatepassword", $scope.user).success((data) ->
         if data is "true"
           $scope.user.password = $scope.userPassword.newPass
@@ -263,7 +250,7 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
     if $scope.detailsUpdated.employeeRoles is false
       return
 
-    employeeModel=
+    employeeModel =
       employee: $scope.employee
       userRoles: $scope.userRoles
 
@@ -282,7 +269,8 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
     $scope.updateEmployeeNames()
     $scope.updateEmployeeRoles()
 
-    $location.path('SearchUsers')
+    $location.path('/')
+    $scope.apply()
 
 
 #### end of update ####
