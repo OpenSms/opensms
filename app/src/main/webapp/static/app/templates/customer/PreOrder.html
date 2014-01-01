@@ -1,8 +1,7 @@
-<form ng-controller="PreOrderCtrl" class="form-horizontal" role="form">
+<form ng-controller="PreOrderCtrl">
 
-
-    <div class="form-group">
-        <label class="col-lg-2 control-label">Priority</label>
+    <div class="row form-group">
+    <label class="col-lg-2 control-label">Priority</label>
 
         <div class="col-lg-8 col-sm-6">
             <input ng-model="preOrder.priority" type="number" min="0" max="10" class="form-control"/>
@@ -10,26 +9,20 @@
 
     </div>
 
-    <div class="form-group form-group-wizard">
+    <div class="row form-group">
         <label class="col-lg-2 control-label">Items</label>
 
         <div class="col-lg-10 table-responsive">
             <table class="table table-hover">
-
-
                 <thead>
-
                 <tr>
                     <th>Item</th>
                     <th>Quantity</th>
                     <th></th>
                 </tr>
-
                 </thead>
 
-
                 <tbody>
-
                 <tr>
                     <td>
                         <select ng-model="selectedItem.itemId" class="form-control" required>
@@ -37,7 +30,8 @@
                         </select>
                     </td>
                     <td>
-                        <input ng-model="selectedItem.quantity" type="number" min="0.0" max="999999999999.999" class="form-control" required/>
+                        <input ng-model="selectedItem.quantity" type="number" min="0.0" max="999999999999.999" value="0"
+                               class="form-control" required/>
                     </td>
                     <td>
                         <button type="button" class="btn btn-default btn-sm" ng-click="addItem()">
@@ -55,14 +49,12 @@
                         </button>
                     </td>
                 </tr>
-
                 </tbody>
-
-
             </table>
         </div>
     </div>
 
-    <button class="btn btn-default" ng-click="submitRequest()">Submit Request</button>
-
+    <div class="row">
+        <button class="btn pull-right btn-default btn-primary" ng-click="submitRequest()">Submit Request</button>
+    </div>
 </form>

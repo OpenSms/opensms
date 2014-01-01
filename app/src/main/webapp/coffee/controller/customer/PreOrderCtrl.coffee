@@ -77,8 +77,7 @@ PreOrderCtrl = ($scope, $http, $location) ->
     # ...and save it yay!!!
     $http.post("/preorder/save", preOrderModel).success((data) ->
       console.log data
+      $location.path("/")
     ).error((data) ->
       console.log("error in /preorder/save")
     )
-
-# p.s.: i'm suffering from a headache :(
