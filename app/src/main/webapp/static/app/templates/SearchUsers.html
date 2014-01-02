@@ -1,33 +1,45 @@
 <div ng-controller="SearchUsersCtrl">
-    <form  class="" role="form">
-        <div class="form-group">
-            <div class="col-lg-10">
-                <input ng-model="searchString" type="text" class="form-control" placeholder="Search">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-lg-2">
-                <button  ng-click="search()" class="btn btn-default">Search</button>
-            </div>
-        </div>
-    </form>
-    <br/>
-    <br/>
-    <br/>
-    <table ng-table="tableParams" class="table ng-table-responsive">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Search User </h3>
+                </div>
+                <div class="panel-body" style="margin: 10px;">
+                    <form class="" role="form">
+                        <div class="form-group">
+                            <div class="col-lg-10">
+                                <input ng-model="searchString" type="text" class="form-control" placeholder="Search">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-2">
+                                <button ng-click="search()" class="btn btn-default btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <table ng-table="tableParams" class="table ng-table-responsive">
 
-        <tr ng-repeat="user in users">
-            <td data-title="'User ID'">
-                {{user.userId}}
-            </td>
-            <td data-title="'Username'">
-                {{user.username}}
-            </td>
-            <td data-title="">
-                <a class="btn btn-default btn-sm" href="#/UpdateUser/{{user.userId}}">
-                    <span class="glyphicon glyphicon-edit"></span> Edit
-                </a>
-            </td>
-        </tr>
-    </table>
+                        <tr ng-repeat="user in users">
+                            <td data-title="'User ID'">
+                                {{user.userId}}
+                            </td>
+                            <td data-title="'Username'">
+                                {{user.username}}
+                            </td>
+                            <td data-title="">
+                                <a class="btn btn-default btn-sm" href="#/UpdateUser/{{user.userId}}">
+                                    <span class="glyphicon glyphicon-edit"></span> Edit
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
 </div>

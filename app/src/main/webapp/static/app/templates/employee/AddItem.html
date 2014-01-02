@@ -1,79 +1,98 @@
 <div ng-controller="ItemCtrl">
     <div class="row">
-        <fieldset>
-            <legend>Add New Item</legend>
-            <div class="col-md-6">
-                <div class="form-group row">
-                    <label class="col-lg-2 control-label">Item Id</label>
-
-                    <div class="col-lg-8">
-                        <input ng-model="item.itemId" type="text" class="form-control" placeholder="Item id">
-                    </div>
+        <div class="col-lg-10">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Add New Item </h3>
                 </div>
-                <div class="form-group row">
-                    <label class="col-lg-2 control-label">Item Name</label>
+                <div class="panel-body" style="margin: 10px;">
+                    <div class="row">
+                        <fieldset>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-lg-2 control-label">Item Id</label>
 
-                    <div class="col-lg-8">
-                        <input ng-model="item.name" type="text" class="form-control" placeholder="Item Name">
+                                    <div class="col-lg-8">
+                                        <input ng-model="item.itemId" type="text" class="form-control"
+                                               placeholder="Item id">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-2 control-label">Item Name</label>
+
+                                    <div class="col-lg-8">
+                                        <input ng-model="item.name" type="text" class="form-control"
+                                               placeholder="Item Name">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-2 control-label">Unit</label>
+
+                                    <div class="col-lg-8">
+                                        <select ng-model="item.unit.unitId" class="form-control">
+                                            <option ng-repeat="unit in units" value="{{unit.unitId}}">{{unit.unit}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-lg-2 control-label">Parent Category</label>
+
+                                    <div class="col-lg-8">
+                                        <select class="form-control">
+                                            <option ng-repeat="parent in parentCategories"
+                                                    value="{{parent.categoryId}}">
+                                                {{parent.category}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-2 control-label">Child Category</label>
+
+                                    <div class="col-lg-8">
+                                        <select ng-model="item.category.categoryId" class="form-control">
+                                            <option ng-repeat="child in categories" value="{{child.categoryId}}">
+                                                {{child.category}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-2 control-label">Default Profit &amp; Type</label>
+
+                                    <div class="col-lg-8">
+                                        <div class="col-lg-6" style="padding-left: 0px;">
+                                            <select ng-model="item.defaultProfit.profitId"
+                                                    class="form-control col-lg-4">
+                                                <option ng-repeat="profit in profits" value="{{profit.profitId}}">
+                                                    {{profit.value}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6" style="padding-right: 0px;">
+                                            <select ng-model="profit" class="form-control col-lg-4">
+                                                <option value="MARGIN">Margin</option>
+                                                <option value="PERCENTAGE">Percentage</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-lg-2 control-label">Unit</label>
-
-                    <div class="col-lg-8">
-                        <select ng-model="item.unit.unitId" class="form-control">
-                            <option ng-repeat="unit in units" value="{{unit.unitId}}">{{unit.unit}}</option>
-                        </select>
+                    <div class="row">
+                        <div class="col-lg-offset-10 col-lg-2">
+                            <button ng-click="addItem()" class="btn btn-default pull-right btn-primary">Add Item
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group row">
-                    <label class="col-lg-2 control-label">Parent Category</label>
-
-                    <div class="col-lg-8">
-                        <select class="form-control">
-                            <option ng-repeat="parent in parentCategories" value="{{parent.categoryId}}">
-                                {{parent.category}}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-lg-2 control-label">Child Category</label>
-
-                    <div class="col-lg-8">
-                        <select ng-model="item.category.categoryId" class="form-control">
-                            <option ng-repeat="child in categories" value="{{child.categoryId}}">{{child.category}}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-lg-2 control-label">Default Profit &amp; Type</label>
-
-                    <div class="col-lg-8">
-                        <div class="col-lg-6" style="padding-left: 0px;">
-                            <select ng-model="item.defaultProfit.profitId" class="form-control col-lg-4">
-                                <option ng-repeat="profit in profits" value="{{profit.profitId}}">{{profit.value}}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="col-lg-6" style="padding-right: 0px;">
-                            <select ng-model="profit" class="form-control col-lg-4">
-                                <option value="MARGIN">Margin</option>
-                                <option value="PERCENTAGE">Percentage</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </fieldset>
+        </div>
     </div>
-    <br/>
-
-    <div class="row">
-        <button ng-click="addItem()" class="btn btn-default pull-right btn-primary">Add Item</button>
-    </div>
+    <!-- /.row -->
 </div>
 

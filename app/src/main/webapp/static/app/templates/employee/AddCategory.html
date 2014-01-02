@@ -1,27 +1,39 @@
 <div ng-controller="AddCategoryCtrl">
     <div class="row">
-        <fieldset>
-            <legend>Category</legend>
-            <div class="form-group">
-            <label class="col-lg-3 control-label">Category</label>
-                <div class="col-lg-9">
-                    <input ng-model="category.category" type="text" class="form-control" placeholder="Category"/>
+        <div class="col-lg-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Add Category </h3>
+                </div>
+                <div class="panel-body" style="margin: 10px;">
+                    <div class="row">
+                        <fieldset>
+                            <div class="form-group row">
+                                <label class="col-lg-3 control-label">Category</label>
+
+                                <div class="col-lg-9">
+                                    <input ng-model="category.category" type="text" class="form-control"
+                                           placeholder="Category"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-lg-3 control-label">Parent Category</label>
+
+                                <div class="col-lg-9">
+                                    <input type="text" ng-model="parentCategoryName" class="form-control"
+                                           bs-typeahead="getParentTypeahead">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="row">
+                        <button class="btn pull-right btn-default btn-primary" ng-click="save()">Add</button>
+                    </div>
                 </div>
             </div>
-
-            <div class="form-group">
-                <label class="col-lg-3 control-label">Parent Category</label>
-                <div class="col-lg-9">
-                    <input type="text" ng-model="parentCategoryName" class="form-control"
-                           bs-typeahead="getParentTypeahead">
-                </div>
-            </div>
-        </fieldset>
+        </div>
     </div>
-    <br/>
-    <br/>
-
-    <div class="row">
-        <button class="btn pull-right btn-default btn-primary" ng-click="save()">Add</button>
-    </div>
+    <!-- /.row -->
 </div>

@@ -6,13 +6,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        ng-click="closeModal();">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Update user</h4>
             </div>
             <div class="modal-body">
                 <p>Enter the Username of the account.</p>
 
-                <div class="form-group">
+                <div class="form-group row">
                     <label class="col-lg-3 control-label">Username</label>
 
                     <div class="col-lg-9">
@@ -22,7 +23,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn" ng-click="dontRememberUsername()">
-                Don't remember the username
+                    Don't remember the username
                 </button>
                 <button type="button" class="btn btn-primary btn-default" ng-click="getUserByUsername()">OK</button>
             </div>
@@ -34,16 +35,29 @@
 <!-- /.modal (End of Get User Name Modal) -->
 
 <div class="row">
+<div class="col-lg-12">
+<div class="panel panel-primary">
+<div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Edit User Details </h3>
+</div>
+<div class="panel-body" style="margin: 10px;">
+<div class="row">
     <fieldset>
         <legend>Basic</legend>
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-md-4">
+            <div class="form-group row">
                 <label class="col-lg-3">Username</label>
                 <label class="col-lg-9">{{user.username}}</label>
             </div>
-            <br/>
-
-            <div class="form-group">
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">User Type</label>
+                <label class="col-lg-9">{{userType.type}}</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
                 <label class="col-lg-3 control-label">User State</label>
 
                 <div class="col-lg-9 controls">
@@ -54,12 +68,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="col-lg-3 control-label">User Type</label>
-                <label class="col-lg-9">{{userType.type}}</label>
-            </div>
-        </div>
     </fieldset>
 </div>
 <br/>
@@ -68,7 +76,7 @@
     <fieldset>
         <legend>Change Password</legend>
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group row">
                 <label class="col-lg-3 control-label">Old Password</label>
 
                 <div class="col-lg-9 controls">
@@ -78,7 +86,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group row">
                 <label class="col-lg-3 control-label">Confirm Password</label>
 
                 <div class="col-lg-9 controls">
@@ -86,12 +94,15 @@
                            placeholder="Confirm Password" ng-change="userPasswordChanged()">
                 </div>
             </div>
-            <div class="form-group">
+
+
+            <div class="form-group row">
                 <label class="col-lg-3 control-label">New Password</label>
 
                 <div class="col-lg-9 controls">
                     <input ng-model="userPassword.newPass" type="password" class="form-control"
-                           placeholder="New Password" ng-change="userPasswordChanged()">
+                           placeholder="New Password"
+                           ng-change="userPasswordChanged()">
                 </div>
             </div>
         </div>
@@ -103,7 +114,7 @@
     <fieldset>
         <legend>Contact Details</legend>
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group row">
                 <label class="col-lg-3 control-label">Name</label>
 
                 <div class="col-lg-9 controls">
@@ -111,7 +122,7 @@
                            ng-change="contactDetailsChanged()">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group row">
                 <label class="col-lg-3 control-label">Email</label>
 
                 <div class="col-lg-9 controls">
@@ -119,7 +130,7 @@
                            ng-change="contactDetailsChanged()">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group row">
                 <label class="col-lg-3 control-label">Address Line 1</label>
 
                 <div class="col-lg-9 controls">
@@ -127,7 +138,7 @@
                            placeholder="Address Line 1" ng-change="contactDetailsChanged()">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group row">
                 <label class="col-lg-3 control-label">Address Line 2</label>
 
                 <div class="col-lg-9 controls">
@@ -137,7 +148,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group row">
                 <label class="col-lg-3 control-label">City</label>
 
                 <div class="col-lg-9 controls">
@@ -145,7 +156,7 @@
                            ng-change="contactDetailsChanged()">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group row">
                 <label class="col-lg-3 control-label">Province</label>
 
                 <div class="col-lg-9 controls">
@@ -153,7 +164,7 @@
                            placeholder="Province" ng-change="contactDetailsChanged()">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group row">
                 <label class="col-lg-3 control-label">Postal Code</label>
 
                 <div class="col-lg-9 controls">
@@ -161,7 +172,7 @@
                            placeholder="Postal Code" ng-change="contactDetailsChanged()">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group row">
                 <label class="col-lg-3 control-label">Country</label>
 
                 <div class="col-lg-9 controls">
@@ -169,7 +180,7 @@
                            ng-change="contactDetailsChanged()">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group row">
                 <label class="col-lg-3 control-label">Telephone</label>
 
                 <div class="col-lg-9 controls">
@@ -180,13 +191,14 @@
         </div>
     </fieldset>
 </div>
-<br/>
+
+<br ng-show="isEmployee()"/>
 
 <div class="row" ng-show="isEmployee()">
     <fieldset>
         <legend>Work Details</legend>
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group row">
                 <label class="col-lg-3 control-label">Surname</label>
 
                 <div class="col-lg-9 controls">
@@ -194,7 +206,7 @@
                            ng-change="employeeNameChanged()">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group row">
                 <label class="col-lg-3 control-label">Name referred by initials</label>
 
                 <div class="col-lg-9 controls">
@@ -204,7 +216,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group row">
                 <label class="col-lg-3 control-label">Initials</label>
 
                 <div class="col-lg-9 controls">
@@ -216,7 +228,7 @@
         <br/>
         <br/>
 
-        <div class="col-md-12 form-group">
+        <div class="col-md-12 form-group row">
             <div class="col-lg-12 table-responsive">
                 <table class="table table-hover">
                     <thead>
@@ -265,9 +277,14 @@
         </div>
     </fieldset>
 </div>
-<br/>
-
 <div class="row">
-    <a class="btn pull-right btn-primary" ng-click="update()">Save</a>
+    <div class="col-lg-offset-10 col-lg-2">
+        <a class="btn pull-right btn-primary" ng-click="update()">Save</a>
+    </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<!-- /.row -->
 </div>

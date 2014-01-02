@@ -74,7 +74,7 @@
 
 
         <!--Todo list-->
-        <intercept-url pattern="/todo/list" access="hasAnyRole('ROLE_ANONYMOUS')"/>
+        <intercept-url pattern="/todo/list" access="hasAnyRole('employee','sales_person')"/>
 
         <form-login login-page="/login" authentication-failure-url="/error" default-target-url="/"
                     authentication-success-handler-ref="customBasicAuthFilter"/>
