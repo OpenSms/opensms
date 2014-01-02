@@ -37,7 +37,7 @@ public class HomeController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String homeForm(Principal principal) {
         if (principal != null) {
-            User activeUser = (User)((Authentication) principal).getPrincipal();
+            User activeUser = (User) ((Authentication) principal).getPrincipal();
             LOG.info(activeUser);
         }
         LOG.info("Welcome home!");
@@ -94,5 +94,12 @@ public class HomeController {
     List<UserRole> getUserRoles() {
         User user = (User) context.getSession().getAttribute("user");
         return userDAOService.getUserRoles(user.getUserId());
+    }
+
+    @RequestMapping(value = "/isUserLoggedIn", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    boolean isUserLoggedIn() {
+        return context.getSession().getAttribute("user") != null;
     }
 }

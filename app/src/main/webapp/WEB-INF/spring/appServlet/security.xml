@@ -8,6 +8,29 @@
     <http auto-config="true" use-expressions="true">
         <intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS')"/>
 
+        <!-- template page urls -->
+        <intercept-url pattern="/static/app/templates/employee/AddCategory.html"
+                       access="hasAnyRole('insert_item', 'edit_item')"/>
+        <intercept-url pattern="/static/app/templates/employee/AddItem.html" access="hasAnyRole('insert_item')"/>
+        <intercept-url pattern="/static/app/templates/employee/AddProfit.html"
+                       access="hasAnyRole('insert_item', 'edit_item', 'create_grn_order', 'edit_grn_order')"/>
+        <intercept-url pattern="/static/app/templates/employee/AddUnit.html"
+                       access="hasAnyRole('insert_item', 'edit_item')"/>
+        <intercept-url pattern="/static/app/templates/employee/CreateIISOrder.html"
+                       access="hasAnyRole('create_iis_order')"/>
+        <intercept-url pattern="/static/app/templates/employee/GrnOrderWizard.html"
+                       access="hasAnyRole('create_grn_order')"/>
+        <intercept-url pattern="/static/app/templates/employee/ItemList.html"
+                       access="hasAnyRole('customer', 'employee')"/>
+        <intercept-url pattern="/static/app/templates/index.html"
+                       access="hasAnyRole('customer', 'employee', 'vendor')"/>
+        <intercept-url pattern="/static/app/templates/PreOrder.html" access="hasAnyRole('customer')"/>
+        <intercept-url pattern="/static/app/templates/SearchUsers.html" access="hasAnyRole('employee')"/>
+        <intercept-url pattern="/static/app/templates/UpdateUser.html" access="hasAnyRole('edit_user')"/>
+        <intercept-url pattern="/static/app/templates/UserRegistration.html" access="hasAnyRole('create_user')"/>
+
+        
+        <!-- internal mappings -->
         <intercept-url pattern="/category/all" access="hasAnyRole('employee','customer','vendor')"/>
         <intercept-url pattern="/category/allparents" access="hasAnyRole('employee','customer','vendor')"/>
         <intercept-url pattern="/category/save" access="hasAnyRole('insert_item', 'edit_item')"/>
