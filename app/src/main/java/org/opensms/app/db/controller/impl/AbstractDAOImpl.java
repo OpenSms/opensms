@@ -57,9 +57,9 @@ public class AbstractDAOImpl<T extends EntityInterface<E>, E extends Serializabl
     public List<T> getAll() {
         Criteria criteria = getCurrentSession().createCriteria(entityClass);
         List<T> list = criteria.list();
-        for (T entiy : list) {
-            Hibernate.initialize(entiy);
-        }
+//        for (T entiy : list) {
+//            Hibernate.initialize(entiy);
+//        }
         return list;
     }
 
@@ -84,7 +84,7 @@ public class AbstractDAOImpl<T extends EntityInterface<E>, E extends Serializabl
 
     @Override
     public T get(E id) {
-        return (T) getCurrentSession().getSessionFactory().openSession().get(entityClass, id);
+        return (T) getCurrentSession().get(entityClass, id);
     }
 
     /**

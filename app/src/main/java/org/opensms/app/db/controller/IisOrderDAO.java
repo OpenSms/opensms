@@ -19,4 +19,6 @@ public interface IisOrderDAO extends AbstractDAO<IisOrder, Long> {
      * @return
      */
     List<IisOrder> getAll(Integer empid);
+
+    IisOrder getOpenOrder(String sales_person);
 }

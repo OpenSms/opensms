@@ -21,7 +21,8 @@ AddCategoryCtrl = function($scope, $http, $location, $routeParams) {
       return console.log("error in 'category/allparents?hint='");
     });
     return $http.post("category/save", $scope.category).success(function(data) {
-      return console.log("category saved");
+      console.log("category saved");
+      return $location.path("/");
     }).error(function(data) {
       return console.log("error in category/save");
     });

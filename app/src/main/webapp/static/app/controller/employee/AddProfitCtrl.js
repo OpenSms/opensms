@@ -5,7 +5,8 @@ AddProfitCtrl = function($scope, $http, $location, $routeParams) {
   return $scope.save = function() {
     console.log($scope.profit);
     return $http.post("profit/save", $scope.profit).success(function(data) {
-      return console.log("profit saved");
+      console.log("profit saved");
+      return $location.path("/");
     }).error(function(data) {
       return console.log("error in profit/save");
     });

@@ -38,6 +38,7 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.transaction.auto_close_session">false</prop>
             </props>
         </property>
 

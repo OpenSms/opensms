@@ -37,18 +37,14 @@ public class HomeController {
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String homeForm(Model model, Principal principal) {
-
-
         if (principal != null) {
             User activeUser = (User)((Authentication) principal).getPrincipal();
             LOG.info(activeUser);
         }
         LOG.info("Welcome home!");
-
         if (context.getSession().getAttribute("user") != null) {
             return "home";
         }
-
         return "login";
     }
 

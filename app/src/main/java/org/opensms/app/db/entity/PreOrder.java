@@ -25,11 +25,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Proxy;
 
 /**
  *
@@ -37,13 +36,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @Entity
 @Table(name = "pre_order")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PreOrder.findAll", query = "SELECT p FROM PreOrder p"),
     @NamedQuery(name = "PreOrder.findByPreOrderId", query = "SELECT p FROM PreOrder p WHERE p.preOrderId = :preOrderId"),
     @NamedQuery(name = "PreOrder.findByPreOrderDate", query = "SELECT p FROM PreOrder p WHERE p.preOrderDate = :preOrderDate"),
     @NamedQuery(name = "PreOrder.findByPriority", query = "SELECT p FROM PreOrder p WHERE p.priority = :priority"),
     @NamedQuery(name = "PreOrder.findByIsOpen", query = "SELECT p FROM PreOrder p WHERE p.isOpen = :isOpen")})
+@Proxy(lazy = false)
 public class PreOrder implements Serializable, EntityInterface<Long> {
     private static final long serialVersionUID = 1L;
     @Id
@@ -67,6 +66,7 @@ public class PreOrder implements Serializable, EntityInterface<Long> {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "preOrder1", fetch = FetchType.EAGER)
     private List<PreOrderHasItem> preOrderHasItemList;
+    @JsonIgnore
     @JoinColumn(name = "iis_order", referencedColumnName = "iis_order_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private IisOrder iisOrder;
@@ -120,7 +120,6 @@ public class PreOrder implements Serializable, EntityInterface<Long> {
         this.isOpen = isOpen;
     }
 
-    @XmlTransient
     @JsonIgnore
     public List<PreOrderHasItem> getPreOrderHasItemList() {
         return preOrderHasItemList;

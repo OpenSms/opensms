@@ -26,7 +26,6 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-@Transactional
 public class IisOrderDAOService {
     private static final Logger LOGGER = Logger.getLogger(IisOrderDAOService.class);
 
@@ -50,6 +49,8 @@ public class IisOrderDAOService {
      * @param iisOrderModel
      */
 
+
+    @Transactional
     public void saveIisOrder(IisOrderModel iisOrderModel) {
         IisOrder iisOrder = iisOrderModel.getIisOrder();
 
@@ -119,9 +120,26 @@ public class IisOrderDAOService {
 
     }
 
+
+    @Transactional
     public List<IisOrder> getAll(String empid) {
 
 
         return null;  //To change body of created methods use File | Settings | File Templates.
+    }
+
+
+
+    @Transactional
+    public IisOrder getOpenOrder(String sales_person) {
+
+
+        IisOrder  iisOrder=iisOrderDAO.getOpenOrder(sales_person);
+
+
+
+
+
+        return iisOrder;
     }
 }
