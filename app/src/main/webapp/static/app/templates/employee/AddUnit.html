@@ -1,20 +1,29 @@
 <div ng-controller="AddUnitCtrl">
     <div class="row">
-        <fieldset>
-            <legend>Category</legend>
-            <div class="form-group">
-            <label class="col-lg-3 control-label">Unit</label>
+        <div class="col-lg-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Add Unit </h3>
+                </div>
+                <div class="panel-body" style="margin: 10px;">
+                    <div class="row">
+                        <fieldset>
+                            <div class="form-group row">
+                                <label class="col-lg-3 control-label">Unit</label>
 
-                <div class="col-lg-9">
-                    <input ng-model="unit.unit" type="text" class="form-control" placeholder="Unit"/>
+                                <div class="col-lg-9">
+                                    <input ng-model="unit.unit" type="text" class="form-control" placeholder="Unit"/>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="row">
+                        <button class="btn pull-right btn-default btn-primary" ng-click="save()">Add</button>
+                    </div>
                 </div>
             </div>
-        </fieldset>
+        </div>
     </div>
-    <br/>
-    <br/>
-
-    <div class="row">
-        <button class="btn pull-right btn-default btn-primary" ng-click="save()">Add</button>
-    </div>
+    <!-- /.row -->
 </div>

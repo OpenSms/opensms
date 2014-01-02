@@ -27,6 +27,12 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
   $scope.detailsUpdated.employeeNames = false
   $scope.detailsUpdated.employeeRoles = false
 
+  $scope.closeModal = () ->
+    $("#getUserNameModal").modal('hide')
+    $("body").removeClass('modal-open')
+    $(".modal-backdrop").remove()
+    $location.path("/")
+    $scope.apply()
 
   # open modal and ask for user name when user id is not passed through url
   if Number($routeParams.userId) is -1
@@ -57,6 +63,11 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
     $(".modal-backdrop").remove()
 
     $http.get("/user?username=" + $scope.user.username).success((data) ->
+      if data.userId is undefined
+        alert "Error user with username '" + $scope.user.username + "' does not exists."
+        $location.path("/UpdateUser")
+        $scope.apply()
+
       $scope.user = data
 
       $scope.getUserContactDetails()
@@ -64,6 +75,8 @@ UpdateUserCtrl = ($scope, $http, $location, $routeParams) ->
       $scope.getUserType()
 
     ).error((data) ->
+      $location.path("/UpdateUser")
+      $scope.apply()
       console.log("error while retriving data '/user?username='")
     )
 
