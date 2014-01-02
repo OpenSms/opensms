@@ -56,7 +56,7 @@
 
         <form-login login-page="/login" authentication-failure-url="/login_error" default-target-url="/"
                     authentication-success-handler-ref="customBasicAuthFilter"/>
-        <logout logout-success-url="/logout" invalidate-session="true"/>
+        <logout logout-success-url="/login" invalidate-session="true"/>
 
     </http>
 

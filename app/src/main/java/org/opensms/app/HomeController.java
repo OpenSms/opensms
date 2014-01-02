@@ -11,7 +11,6 @@ import org.opensms.app.db.service.UserDAOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,10 +32,10 @@ public class HomeController {
     private HttpServletRequest context;
 
     /**
-     * Simply selects the home view to render by returning its name.
+     * Home View
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String homeForm(Model model, Principal principal) {
+    public String homeForm(Principal principal) {
         if (principal != null) {
             User activeUser = (User)((Authentication) principal).getPrincipal();
             LOG.info(activeUser);
@@ -49,10 +48,10 @@ public class HomeController {
     }
 
     /**
-     * Simply selects the home view to render by returning its name.
+     * Log in page.
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginForm(Model model) {
+    public String loginForm() {
         LOG.info("Welcome home!");
         if (context.getSession().getAttribute("user") != null) {
             return "home";
@@ -61,27 +60,15 @@ public class HomeController {
     }
 
     /**
-     * Simply selects the home view to render by returning its name.
+     * Login Error
      */
-    @RequestMapping(value = "/error", method = RequestMethod.GET)
-    public String errorForm(Model model) {
+    @RequestMapping(value = "/login_error", method = RequestMethod.GET)
+    public String errorForm() {
         LOG.info("Welcome home!");
         if (context.getSession().getAttribute("user") != null) {
             return "home";
         }
-        return "error";
-    }
-
-    /**
-     * Simply selects the home view to render by returning its name.
-     */
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logoutForm(Model model) {
-        LOG.info("Welcome home!");
-        if (context.getSession().getAttribute("user") != null) {
-            return "logout";
-        }
-        return "logout";
+        return "errorPages/login_error";
     }
 
     /**
@@ -96,6 +83,11 @@ public class HomeController {
         return (User) context.getSession().getAttribute("user");
     }
 
+    /**
+     * Get current
+     *
+     * @return List<UserRole>
+     */
     @RequestMapping(value = "/currentuserroles", method = RequestMethod.GET)
     public
     @ResponseBody
