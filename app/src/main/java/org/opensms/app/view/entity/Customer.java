@@ -13,6 +13,7 @@ public class Customer {
     private String contactNumber;
     private String email;
     private String firstName;
+    private Location location;
 
 
     public void setCustomerDetails(org.opensms.app.db.entity.Customer customer, UserContactDetail contactDetail) {
@@ -23,13 +24,34 @@ public class Customer {
 
         }
 
+        location = new Location();
         if (contactDetail != null) {
+
+            location.setCity(contactDetail.getCity());
+            location.setStreet(contactDetail.getAddressLine1() + "," + contactDetail.getAddressLine2());
+            location.setProvince(contactDetail.getProvince());
+            location.setPostalcode(contactDetail.getPostalCode());
+
             contactNumber = contactDetail.getPhoneNumber();
             email = contactDetail.getEmail();
+        } else {
+            location.setPostalcode("SYSTEM");
+            location.setCity("SYSTEM");
+            location.setStreet("SYSTEM");
+            location.setProvince("SYSTEM");
+
         }
+
 
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 
     public int getUser_id() {
         return user_id;

@@ -40,7 +40,6 @@ public class ToDoListController {
         TripData tripData = new TripData();
         IisOrder iisOrder = iisOrderDAOService.getOpenOrder(sales_person);
         tripData.setIssue_emp_id(iisOrder.getItemIssuerEmployee().getId());
-
         List<PreOrder> preOrderList = iisOrder.getPreOrderList();
         for (PreOrder preOrder :preOrderList) {
             Customer customer = new Customer();
@@ -52,6 +51,8 @@ public class ToDoListController {
             tripData.addCustomer(customer);
             tripData.addPreOrder(order);
         }
+
+
 
         return tripData;
     }
