@@ -72,6 +72,10 @@
         <intercept-url pattern="/category/allparents" access="hasAnyRole('employee','customer','vendor')"/>
         <intercept-url pattern="/category/all" access="hasAnyRole('employee','customer','vendor')"/>
 
+
+        <!--Todo list-->
+        <intercept-url pattern="/todo/list" access="hasAnyRole('employee','sales_person')"/>
+
         <form-login login-page="/login" authentication-failure-url="/error" default-target-url="/"
                     authentication-success-handler-ref="customBasicAuthFilter"/>
         <logout logout-success-url="/logout" invalidate-session="true"/>

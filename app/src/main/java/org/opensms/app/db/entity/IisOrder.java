@@ -5,6 +5,8 @@
  */
 package org.opensms.app.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -25,9 +27,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -35,11 +34,11 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 @Entity
 @Table(name = "iis_order")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "IisOrder.findAll", query = "SELECT i FROM IisOrder i"),
     @NamedQuery(name = "IisOrder.findByIisOrderId", query = "SELECT i FROM IisOrder i WHERE i.iisOrderId = :iisOrderId"),
     @NamedQuery(name = "IisOrder.findByIssOrderDateTime", query = "SELECT i FROM IisOrder i WHERE i.issOrderDateTime = :issOrderDateTime")})
+
 public class IisOrder implements Serializable, EntityInterface<Long> {
     private static final long serialVersionUID = 1L;
     @Id
@@ -93,7 +92,6 @@ public class IisOrder implements Serializable, EntityInterface<Long> {
         this.issOrderDateTime = issOrderDateTime;
     }
 
-    @XmlTransient
     @JsonIgnore
     public List<PreOrder> getPreOrderList() {
         return preOrderList;
