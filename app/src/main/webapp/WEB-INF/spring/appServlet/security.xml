@@ -54,7 +54,7 @@
 
         <intercept-url pattern="/vendor/save" access="hasAnyRole('create_user')"/>
 
-        <form-login login-page="/login" authentication-failure-url="/error" default-target-url="/"
+        <form-login login-page="/login" authentication-failure-url="/login_error" default-target-url="/"
                     authentication-success-handler-ref="customBasicAuthFilter"/>
         <logout logout-success-url="/logout" invalidate-session="true"/>
 
