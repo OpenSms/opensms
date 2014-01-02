@@ -4,6 +4,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.opensms.app.db.entity.User;
+import org.opensms.app.db.entity.UserRole;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -155,8 +156,6 @@ public class UserDAOController extends AbstractDAOImpl<User, Integer> {
             query.setString("type", type);
 
 
-
-
         }
 
         query.setString("queryString", queryString);
@@ -165,5 +164,35 @@ public class UserDAOController extends AbstractDAOImpl<User, Integer> {
         // query.setString("queryIdString", queryIdString);
 
         return list;
+    }
+
+    public String getUserType(Integer userId) {
+
+        Query query = getCurrentSession().createQuery("SELECT u FROM  User u WHERE u.userId = :userId");
+        query.setInteger("userId", userId);
+
+        User user = (User) query.uniqueResult();
+        List<UserRole> userRoles = user.getUserRoleList();
+
+        String type = "undefineduser";
+
+        for (UserRole role : userRoles) {
+            if (role.getRole1().getDescription().equalsIgnoreCase("customer")) {
+                type = "customer";
+                break;
+            }
+
+            if (role.getRole1().getDescription().equalsIgnoreCase("employee")) {
+                type = "employee";
+                break;
+            }
+
+            if (role.getRole1().getDescription().equalsIgnoreCase("vendor")) {
+                type = "vendor";
+                break;
+            }
+        }
+
+        return type;
     }
 }

@@ -84,4 +84,8 @@ public class UserDAOService {
     public List<User> search(String query, String type) {
         return userDAOController.search(query, type);
     }
+
+    public String getUserType(Integer userId) {
+        return userDAOController.getUserType(userId);
+    }
 }

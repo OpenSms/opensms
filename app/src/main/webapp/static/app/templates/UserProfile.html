@@ -1,0 +1,229 @@
+<div ng-controller="UserProfileCtrl">
+
+<div class="row">
+<div class="col-lg-12">
+<div class="panel panel-primary">
+<div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Profile </h3>
+</div>
+<div class="panel-body" style="margin: 10px;">
+<div class="row">
+    <fieldset>
+        <legend>Basic</legend>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <label class="col-lg-3">Username</label>
+                <label class="col-lg-9">{{user.username}}</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <label class="col-lg-3">User Type</label>
+                <label class="col-lg-9">{{userType.type}}</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">User State</label>
+                <label class="col-lg-9">{{userType.type && 'Activated' || 'Deactivated'}}</label>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<br/>
+
+<div class="row">
+    <fieldset>
+        <legend>Change Password</legend>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Old Password</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="userPassword.oldPass" type="password" class="form-control"
+                           placeholder="Old Password" ng-change="userPasswordChanged()">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Confirm Password</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="userPassword.confirmPass" type="password" class="form-control"
+                           placeholder="Confirm Password" ng-change="userPasswordChanged()">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">New Password</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="userPassword.newPass" type="password" class="form-control"
+                           placeholder="New Password" ng-change="userPasswordChanged()">
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<br/>
+
+<div class="row">
+    <fieldset>
+        <legend>Contact Details</legend>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Name</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="contactDetails.name" type="text" class="form-control" placeholder="Name"
+                           ng-change="contactDetailsChanged()">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Email</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="contactDetails.email" type="email" class="form-control" placeholder="Email"
+                           ng-change="contactDetailsChanged()">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Address Line 1</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="contactDetails.addressLine1" type="text" class="form-control"
+                           placeholder="Address Line 1" ng-change="contactDetailsChanged()">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Address Line 2</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="contactDetails.addressLine2" type="text" class="form-control"
+                           placeholder="Address Line 2" ng-change="contactDetailsChanged()">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">City</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="contactDetails.city" type="text" class="form-control" placeholder="City"
+                           ng-change="contactDetailsChanged()">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Province</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="contactDetails.province" type="text" class="form-control"
+                           placeholder="Province" ng-change="contactDetailsChanged()">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Postal Code</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="contactDetails.postalCode" type="text" class="form-control"
+                           placeholder="Postal Code" ng-change="contactDetailsChanged()">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Country</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="contactDetails.country" type="text" class="form-control" placeholder="Country"
+                           ng-change="contactDetailsChanged()">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Telephone</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="contactDetails.phoneNumber" type="text" class="form-control"
+                           placeholder="Telephone Number" ng-change="contactDetailsChanged()">
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+
+<br ng-show="isEmployee()"/>
+
+<div class="row" ng-show="isEmployee()">
+    <fieldset>
+        <legend>Work Details</legend>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Surname</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="employee.surname" type="text" class="form-control" placeholder="Surname"
+                           ng-change="employeeNameChanged()">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Name referred by initials</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="employee.nameReferredByInitials" type="text" class="form-control"
+                           placeholder="Name referred by initials" ng-change="employeeNameChanged()">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Initials</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="employee.initials" type="text" class="form-control" placeholder="Initials"
+                           ng-change="employeeNameChanged()">
+                </div>
+            </div>
+        </div>
+        <br/>
+        <br/>
+
+        <div class="col-md-12 form-group row">
+            <div class="col-lg-12 table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Assign Date</th>
+                        <th>Resign Date</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr ng-repeat="userRole in userRoles">
+                        <td>{{ userRole.role1.description }}</td>
+                        <td>{{userRole.active && 'Activated' || 'Deactivated'}}</td>
+                        <td>
+                            {{ userRole.userRolePK.assignDate | date:'yyyy-MM-dd HH:mm:ss Z'}}
+                        </td>
+                        <td>
+                            {{ userRole.resignDate | date:'yyyy-MM-dd HH:mm:ss Z'}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<div class="row">
+    <div class="col-lg-offset-10 col-lg-2">
+        <a class="btn pull-right btn-primary" ng-click="update()">Save</a>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- /.row -->
+</div>
