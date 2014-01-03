@@ -5,6 +5,8 @@
  */
 package org.opensms.app.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -23,7 +25,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -36,7 +37,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "PaymentMethod.findAll", query = "SELECT p FROM PaymentMethod p"),
     @NamedQuery(name = "PaymentMethod.findByPaymentMethodId", query = "SELECT p FROM PaymentMethod p WHERE p.paymentMethodId = :paymentMethodId"),
     @NamedQuery(name = "PaymentMethod.findByDescription", query = "SELECT p FROM PaymentMethod p WHERE p.description = :description")})
-public class PaymentMethod implements Serializable {
+public class PaymentMethod implements Serializable, EntityInterface<Integer> {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -125,5 +126,9 @@ public class PaymentMethod implements Serializable {
     public String toString() {
         return "org.opensms.app.db.entity.PaymentMethod[ paymentMethodId=" + paymentMethodId + " ]";
     }
-    
+
+    @Override
+    public Integer getId() {
+        return getPaymentMethodId();
+    }
 }
