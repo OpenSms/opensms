@@ -1,5 +1,4 @@
-app = angular.module "main-app",
-  ["$strap.directives", "ngTable", "services.breadcrumbs"], ($routeProvider, $locationProvider) ->
+app = angular.module "main-app", ["$strap.directives", "ngTable", "services.breadcrumbs"], ($routeProvider, $locationProvider) ->
   $routeProvider.when "/",
     templateUrl: "./static/app/templates/index.html"
     controller: checkLogginInCtrl
@@ -91,5 +90,6 @@ checkLogginInCtrl = ($http) ->
     window.location = "/"
   )
 
-BreadcrumbCtrl = ($scope, breadcrumbs) ->
+app.controller "BreadcrumbCtrl", ["$scope", "breadcrumbs", ($scope, breadcrumbs) ->
   $scope.breadcrumbs = breadcrumbs
+]
