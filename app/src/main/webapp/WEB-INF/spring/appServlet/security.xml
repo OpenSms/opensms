@@ -13,7 +13,7 @@
         <intercept-url pattern="/user/save" access="hasAnyRole('create_user')"/>
         <intercept-url pattern="/contactdetails/save" access="hasAnyRole('create_user')"/>
         <intercept-url pattern="/employee/save" access="hasAnyRole('create_user')"/>
-        <intercept-url pattern="/customer/save" access="hasAnyRole('create_user')"/>
+        <intercept-url pattern="/customer/save" access="hasAnyRole('create_user','create_customer')"/>
         <intercept-url pattern="/vendor/save" access="hasAnyRole('create_user')"/>
 
         <!-- update user -->
