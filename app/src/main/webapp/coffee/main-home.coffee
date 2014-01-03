@@ -15,6 +15,10 @@ app = angular.module "main-app", ["$strap.directives", "ngTable"], ($routeProvid
     templateUrl: "./static/app/templates/UpdateUser.html"
     controller: checkLogginInCtrl
 
+  $routeProvider.when "/UserProfile",
+    templateUrl: "./static/app/templates/UserProfile.html"
+    controller: checkLogginInCtrl
+
   $routeProvider.when "/AddItem",
     templateUrl: "./static/app/templates/employee/AddItem.html"
     controller: checkLogginInCtrl

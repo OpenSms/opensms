@@ -8,77 +8,81 @@
     <http auto-config="true" use-expressions="true">
         <intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS')"/>
 
-        <!-- create user (customer, employee, vendor) -->
-        <intercept-url pattern="/role/all" access="hasAnyRole('create_user')"/>
-        <intercept-url pattern="/user/save" access="hasAnyRole('create_user')"/>
-        <intercept-url pattern="/contactdetails/save" access="hasAnyRole('create_user')"/>
-        <intercept-url pattern="/employee/save" access="hasAnyRole('create_user')"/>
-        <intercept-url pattern="/customer/save" access="hasAnyRole('create_user','create_customer')"/>
-        <intercept-url pattern="/vendor/save" access="hasAnyRole('create_user')"/>
+        <!-- template page urls -->
+        <intercept-url pattern="/static/app/templates/employee/AddCategory.html"
+                       access="hasAnyRole('insert_item', 'edit_item')"/>
+        <intercept-url pattern="/static/app/templates/employee/AddItem.html" access="hasAnyRole('insert_item')"/>
+        <intercept-url pattern="/static/app/templates/employee/AddProfit.html"
+                       access="hasAnyRole('insert_item', 'edit_item', 'create_grn_order', 'edit_grn_order')"/>
+        <intercept-url pattern="/static/app/templates/employee/AddUnit.html"
+                       access="hasAnyRole('insert_item', 'edit_item')"/>
+        <intercept-url pattern="/static/app/templates/employee/CreateIISOrder.html"
+                       access="hasAnyRole('create_iis_order')"/>
+        <intercept-url pattern="/static/app/templates/employee/GrnOrderWizard.html"
+                       access="hasAnyRole('create_grn_order')"/>
+        <intercept-url pattern="/static/app/templates/employee/ItemList.html"
+                       access="hasAnyRole('customer', 'employee')"/>
+        <intercept-url pattern="/static/app/templates/index.html"
+                       access="hasAnyRole('customer', 'employee', 'vendor')"/>
+        <intercept-url pattern="/static/app/templates/PreOrder.html" access="hasAnyRole('customer')"/>
+        <intercept-url pattern="/static/app/templates/SearchUsers.html" access="hasAnyRole('employee')"/>
+        <intercept-url pattern="/static/app/templates/UpdateUser.html" access="hasAnyRole('edit_user')"/>
+        <intercept-url pattern="/static/app/templates/UserRegistration.html" access="hasAnyRole('create_user')"/>
 
-        <!-- update user -->
-        <intercept-url pattern="/user" access="hasAnyRole('edit_user')"/>
-        <intercept-url pattern="/contactdetails" access="hasAnyRole('edit_user')"/>
-        <intercept-url pattern="/employee" access="hasAnyRole('edit_user')"/>
-        <intercept-url pattern="/role/all" access="hasAnyRole('edit_user')"/>
-        <intercept-url pattern="/userrole" access="hasAnyRole('edit_user')"/>
-        <intercept-url pattern="/user/validatepassword" access="hasAnyRole('edit_user')"/>
-        <intercept-url pattern="/user/changepassword" access="hasAnyRole('edit_user')"/>
-        <intercept-url pattern="/user/updatestate" access="hasAnyRole('edit_user')"/>
-        <intercept-url pattern="/contactdetails/update" access="hasAnyRole('edit_user')"/>
-        <intercept-url pattern="/employee/updatenames" access="hasAnyRole('edit_user')"/>
-        <intercept-url pattern="/employee/updateroles" access="hasAnyRole('edit_user')"/>
-
-        <!-- search user -->
-        <intercept-url pattern="/user/search?query=" access="hasAnyRole('employee')"/>
-
-        <!-- customer placing pre order -->
-        <intercept-url pattern="/item/all" access="hasAnyRole('customer')"/>
-        <intercept-url pattern="/preorder/save" access="hasAnyRole('customer')"/>
-
-        <!-- add category -->
-        <intercept-url pattern="/category/all" access="hasAnyRole('insert_item', 'edit_item')"/>
-        <intercept-url pattern="/category/allparents" access="hasAnyRole('insert_item', 'edit_item')"/>
+        
+        <!-- internal mappings -->
+        <intercept-url pattern="/category/all" access="hasAnyRole('employee','customer','vendor')"/>
+        <intercept-url pattern="/category/allparents" access="hasAnyRole('employee','customer','vendor')"/>
         <intercept-url pattern="/category/save" access="hasAnyRole('insert_item', 'edit_item')"/>
 
-        <!-- add profit -->
+        <intercept-url pattern="/contactdetails/save" access="hasAnyRole('create_user', 'edit_user')"/>
+        <intercept-url pattern="/contactdetails/update"
+                       access="hasAnyRole('employee','customer','vendor', 'edit_user')"/>
+
+        <intercept-url pattern="/customer/save" access="hasAnyRole('create_user')"/>
+
+        <intercept-url pattern="/employee" access="hasAnyRole('employee', 'edit_user')"/>
+        <intercept-url pattern="/employee/save" access="hasAnyRole('create_user')"/>
+        <intercept-url pattern="/employee/updatenames" access="hasAnyRole('employee', 'edit_user')"/>
+        <intercept-url pattern="/employee/updateroles" access="hasAnyRole('edit_user')"/>
+
+        <intercept-url pattern="/grnorder/save" access="hasAnyRole('create_grn_order')"/>
+
+        <intercept-url pattern="/iisorder/save" access="hasAnyRole('create_iis_order')"/>
+
+        <intercept-url pattern="/item/all" access="hasAnyRole('employee', 'customer', 'vendor')"/>
+        <intercept-url pattern="/item/save" access="hasAnyRole('insert_item')"/>
+
+        <intercept-url pattern="/preorder/all/open" access="hasAnyRole('create_iis_order')"/>
+        <intercept-url pattern="/preorder/save" access="hasAnyRole('customer')"/>
+
+        <intercept-url pattern="/profit/all" access="hasAnyRole('employee','customer','vendor')"/>
         <intercept-url pattern="/profit/save"
                        access="hasAnyRole('insert_item', 'edit_item', 'create_grn_order', 'edit_grn_order')"/>
 
-        <!-- add unit -->
-        <intercept-url pattern="/unit/save" access="hasAnyRole('insert_item', 'edit_item')"/>
+        <intercept-url pattern="/role/all" access="hasAnyRole('employee', 'create_user', 'edit_user')"/>
 
-        <!-- create iis order -->
-        <intercept-url pattern="/preorder/all/open" access="hasAnyRole('create_iis_order')"/>
-        <intercept-url pattern="/user/search" access="hasAnyRole('create_iis_order')"/>
-        <intercept-url pattern="/iisorder/save" access="hasAnyRole('create_iis_order')"/>
-
-        <!-- create grn order -->
-        <intercept-url pattern="/grnorder/save" access="hasAnyRole('create_grn_order')"/>
-        <intercept-url pattern="/profit/all" access="hasAnyRole('create_grn_order')"/>
-        <intercept-url pattern="/item/all" access="hasAnyRole('create_grn_order')"/>
-        <intercept-url pattern="/user/search" access="hasAnyRole('create_grn_order')"/>
-
-        <!-- insert item -->
-        <intercept-url pattern="/item/save" access="hasAnyRole('insert_item')"/>
-
-        <!-- list all items -->
-        <intercept-url pattern="/item/all" access="hasAnyRole('employee', 'customer', 'vendor')"/>
-
-
-        <!--List All Units-->
-        <intercept-url pattern="/unit/all" access="hasAnyRole('employee','customer','vendor')"/>
-        <intercept-url pattern="/profit/all" access="hasAnyRole('employee','customer','vendor')"/>
-        <intercept-url pattern="/category/allparents" access="hasAnyRole('employee','customer','vendor')"/>
-        <intercept-url pattern="/category/all" access="hasAnyRole('employee','customer','vendor')"/>
-
-
-        <!--Todo list-->
         <intercept-url pattern="/todo/list" access="hasAnyRole('employee','sales_person')"/>
 
-        <form-login login-page="/login" authentication-failure-url="/error" default-target-url="/"
+        <intercept-url pattern="/unit/all" access="hasAnyRole('employee','customer','vendor')"/>
+        <intercept-url pattern="/unit/save" access="hasAnyRole('insert_item', 'edit_item')"/>
+
+        <intercept-url pattern="/user" access="hasAnyRole('edit_user')"/>
+        <intercept-url pattern="/user/changepassword"
+                       access="hasAnyRole('customer', 'employee', 'vendor', 'edit_user')"/>
+        <intercept-url pattern="/user/save" access="hasAnyRole('create_user')"/>
+        <intercept-url pattern="/user/search" access="hasAnyRole('employee', 'create_iis_order', 'create_grn_order')"/>
+        <intercept-url pattern="/user/updatestate" access="hasAnyRole('edit_user')"/>
+        <intercept-url pattern="/user/validatepassword"
+                       access="hasAnyRole('customer', 'employee', 'vendor', 'edit_user')"/>
+
+        <intercept-url pattern="/userrole" access="hasAnyRole('employee', 'edit_user')"/>
+
+        <intercept-url pattern="/vendor/save" access="hasAnyRole('create_user')"/>
+
+        <form-login login-page="/login" authentication-failure-url="/login_error" default-target-url="/"
                     authentication-success-handler-ref="customBasicAuthFilter"/>
-        <logout logout-success-url="/logout" invalidate-session="true"/>
+        <logout logout-success-url="/login" invalidate-session="true"/>
 
     </http>
 
