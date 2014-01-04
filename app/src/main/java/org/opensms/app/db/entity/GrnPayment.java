@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "GrnPayment.findByPayementId", query = "SELECT g FROM GrnPayment g WHERE g.payementId = :payementId"),
     @NamedQuery(name = "GrnPayment.findByAmount", query = "SELECT g FROM GrnPayment g WHERE g.amount = :amount"),
     @NamedQuery(name = "GrnPayment.findByPaymentDate", query = "SELECT g FROM GrnPayment g WHERE g.paymentDate = :paymentDate")})
-public class GrnPayment implements Serializable {
+public class GrnPayment implements Serializable, EntityInterface<Long>  {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,13 +55,13 @@ public class GrnPayment implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date paymentDate;
     @JoinColumn(name = "payment_method", referencedColumnName = "payment_method_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private PaymentMethod paymentMethod;
     @JoinColumn(name = "grn_order", referencedColumnName = "grn_order_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private GrnOrder grnOrder;
     @JoinColumn(name = "cashier_employee", referencedColumnName = "user_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Employee cashierEmployee;
 
     public GrnPayment() {
@@ -149,5 +149,9 @@ public class GrnPayment implements Serializable {
     public String toString() {
         return "org.opensms.app.db.entity.GrnPayment[ payementId=" + payementId + " ]";
     }
-    
+
+    @Override
+    public Long getId() {
+        return getPayementId();
+    }
 }

@@ -10,10 +10,7 @@ import org.opensms.app.view.model.GrnOrderModel;
 import org.opensms.app.view.model.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -57,5 +54,10 @@ public class GrnOrderController {
         grnOrderDAOService.save(order,grnOrder.getBatchList());
 
         return new ResponseMessage(ResponseMessage.Type.success,"saved");
+    }
+
+    @RequestMapping(method = RequestMethod.GET, params = {"grnorderid"})
+    public @ResponseBody GrnOrder getGrnOrder(@RequestParam("grnorderid") Long grnOrderId) {
+        return grnOrderDAOService.getGrnOrder(grnOrderId);
     }
 }

@@ -1,0 +1,124 @@
+<div ng-controller="GrnPaymentCtrl">
+<div class="row">
+<div class="col-lg-12">
+<div class="panel panel-primary">
+<div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> New Grn Payment </h3>
+</div>
+<div class="panel-body" style="margin: 10px;">
+<div class="row">
+    <fieldset>
+        <legend>Basic</legend>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Grn Order ID:</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="grnOrder.grnOrderId" type="number" class="form-control" placeholder="Grn Order Id">
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Payment Method</label>
+
+                <div class="col-lg-9 controls">
+                    <div class="col-lg-9 controls">
+                        <select  class="form-control" ng-model="paymentMethod"
+                                 ng-options="pm.description for pm in paymentMethods"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Amount</label>
+
+                <div class="col-lg-9 controls">
+                    <div class="col-lg-9 controls">
+                        <input ng-model="grnPayment.amount" type="number" class="form-control" placeholder="Amount">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<div class="row">
+    <div class="col-lg-offset-10 col-lg-2">
+        <a class="btn pull-right btn-primary" ng-click="save()">Save</a>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- /.row -->
+
+<div class="row">
+<div class="col-lg-6">
+<div class="panel panel-primary">
+<div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Grn Order </h3>
+</div>
+<div class="panel-body" style="margin: 10px;">
+<div class="row">
+    <fieldset>
+            <div class="form-group row">
+                <label class="col-lg-4 control-label">Received Date</label>
+                <label class="col-lg-8 controls">{{grnOrder.receiveDate | date:'fullDate'}}</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-4 control-label">Vendor Id</label>
+                <label class="col-lg-8 controls">{{grnOrder.vendor.userId}}</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-4 control-label">Vendor Name</label>
+                <label class="col-lg-8 controls">{{grnOrder.vendor.name}}</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-4 control-label">Data Entry Employee Id</label>
+                <label class="col-lg-8 controls">{{grnOrder.dataEntryEmployee.userId}}</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-4 control-label">Data Entry Employee Name</label>
+                <label class="col-lg-8 controls">{{grnOrder.dataEntryEmployee.surname}} {{grnOrder.dataEntryEmployee.initials}}</label>
+            </div>
+    </fieldset>
+</div>
+</div>
+</div>
+</div>
+
+<div class="col-lg-6">
+<div class="panel panel-primary">
+<div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Payments </h3>
+</div>
+<div class="panel-body" style="margin: 10px;">
+<div class="row">
+    <div class="table-responsive">
+        <table class="table table-hover tablesorter">
+            <thead>
+            <tr>
+                <th>Payment ID <i class="fa fa-sort"></i></th>
+                <th>Date <i class="fa fa-sort"></i></th>
+                <th>Payment Method <i class="fa fa-sort"></i></th>
+                <th>Amount <i class="fa fa-sort"></i></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="previousGrnPayment in previousGrnPayments">
+                <td>{{previousGrnPayment.payementId}}</td>
+                <td>{{previousGrnPayment.paymentDate | date:'fullDate'}}</td>
+                <td>{{previousGrnPayment.paymentMethod.description}}</td>
+                <td style="text-align: right">{{previousGrnPayment.amount | currency}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
