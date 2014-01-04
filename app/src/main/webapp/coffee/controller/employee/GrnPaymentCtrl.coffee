@@ -1,4 +1,4 @@
-GrnPaymentCtrl = ($scope, $http) ->
+GrnPaymentCtrl = ($scope, $http, $location) ->
 
   $scope.grnOrder = {}
   $scope.paymentMethod = {}
@@ -43,8 +43,7 @@ GrnPaymentCtrl = ($scope, $http) ->
 
     $http.post("/grnpayment/save", $scope.grnPayment).success(() ->
       console.log "grn payment saved."
+      $location.path("/")
     ).error(() ->
       console.log "error in /grnpayment/save"
     )
-
-    console.log $scope.grnPayment
