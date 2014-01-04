@@ -51,9 +51,9 @@ How to check
 Completed Tasks list
 ----------------------------
 
-  * Simple UI integrate with BS3
-  * Data Base Implementation 
-  * Registration wizard complete with every type users
+  - [ DONE ] Simple UI integrate with BS3
+  - [ DONE ] Data Base Implementation 
+  - [ DONE ] Registration wizard complete with every type users
  
 
 
