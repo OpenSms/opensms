@@ -35,14 +35,10 @@ public class IisOrderController {
     public
     @ResponseBody
     ResponseMessage saveIisOrder(@RequestBody IisOrderModel iisOrderModel) {
-
         User user = (User) httpServletRequest.getSession().getAttribute("user");
         Employee issuerEmployee = employeeDAOService.getEmployee(user.getUserId());
-
         iisOrderModel.getIisOrder().setItemIssuerEmployee(issuerEmployee);
-
         iisOrderDAOService.saveIisOrder(iisOrderModel);
-
         return new ResponseMessage(ResponseMessage.Type.success, "iis order saved.");
     }
 
@@ -52,4 +48,5 @@ public class IisOrderController {
     public List<IisOrder> getEmployeeRelatedIisOrders(@RequestParam(value = "empid") String empid) {
         return iisOrderDAOService.getAll(empid);
     }
+
 }

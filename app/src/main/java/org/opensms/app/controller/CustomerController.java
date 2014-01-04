@@ -34,6 +34,12 @@ public class CustomerController {
     @Autowired
     private UserDAOService userDAOService;
 
+    /**
+     * Save user entity
+     *
+     * @param customer
+     * @return
+     */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public @ResponseBody ResponseMessage saveCustomer(@RequestBody Customer customer) {
         customerDAOService.saveCustomer(customer);
@@ -41,7 +47,13 @@ public class CustomerController {
     }
 
 
-
+    /**
+     *
+     * Save user from android client request
+     *
+     * @param customer
+     * @return
+     */
     @RequestMapping(value = "/save", method = RequestMethod.PUT)
     public @ResponseBody ResponseMessage saveCustomer(@RequestBody org.opensms.app.view.entity.Customer customer) {
 
@@ -50,10 +62,8 @@ public class CustomerController {
         user.setPassword(customer.getNicNumber());
         user.setUsername(customer.getNicNumber());
 
-
         cus.setUser(user);
         cus.setName(customer.getFirstName());
-
 
         UserContactDetail userContactDetail=new UserContactDetail();
         userContactDetail.setName(customer.getFirstName());
@@ -61,12 +71,18 @@ public class CustomerController {
         userContactDetail.setAddressLine1(customer.getLocation().getStreet());
         userContactDetail.setProvince(customer.getLocation().getProvince());
         userContactDetail.setPostalCode(customer.getLocation().getPostalcode());
+        userContactDetail.setCountry("LK");
 
 
         Integer saveUser = userDAOService.saveUser(user);
         user.setUserId(saveUser);
+        userContactDetail.setUserId(saveUser);
         userContactDetail.setUser(user);
+
         daoService.saveContactDetails(userContactDetail);
+
+        cus.setUserId(saveUser);
+        cus.setUser(user);
         customerDAOService.saveCustomer(cus);
 
 

@@ -18,7 +18,6 @@ public class GrnOrderModel {
     private Vendor vendor;
     private List<Batch> batchList;
 
-
     public Vendor getVendor() {
         return vendor;
     }
