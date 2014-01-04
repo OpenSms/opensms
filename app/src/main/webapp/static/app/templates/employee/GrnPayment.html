@@ -8,37 +8,34 @@
 <div class="panel-body" style="margin: 10px;">
 <div class="row">
     <fieldset>
-        <legend>Basic</legend>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="form-group row">
-                <label class="col-lg-3 control-label">Grn Order ID:</label>
+                <label class="col-lg-3 control-label">Grn Order ID</label>
 
                 <div class="col-lg-9 controls">
                     <input ng-model="grnOrder.grnOrderId" type="number" class="form-control" placeholder="Grn Order Id">
                 </div>
             </div>
 
-        </div>
-        <div class="col-md-4">
             <div class="form-group row">
                 <label class="col-lg-3 control-label">Payment Method</label>
 
                 <div class="col-lg-9 controls">
-                    <div class="col-lg-9 controls">
                         <select  class="form-control" ng-model="paymentMethod"
                                  ng-options="pm.description for pm in paymentMethods"></select>
-                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Balance Due</label>
+                <label class="col-lg-9 control-label">{{getTotalGrnOrderAmount() - totalPreviousPayments() | currency:""}}</label>
+            </div>
             <div class="form-group row">
                 <label class="col-lg-3 control-label">Amount</label>
 
                 <div class="col-lg-9 controls">
-                    <div class="col-lg-9 controls">
                         <input ng-model="grnPayment.amount" type="number" class="form-control" placeholder="Amount">
-                    </div>
                 </div>
             </div>
         </div>
@@ -66,6 +63,10 @@
             <div class="form-group row">
                 <label class="col-lg-4 control-label">Received Date</label>
                 <label class="col-lg-8 controls">{{grnOrder.receiveDate | date:'fullDate'}}</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-4 control-label">Total Amount</label>
+                <label class="col-lg-8 controls">{{getTotalGrnOrderAmount() | currency:""}}</label>
             </div>
             <div class="form-group row">
                 <label class="col-lg-4 control-label">Vendor Id</label>
@@ -111,7 +112,11 @@
                 <td>{{previousGrnPayment.payementId}}</td>
                 <td>{{previousGrnPayment.paymentDate | date:'fullDate'}}</td>
                 <td>{{previousGrnPayment.paymentMethod.description}}</td>
-                <td style="text-align: right">{{previousGrnPayment.amount | currency}}</td>
+                <td style="text-align: right">{{previousGrnPayment.amount | currency:""}}</td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align: right"><strong>Total</strong></td>
+                <td style="text-align: right"><strong>{{totalPreviousPayments() | currency:""}}</strong></td>
             </tr>
             </tbody>
         </table>
