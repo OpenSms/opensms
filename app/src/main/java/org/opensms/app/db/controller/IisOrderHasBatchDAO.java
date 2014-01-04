@@ -16,4 +16,5 @@ import java.util.List;
 public interface IisOrderHasBatchDAO extends AbstractDAO<IisOrderHasBatch, IisOrderHasBatchPK> {
 
 
+    List<IisOrderHasBatch> getAllByIisOrder(String iisorder_id);
 }

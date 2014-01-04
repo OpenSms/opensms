@@ -9,10 +9,7 @@ import org.opensms.app.db.service.UserDAOService;
 import org.opensms.app.view.model.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,11 +25,32 @@ public class CustomerController {
     private CustomerDAOService customerDAOService;
 
     @Autowired
-    private ContactDetailsDAOService daoService;
+    private ContactDetailsDAOService contactDetailsDAOService;
 
 
     @Autowired
     private UserDAOService userDAOService;
+
+
+    /**
+     * Get User for view connectble
+     * @param query
+     * @return
+     */
+    @RequestMapping(value = "/get_view", method = RequestMethod.GET, params = {"query"})
+    @ResponseBody
+    public org.opensms.app.view.entity.Customer getCustomerView(@RequestParam("query") String query) {
+        org.opensms.app.view.entity.Customer customer = new org.opensms.app.view.entity.Customer();
+        Customer cus = customerDAOService.searchCustomer(query);
+
+        if(cus!=null){
+            UserContactDetail contactDetails = contactDetailsDAOService.getContactDetails(cus.getUserId());
+            customer.setCustomerDetails(cus, contactDetails);
+        }
+        return customer;
+    }
+
+
 
     /**
      * Save user entity
@@ -41,51 +59,47 @@ public class CustomerController {
      * @return
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public @ResponseBody ResponseMessage saveCustomer(@RequestBody Customer customer) {
+    public
+    @ResponseBody
+    ResponseMessage saveCustomer(@RequestBody Customer customer) {
         customerDAOService.saveCustomer(customer);
         return new ResponseMessage(ResponseMessage.Type.success, "customer save");
     }
 
 
     /**
-     *
      * Save user from android client request
      *
      * @param customer
      * @return
      */
     @RequestMapping(value = "/save", method = RequestMethod.PUT)
-    public @ResponseBody ResponseMessage saveCustomer(@RequestBody org.opensms.app.view.entity.Customer customer) {
-
-        Customer cus=new Customer();
-        User user=new User();
+    public
+    @ResponseBody
+    ResponseMessage saveCustomer(@RequestBody org.opensms.app.view.entity.Customer customer) {
+        Customer cus = new Customer();
+        User user = new User();
         user.setPassword(customer.getNicNumber());
         user.setUsername(customer.getNicNumber());
-
         cus.setUser(user);
         cus.setName(customer.getFirstName());
+        Integer saveUser = userDAOService.saveUser(user);
+        user.setUserId(saveUser);
 
-        UserContactDetail userContactDetail=new UserContactDetail();
+        UserContactDetail userContactDetail = new UserContactDetail();
         userContactDetail.setName(customer.getFirstName());
         userContactDetail.setCity(customer.getLocation().getCity());
         userContactDetail.setAddressLine1(customer.getLocation().getStreet());
         userContactDetail.setProvince(customer.getLocation().getProvince());
         userContactDetail.setPostalCode(customer.getLocation().getPostalcode());
         userContactDetail.setCountry("LK");
-
-
-        Integer saveUser = userDAOService.saveUser(user);
-        user.setUserId(saveUser);
         userContactDetail.setUserId(saveUser);
         userContactDetail.setUser(user);
-
-        daoService.saveContactDetails(userContactDetail);
+        contactDetailsDAOService.saveContactDetails(userContactDetail);
 
         cus.setUserId(saveUser);
         cus.setUser(user);
         customerDAOService.saveCustomer(cus);
-
-
         return new ResponseMessage(ResponseMessage.Type.success, "customer save");
     }
 }

@@ -40,7 +40,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "GsrOrder.findAll", query = "SELECT g FROM GsrOrder g"),
     @NamedQuery(name = "GsrOrder.findByGsrOrderId", query = "SELECT g FROM GsrOrder g WHERE g.gsrOrderId = :gsrOrderId"),
     @NamedQuery(name = "GsrOrder.findBySellingDateTime", query = "SELECT g FROM GsrOrder g WHERE g.sellingDateTime = :sellingDateTime")})
-public class GsrOrder implements Serializable {
+public class GsrOrder implements EntityInterface<Long>, Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -140,5 +140,9 @@ public class GsrOrder implements Serializable {
     public String toString() {
         return "org.opensms.app.db.entity.GsrOrder[ gsrOrderId=" + gsrOrderId + " ]";
     }
-    
+
+    @Override
+    public Long getId() {
+        return gsrOrderId;
+    }
 }

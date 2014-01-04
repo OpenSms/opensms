@@ -1,6 +1,7 @@
 package org.opensms.app.db.controller.impl;
 
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.opensms.app.db.entity.PreOrder;
 import org.springframework.stereotype.Repository;
 
@@ -36,6 +37,19 @@ public class PreOrderDAOController extends AbstractDAOImpl<PreOrder, Long>{
 
         query.setBoolean("isOpen", true);
 
+        return query.list();
+    }
+
+    /**
+     *
+     *
+     * @param customerid
+     * @return
+     */
+    public List<PreOrder> getOrdersFrom(Integer customerid) {
+        Session session = getCurrentSession();
+        Query query = session.createQuery("SELECT p FROM PreOrder p WHERE p.customer.userId=:customerid");
+        query.setInteger("customerid",  customerid);
         return query.list();
     }
 }

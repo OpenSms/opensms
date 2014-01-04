@@ -40,6 +40,7 @@
                        access="hasAnyRole('employee','customer','vendor', 'edit_user')"/>
 
         <intercept-url pattern="/customer/save" access="hasAnyRole('create_user')"/>
+        <intercept-url pattern="/customer/get_view" access="hasAnyRole('employee','sales_person')"/>
 
         <intercept-url pattern="/employee" access="hasAnyRole('employee', 'edit_user')"/>
         <intercept-url pattern="/employee/save" access="hasAnyRole('create_user')"/>
@@ -48,9 +49,12 @@
 
         <intercept-url pattern="/grnorder/save" access="hasAnyRole('create_grn_order')"/>
 
+        <intercept-url pattern="/gsrorder/save" access="hasAnyRole('create_gsr_order')"/>
+
         <intercept-url pattern="/iisorder/save" access="hasAnyRole('create_iis_order')"/>
 
         <intercept-url pattern="/item/all" access="hasAnyRole('employee', 'customer', 'vendor')"/>
+        <intercept-url pattern="/item/get" access="hasAnyRole('employee', 'customer', 'vendor')"/>
         <intercept-url pattern="/item/save" access="hasAnyRole('insert_item')"/>
 
         <intercept-url pattern="/preorder/all/open" access="hasAnyRole('create_iis_order')"/>

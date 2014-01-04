@@ -68,7 +68,7 @@ public class PreOrder implements Serializable, EntityInterface<Long> {
     private List<PreOrderHasItem> preOrderHasItemList;
     @JsonIgnore
     @JoinColumn(name = "iis_order", referencedColumnName = "iis_order_id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private IisOrder iisOrder;
     @JoinColumn(name = "customer", referencedColumnName = "user_id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
