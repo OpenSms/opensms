@@ -70,4 +70,8 @@ public class GrnOrderDAOService {
         }
 
     }
+
+    public GrnOrder getGrnOrder(Long grnOrderId) {
+        return grnOrderDAO.get(grnOrderId);
+    }
 }

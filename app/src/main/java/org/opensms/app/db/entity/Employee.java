@@ -58,7 +58,7 @@ public class Employee implements Serializable, EntityInterface<Integer> {
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
 //    private List<EmployeeType> employeeTypeList;
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    @OneToOne(optional = false, fetch = FetchType.EAGER)
     private User user;
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cashierEmployee", fetch = FetchType.LAZY)
 //    private List<GsrPayment> gsrPaymentList;

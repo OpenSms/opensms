@@ -80,45 +80,12 @@
                 <li sec:authorize="hasRole('create_grn_order')"><a href="#/GrnOrder"><i class="fa fa-file"></i>
                     Create GRN Order</a></li>
 
+                <li sec:authorize="hasRole('payment_vendor')"><a href="#/GrnPayment"><i class="fa fa-file"></i>
+                    New GRN Payment</a></li>
+
             </ul>
 
             <ul class="nav navbar-nav navbar-right navbar-user">
-                <li class="dropdown messages-dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i>
-                        Messages <span
-                                class="badge">7</span> <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-header">7 New Messages</li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <span class="avatar"><img src="http://placehold.it/50x50"/></span>
-                                <span class="name">John Smith:</span>
-                                <span class="message">Hey there, I wanted to ask you something...</span>
-                                <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <span class="avatar"><img src="http://placehold.it/50x50"/></span>
-                                <span class="name">John Smith:</span>
-                                <span class="message">Hey there, I wanted to ask you something...</span>
-                                <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <span class="avatar"><img src="http://placehold.it/50x50"/></span>
-                                <span class="name">John Smith:</span>
-                                <span class="message">Hey there, I wanted to ask you something...</span>
-                                <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="#">View Inbox <span class="badge">7</span></a></li>
-                    </ul>
-                </li>
                 <li class="dropdown alerts-dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> Alerts <span
                             class="badge">3</span> <b class="caret"></b></a>
@@ -152,13 +119,11 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <h1>Dashboard
-                    <small>Statistics Overview</small>
-                </h1>
+                <h1>{{title}}</h1>
                 <ol class="ab-nav breadcrumb" ng-controller="BreadcrumbCtrl">
                     <li class="active" ng-repeat="breadcrumb in breadcrumbs.getAll()"><i class="fa fa-dashboard"
-                                                                                         ng-show="$first"></i><a
-                            href="#{{breadcrumb.path}}" ng-hide="$last">{{breadcrumb.label}}</a><span ng-show="$last">{{breadcrumb.label}}</span>
+                                                                                         ng-show="$first"></i>
+                        <a href="#{{breadcrumb.path}}" ng-hide="$last"> {{breadcrumb.label}}</a><span ng-show="$last"> {{breadcrumb.label}}</span>
                     </li>
                 </ol>
                 <div class="alert alert-success alert-dismissable">
@@ -208,6 +173,7 @@
 
 <script type="text/javascript" src="/static/app/controller/employee/ItemListCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/employee/GrnOrderCtrl.js"></script>
+<script type="text/javascript" src="/static/app/controller/employee/GrnPaymentCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/customer/PreOrderCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/employee/CreateIISOrderCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/employee/AddUnitCtrl.js"></script>

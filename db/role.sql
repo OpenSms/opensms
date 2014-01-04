@@ -15,4 +15,7 @@ INSERT INTO `opensms`.`role` (`description`) VALUES ('add_customer');
 INSERT INTO `opensms`.`role` (`description`) VALUES ('create_gsr_order');
 INSERT INTO `opensms`.`role` (`description`) VALUES ('edit_gsr_order');
 INSERT INTO `opensms`.`role` (`description`) VALUES ('sales_person');
+INSERT INTO `opensms`.`role` (`description`) VALUES ('payment_vendor');
+INSERT INTO `opensms`.`role` (`description`) VALUES ('payment_customer');
+ 
  

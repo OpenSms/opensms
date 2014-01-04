@@ -12,7 +12,7 @@ app = angular.module "main-app", ["$strap.directives", "ngTable", "services.brea
   $routeProvider.when "/SearchUsers",
     templateUrl: "./static/app/templates/SearchUsers.html"
     controller: checkLogginInCtrl
-    label: "Search"
+    label: "Search User"
 
   $routeProvider.when "/UpdateUser/:userId",
     templateUrl: "./static/app/templates/UpdateUser.html"
@@ -38,6 +38,12 @@ app = angular.module "main-app", ["$strap.directives", "ngTable", "services.brea
     templateUrl: "./static/app/templates/employee/GrnOrderWizard.html"
     controller: checkLogginInCtrl
     label: "Create GRN Order"
+
+  $routeProvider.when "/GrnPayment",
+    templateUrl: "./static/app/templates/employee/GrnPayment.html"
+    controller: checkLogginInCtrl
+    label: "New GRN Payment"
+
 
   $routeProvider.when "/CreateIISOrder",
     templateUrl: "./static/app/templates/employee/CreateIISOrder.html"
@@ -69,6 +75,7 @@ app = angular.module "main-app", ["$strap.directives", "ngTable", "services.brea
 
 
 app.run ($http, $rootScope) ->
+  $rootScope.title = ""
   $http.get("/currentuser").success((data) ->
     $rootScope.currentUser = data
   ).error((data) ->
@@ -81,7 +88,10 @@ app.run ($http, $rootScope) ->
     console.log "error in /currentuserroles"
   )
 
-checkLogginInCtrl = ($http) ->
+checkLogginInCtrl = ($http, $rootScope, $route) ->
+
+  $rootScope.title =  $route.current.label
+
   $http.get("/isUserLoggedIn").success((data) ->
     if data is 'false'
       window.location = "/"
