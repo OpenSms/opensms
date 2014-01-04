@@ -7,7 +7,6 @@
 package org.opensms.app.db.entity;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.opensms.app.db.entity.helper.BatchIdGenerator;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
