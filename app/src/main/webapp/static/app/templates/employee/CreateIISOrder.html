@@ -145,14 +145,14 @@
                                                     <tbody>
                                                     <tr>
                                                         <td>
-                                                            <select ng-model="selectedItem.itemId" class="form-control" required>
+                                                            <select ng-model="selectedItem.itemId" ng-change="checkItem(selectedItem)" class="form-control" required>
                                                                 <option ng-repeat="item in items" value={{item.itemId}}>{{item.name}}
                                                                 </option>
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <input ng-model="selectedItem.quantity" type="number" min="0.0"
-                                                                   max="999999999999.999" value="0"
+                                                                   max="{{maxQty}}" value="0"
                                                                    class="form-control" required/>
                                                         </td>
                                                         <td>

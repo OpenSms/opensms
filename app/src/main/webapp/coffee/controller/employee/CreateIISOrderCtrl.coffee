@@ -1,19 +1,19 @@
 CreateIISOrderCtrl = ($scope, $http, $location, $routeParams) ->
-
   $scope.iisOrder = {}
   $scope.salesArea = {}
   $scope.requiredItems = []
   $scope.salesEmployee = {}
-  $scope.items=[]
+  $scope.items = []
 
-#  $scope.preOrderModels = []
 
-#  $scope.getPreOrdersAt = () ->
-#    $http.get("preorder/at?location=" + $scope.salesArea.name).success((data) ->
-#      $scope.preOrderModels = data
-#    ).error((data) ->
-#      console.log("error in '/preorder/at?location'")
-#    )
+  #  $scope.preOrderModels = []
+
+  #  $scope.getPreOrdersAt = () ->
+  #    $http.get("preorder/at?location=" + $scope.salesArea.name).success((data) ->
+  #      $scope.preOrderModels = data
+  #    ).error((data) ->
+  #      console.log("error in '/preorder/at?location'")
+  #    )
 
   $http.get("preorder/all/open").success((data) ->
     $scope.preOrderModels = data
@@ -39,7 +39,7 @@ CreateIISOrderCtrl = ($scope, $http, $location, $routeParams) ->
       console.log("error in 'user/search?query=_x_?type=Sales Rep")
     )
 
-  $scope.selectSalesPerson=(salesPerson)->
+  $scope.selectSalesPerson = (salesPerson)->
     $scope.salesEmployee = salesPerson
     $scope.handleNext()
     console.log $scope.salesEmployee
@@ -73,30 +73,56 @@ CreateIISOrderCtrl = ($scope, $http, $location, $routeParams) ->
           )
 
 
-  $scope.addItemToIssOrder=(item)->
-    console.log item
+  $scope.selectedItem = ''
+  $scope.selectedItem.itemId = '123'
+  $scope.selectedItem.quantity = 2343
 
-    $http.get("item/get?itemid="+item.itemId).success((data)->
-      requiredItem =
-        item: data
-        quantity: item.quantity
+  $scope.$watch "selectedItem.itemId", ((newVal, oldVal) ->
+    console.log newVal + " " + oldVal
+    $scope.watchHitCount++
+  ), true
 
-      $scope.requiredItems.unshift(
-        requiredItem
-      )
+
+  $scope.maxQty = 12
+  $scope.checkItem = (item)->
+    $http.get('batch/maxitemcount?item='+item.itemId).success((data)->
+      $scope.maxQty=data
     ).error((data)->
+
     )
 
+    $scope.maxQty = 2
+    console.log item
+
+  $scope.addItemToIssOrder = (item)->
+    console.log item
+
+    isnewOne = true
+
+    for required_item in $scope.requiredItems
+      if required_item.item.itemId is item.itemId
+        required_item.quantity += item.quantity
+        isnewOne = false
+        break
+
+    if isnewOne
+      $http.get("item/get?itemid=" + item.itemId).success((data)->
+        requiredItem =
+          item: data
+          quantity: item.quantity
+
+        $scope.requiredItems.unshift(
+          requiredItem
+        )
+      ).error((data)->
+      )
 
 
-  $scope.removeItemFromIisOrder=(index)->
+  $scope.removeItemFromIisOrder = (index)->
     $scope.requiredItems.splice(index, 1)
 
 
-
-
   $scope.issueItems = () ->
-
     preOrderList = []
     for preOrderModel in $scope.preOrderModels
       if preOrderModel.selected is true
@@ -106,8 +132,7 @@ CreateIISOrderCtrl = ($scope, $http, $location, $routeParams) ->
 
     iisOrderModel =
       iisOrder:
-        salesEmployee:
-          $scope.salesEmployee.userId
+        salesEmployee:$scope.salesEmployee.userId
       itemModelList: $scope.requiredItems
       preOrderList: preOrderList
 
@@ -118,7 +143,6 @@ CreateIISOrderCtrl = ($scope, $http, $location, $routeParams) ->
     ).error((data) ->
       console.log("error in iisorder/save")
     )
-
 
 
   #### wizard controller ####
@@ -150,7 +174,7 @@ CreateIISOrderCtrl = ($scope, $http, $location, $routeParams) ->
     if $scope.isFirstStep()
       $scope.step = 0
     else
-        $scope.step -= 1
+      $scope.step -= 1
 
   $scope.handleNext = () ->
     if $scope.isLastStep()

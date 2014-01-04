@@ -31,6 +31,8 @@
 
         
         <!-- internal mappings -->
+        <intercept-url pattern="/batch/maxitemcount" access="hasAnyRole('employee','create_iis_order')"/>
+
         <intercept-url pattern="/category/all" access="hasAnyRole('employee','customer','vendor')"/>
         <intercept-url pattern="/category/allparents" access="hasAnyRole('employee','customer','vendor')"/>
         <intercept-url pattern="/category/save" access="hasAnyRole('insert_item', 'edit_item')"/>
@@ -50,6 +52,7 @@
         <intercept-url pattern="/grnorder/save" access="hasAnyRole('create_grn_order')"/>
 
         <intercept-url pattern="/gsrorder/save" access="hasAnyRole('create_gsr_order')"/>
+
 
         <intercept-url pattern="/iisorder/save" access="hasAnyRole('create_iis_order')"/>
 

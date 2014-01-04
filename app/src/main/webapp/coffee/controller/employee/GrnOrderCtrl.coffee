@@ -1,4 +1,5 @@
 GrnOrderCtrl = ($scope, $http,ngTableParams)->
+GrnOrderCtrl = ($scope, $http,ngTableParams)->
   $scope.vendor={}
   $scope.batchList=[]
   $scope.curruntBatch={}

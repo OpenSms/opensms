@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-@Transactional
 public class CustomerDAOService {
     @Autowired
     private CustomerDAOController customerDAOController; //Customer DAO
@@ -31,6 +30,8 @@ public class CustomerDAOService {
      * Save customer with Roles     *
      * @param customer
      */
+
+    @Transactional
     public void saveCustomer(Customer customer) {
         //Assign 'Customer' Role to customer
         userRoleDAOComponent.assignRoleToUser(roleDAOController.getByRole("customer"), customer.getUserId());
@@ -39,10 +40,14 @@ public class CustomerDAOService {
     }
 
 
+
+    @Transactional
     public Customer getCustomer(Integer customerId) {
         return customerDAOController.get(customerId);
     }
 
+
+    @Transactional
     public Customer searchCustomer(String query) {
         return customerDAOController.search(query);
     }
