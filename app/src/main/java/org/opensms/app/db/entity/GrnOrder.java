@@ -9,8 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +18,6 @@ import java.util.List;
  */
 @Entity
 @Table(name = "grn_order")
-@XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "GrnOrder.findAll", query = "SELECT g FROM GrnOrder g"),
         @NamedQuery(name = "GrnOrder.findByGrnOrderId", query = "SELECT g FROM GrnOrder g WHERE g.grnOrderId = :grnOrderId"),
@@ -37,15 +34,17 @@ public class GrnOrder implements Serializable, EntityInterface<Long> {
     @Column(name = "receive_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date receiveDate;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "grnOrder", fetch = FetchType.LAZY)
     private List<GrnPayment> grnPaymentList;
     @JoinColumn(name = "vendor", referencedColumnName = "user_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Vendor vendor;
     @JoinColumn(name = "data_entry_employee", referencedColumnName = "user_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Employee dataEntryEmployee;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grnOrder", fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grnOrder", fetch = FetchType.EAGER)
     private List<Batch> batchList;
 
     public GrnOrder() {
@@ -76,7 +75,6 @@ public class GrnOrder implements Serializable, EntityInterface<Long> {
         this.receiveDate = receiveDate;
     }
 
-    @XmlTransient
     @JsonIgnore
     public List<GrnPayment> getGrnPaymentList() {
         return grnPaymentList;
@@ -102,7 +100,6 @@ public class GrnOrder implements Serializable, EntityInterface<Long> {
         this.dataEntryEmployee = dataEntryEmployee;
     }
 
-    @XmlTransient
     @JsonIgnore
     public List<Batch> getBatchList() {
         return batchList;
@@ -137,11 +134,6 @@ public class GrnOrder implements Serializable, EntityInterface<Long> {
     public String toString() {
         return "GrnOrder{" +
                 "grnOrderId=" + grnOrderId +
-                ", receiveDate=" + receiveDate +
-                ", grnPaymentList=" + grnPaymentList +
-                ", vendor=" + vendor +
-                ", dataEntryEmployee=" + dataEntryEmployee +
-                ", batchList=" + batchList +
                 '}';
     }
 
