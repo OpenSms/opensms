@@ -1,4 +1,4 @@
-GrnPaymentCtrl = ($scope, $http) ->
+GrnPaymentCtrl = ($scope, $http, $location) ->
 
   $scope.grnOrder = {}
   $scope.paymentMethod = {}
