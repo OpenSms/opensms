@@ -1,5 +1,6 @@
 package org.opensms.app.controller;
 
+import org.apache.log4j.Logger;
 import org.opensms.app.db.entity.Employee;
 import org.opensms.app.db.entity.IisOrder;
 import org.opensms.app.db.entity.User;
@@ -24,6 +25,9 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/iisorder")
 public class IisOrderController {
+
+    private static final Logger LOGGER=Logger.getLogger(IisOrderController.class);
+
     @Autowired
     private IisOrderDAOService iisOrderDAOService;
     @Autowired

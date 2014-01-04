@@ -19,7 +19,6 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-@Transactional
 public class PreOrderDAOService {
 
     @Autowired
@@ -33,6 +32,8 @@ public class PreOrderDAOService {
      * @param preOrder
      * @param preOrderHasItemList
      */
+
+    @Transactional
     public void savePreOrder(PreOrder preOrder, List<PreOrderHasItem> preOrderHasItemList) {
 
         // Setting pre order default data
@@ -49,19 +50,53 @@ public class PreOrderDAOService {
         preOrderHasItemDAOController.save(preOrderId, preOrderHasItemList);
     }
 
+
+    @Transactional
     public List<PreOrder> getPreOrdersAt(String location) {
         return preOrderDAOController.getPreOrdersAt(location);
     }
 
+
+    @Transactional
     public List<PreOrderHasItem> getPreOrderHasItemsOf(Long preOrderId) {
         return preOrderHasItemDAOController.getPreOrderHasItemsOf(preOrderId);
     }
 
+
+    @Transactional
     public List<PreOrder> getAll() {
         return preOrderDAOController.getAll();
     }
 
+
+    @Transactional
     public List<PreOrder> getAllOpenPreOrders() {
         return preOrderDAOController.getAllOpenPreOrders();
+    }
+
+    /**
+     *
+     * @param customerid
+     * @return
+     */
+    @Transactional
+    public List<PreOrder> getPreOrdersFrom(String customerid) {
+        return preOrderDAOController.getOrdersFrom(Integer.parseInt(customerid));
+    }
+
+    /**
+     *
+     * Finish selected Preorders
+     *
+     * @param preOrders
+     */
+    @Transactional
+    public void finishPreorders(List<String> preOrders) {
+        for (String pre_order_id:preOrders){
+            long preOrderId = Long.parseLong(pre_order_id);
+            PreOrder preOrder = preOrderDAOController.get(preOrderId);
+            preOrder.setIsOpen(false);
+            preOrderDAOController.update(preOrder);
+        }
     }
 }

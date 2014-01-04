@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "IisOrderBatchHasGsrOrder.findByIisOrder", query = "SELECT i FROM IisOrderBatchHasGsrOrder i WHERE i.iisOrderBatchHasGsrOrderPK.iisOrder = :iisOrder"),
     @NamedQuery(name = "IisOrderBatchHasGsrOrder.findByBatch", query = "SELECT i FROM IisOrderBatchHasGsrOrder i WHERE i.iisOrderBatchHasGsrOrderPK.batch = :batch"),
     @NamedQuery(name = "IisOrderBatchHasGsrOrder.findByQuantity", query = "SELECT i FROM IisOrderBatchHasGsrOrder i WHERE i.quantity = :quantity")})
-public class IisOrderBatchHasGsrOrder implements Serializable {
+public class IisOrderBatchHasGsrOrder implements EntityInterface<IisOrderBatchHasGsrOrderPK>,Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected IisOrderBatchHasGsrOrderPK iisOrderBatchHasGsrOrderPK;
@@ -114,5 +114,9 @@ public class IisOrderBatchHasGsrOrder implements Serializable {
     public String toString() {
         return "org.opensms.app.db.entity.IisOrderBatchHasGsrOrder[ iisOrderBatchHasGsrOrderPK=" + iisOrderBatchHasGsrOrderPK + " ]";
     }
-    
+
+    @Override
+    public IisOrderBatchHasGsrOrderPK getId() {
+        return getIisOrderBatchHasGsrOrderPK();
+    }
 }

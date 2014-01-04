@@ -4,6 +4,7 @@ CreateIISOrderCtrl = ($scope, $http, $location, $routeParams) ->
   $scope.salesArea = {}
   $scope.requiredItems = []
   $scope.salesEmployee = {}
+  $scope.items=[]
 
 #  $scope.preOrderModels = []
 
@@ -20,6 +21,12 @@ CreateIISOrderCtrl = ($scope, $http, $location, $routeParams) ->
     console.log("error in '/preorder/all/open'")
   )
 
+  $http.get("/item/all").success((data) ->
+    $scope.items = data
+    #console.log data
+  ).error((data) ->
+    console.log("error while retriving data '/item/all'")
+  )
 
   $scope.search = {}
 
@@ -64,6 +71,28 @@ CreateIISOrderCtrl = ($scope, $http, $location, $routeParams) ->
           $scope.requiredItems.unshift(
             requiredItem
           )
+
+
+  $scope.addItemToIssOrder=(item)->
+    console.log item
+
+    $http.get("item/get?itemid="+item.itemId).success((data)->
+      requiredItem =
+        item: data
+        quantity: item.quantity
+
+      $scope.requiredItems.unshift(
+        requiredItem
+      )
+    ).error((data)->
+    )
+
+
+
+  $scope.removeItemFromIisOrder=(index)->
+    $scope.requiredItems.splice(index, 1)
+
+
 
 
   $scope.issueItems = () ->

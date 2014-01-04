@@ -42,25 +42,24 @@ public class IisOrderDAOImpl extends AbstractDAOImpl<IisOrder, Long> implements 
 
         session.setFlushMode(FlushMode.NEVER);
         Query query = session.createQuery("SELECT" +
-                " ii FROM IisOrder ii WHERE ii.salesEmployee.id=:slaes_person_id AND ii.returnCheckEmployee IS NULL" +
+                " ii FROM IisOrder ii WHERE ii.salesEmployee.id=:slaes_person_id AND" +
+                " ii.returnCheckEmployee IS NULL" +
                 "");
         query.setInteger("slaes_person_id", Integer.parseInt(sales_person));
         IisOrder iisOrder = (IisOrder) query.uniqueResult();
 
-
         for(PreOrder preOrder:iisOrder.getPreOrderList()){
-
             LOGGER.info(preOrder);
             Hibernate.initialize(preOrder);
         }
 
-
         Hibernate.initialize(iisOrder.getSalesEmployee());
         Hibernate.initialize(iisOrder.getItemIssuerEmployee());
-
-
         return iisOrder;
 
 
     }
+
+
+   
 }

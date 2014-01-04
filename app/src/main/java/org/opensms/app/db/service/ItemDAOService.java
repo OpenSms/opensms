@@ -92,4 +92,8 @@ public class ItemDAOService {
     public List<Item> getAllItems() {
         return itemDAO.getAll();
     }
+
+    public Item getItem(String itemid) {
+        return itemDAO.get(itemid);
+    }
 }

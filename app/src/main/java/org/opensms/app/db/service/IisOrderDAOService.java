@@ -27,6 +27,7 @@ import java.util.List;
  */
 @Service
 public class IisOrderDAOService {
+
     private static final Logger LOGGER = Logger.getLogger(IisOrderDAOService.class);
 
     @Autowired
@@ -132,14 +133,18 @@ public class IisOrderDAOService {
 
     @Transactional
     public IisOrder getOpenOrder(String sales_person) {
-
-
         IisOrder  iisOrder=iisOrderDAO.getOpenOrder(sales_person);
-
-
-
-
-
         return iisOrder;
     }
+
+    @Transactional
+    public IisOrder getIisOrder(String iisorder_id) {
+        return iisOrderDAO.get(Long.parseLong(iisorder_id));
+    }
+
+    public List<IisOrderHasBatch> getBatchList(String iisorder_id) {
+        return iisOrderHasBatchDAO.getAllByIisOrder(iisorder_id);
+    }
+
+
 }

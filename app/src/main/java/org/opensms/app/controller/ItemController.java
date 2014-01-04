@@ -60,4 +60,14 @@ public class ItemController {
     public @ResponseBody List<Item> getAllItems() {
         return itemDAOService.getAllItems();
     }
+
+
+    /**
+     * Get all items
+     * @return List<Item>
+     */
+    @RequestMapping(value = "/get", method = RequestMethod.GET,params = {"itemid"})
+    public @ResponseBody Item getItem(@RequestParam("itemid") String itemid) {
+        return itemDAOService.getItem(itemid);
+    }
 }

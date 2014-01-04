@@ -36,77 +36,79 @@ public class PreOrderController {
     private HttpServletRequest request;
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public @ResponseBody ResponseMessage savePreOrder(@RequestBody PreOrderModel preOrderModel) {
-
+    public
+    @ResponseBody
+    ResponseMessage savePreOrder(@RequestBody PreOrderModel preOrderModel) {
         User user = (User) request.getSession().getAttribute("user");
         Customer customer = customerDAOService.getCustomer(user.getUserId());
-
-        if(customer==null){
-            customer=customerDAOService.getCustomer(1);
+        if (customer == null) {
+            customer = customerDAOService.getCustomer(1);
         }
-
         preOrderModel.getPreOrder().setCustomer(customer);
-
-
-
         preOrderDAOService.savePreOrder(preOrderModel.getPreOrder(), preOrderModel.getPreOrderHasItemList());
-
         return new ResponseMessage(ResponseMessage.Type.success, "pre-order saved.");
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public @ResponseBody List<PreOrderModel> getAllPreOrders() {
-
+    public
+    @ResponseBody
+    List<PreOrderModel> getAllPreOrders() {
         List<PreOrderModel> preOrderModelList = new ArrayList<PreOrderModel>();
-
-
         List<PreOrder> preOrderList = preOrderDAOService.getAll();
-
         for (PreOrder p : preOrderList) {
             PreOrderModel model = new PreOrderModel();
             model.setPreOrder(p);
             model.setPreOrderHasItemList(preOrderDAOService.getPreOrderHasItemsOf(p.getPreOrderId()));
-
             preOrderModelList.add(model);
         }
-
         return preOrderModelList;
     }
 
     @RequestMapping(value = "/all/open", method = RequestMethod.GET)
-    public @ResponseBody List<PreOrderModel> getAllOpenPreOrders() {
-
+    public
+    @ResponseBody
+    List<PreOrderModel> getAllOpenPreOrders() {
         List<PreOrderModel> preOrderModelList = new ArrayList<PreOrderModel>();
-
-
         List<PreOrder> preOrderList = preOrderDAOService.getAllOpenPreOrders();
-
         for (PreOrder p : preOrderList) {
             PreOrderModel model = new PreOrderModel();
             model.setPreOrder(p);
             model.setPreOrderHasItemList(preOrderDAOService.getPreOrderHasItemsOf(p.getPreOrderId()));
-
             preOrderModelList.add(model);
         }
-
         return preOrderModelList;
     }
 
     @RequestMapping(value = "/at", method = RequestMethod.GET, params = {"location"})
-    public @ResponseBody List<PreOrderModel> getPreOrdersAt(@RequestParam("location") String location) {
-         List<PreOrderModel> preOrderModelList = new ArrayList<PreOrderModel>();
-
-
+    public
+    @ResponseBody
+    List<PreOrderModel> getPreOrdersAt(@RequestParam("location") String location) {
+        List<PreOrderModel> preOrderModelList = new ArrayList<PreOrderModel>();
         List<PreOrder> preOrderList = preOrderDAOService.getPreOrdersAt(location);
-
         for (PreOrder p : preOrderList) {
             PreOrderModel model = new PreOrderModel();
             model.setPreOrder(p);
             model.setPreOrderHasItemList(preOrderDAOService.getPreOrderHasItemsOf(p.getPreOrderId()));
-
             preOrderModelList.add(model);
         }
-
         return preOrderModelList;
+    }
+
+
+    /**
+     * @param customerid
+     * @return
+     */
+    @RequestMapping(value = "/all/customer", params = {"customerid"}, method = RequestMethod.GET)
+    @ResponseBody
+    public List<org.opensms.app.view.entity.PreOrder> getAllPreOrdersFromCustomer(@RequestParam("customerid") String customerid) {
+        List<org.opensms.app.view.entity.PreOrder> preOrders = new ArrayList<org.opensms.app.view.entity.PreOrder>();
+        List<PreOrder> preOrderList = preOrderDAOService.getPreOrdersFrom(customerid);
+        for(PreOrder preOrder:preOrderList){
+            org.opensms.app.view.entity.PreOrder order=new org.opensms.app.view.entity.PreOrder();
+            order.updatePreOrder(preOrder);
+            preOrders.add(order);
+        }
+        return preOrders;
     }
 }
