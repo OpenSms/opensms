@@ -1,5 +1,4 @@
-GrnOrderCtrl = ($scope, $http,ngTableParams)->
-GrnOrderCtrl = ($scope, $http,ngTableParams)->
+GrnOrderCtrl = ($scope, $http,ngTableParams, $location)->
   $scope.vendor={}
   $scope.batchList=[]
   $scope.curruntBatch={}
@@ -26,6 +25,7 @@ GrnOrderCtrl = ($scope, $http,ngTableParams)->
     $http.post('/grnorder/save',grnOrder).success((data)->
 
       console.log data
+      $location.path("/")
 
     ).error((data)->
       console.log data

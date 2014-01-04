@@ -1,4 +1,4 @@
-GrnPaymentCtrl = ($scope, $http) ->
+GrnPaymentCtrl = ($scope, $http, $location) ->
 
   $scope.grnOrder = {}
   $scope.paymentMethod = {}
@@ -7,6 +7,7 @@ GrnPaymentCtrl = ($scope, $http) ->
 
   $http.get("/paymentmethod/all").success((data) ->
     $scope.paymentMethods = data
+    $scope.paymentMethod = $scope.paymentMethods[0]
   ).error(()->
     console.log("error in /paymentmethod/all")
   )
@@ -34,6 +35,16 @@ GrnPaymentCtrl = ($scope, $http) ->
     $scope.getGrnOrder()
   )
 
+  $scope.getTotalGrnOrderAmount = () ->
+    if $scope.grnOrder.batchList is undefined
+      return
+
+    totalAmount = 0.0
+    for batch in $scope.grnOrder.batchList
+      totalAmount += batch.quantity * batch.buyingUnitPrice
+
+    return totalAmount
+
   $scope.save = () ->
     if $scope.grnOrder.grnOrderId is undefined
       return
@@ -43,8 +54,15 @@ GrnPaymentCtrl = ($scope, $http) ->
 
     $http.post("/grnpayment/save", $scope.grnPayment).success(() ->
       console.log "grn payment saved."
+      $location.path("/")
     ).error(() ->
       console.log "error in /grnpayment/save"
     )
 
-    console.log $scope.grnPayment
+    
+  $scope.totalPreviousPayments = () ->
+    totalAmount = 0.0;
+    for p in $scope.previousGrnPayments
+      totalAmount += p.amount
+
+    return totalAmount

@@ -6,6 +6,7 @@
 package org.opensms.app.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -43,8 +44,8 @@ public class GrnOrder implements Serializable, EntityInterface<Long> {
     @JoinColumn(name = "data_entry_employee", referencedColumnName = "user_id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Employee dataEntryEmployee;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "grnOrder", fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<Batch> batchList;
 
     public GrnOrder() {
@@ -100,7 +101,6 @@ public class GrnOrder implements Serializable, EntityInterface<Long> {
         this.dataEntryEmployee = dataEntryEmployee;
     }
 
-    @JsonIgnore
     public List<Batch> getBatchList() {
         return batchList;
     }

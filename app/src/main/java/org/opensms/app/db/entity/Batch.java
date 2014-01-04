@@ -6,8 +6,8 @@
 
 package org.opensms.app.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
-import org.opensms.app.db.entity.helper.BatchIdGenerator;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -55,6 +55,7 @@ public class Batch implements Serializable ,EntityInterface<String>{
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Item item;
     @JoinColumn(name = "grn_order", referencedColumnName = "grn_order_id")
+    @JsonBackReference
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private GrnOrder grnOrder;
     @Basic(optional = true)
