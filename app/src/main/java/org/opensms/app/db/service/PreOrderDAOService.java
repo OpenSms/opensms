@@ -2,6 +2,7 @@ package org.opensms.app.db.service;
 
 import org.opensms.app.db.controller.impl.PreOrderDAOController;
 import org.opensms.app.db.controller.impl.PreOrderHasItemDAOController;
+import org.opensms.app.db.entity.Customer;
 import org.opensms.app.db.entity.PreOrder;
 import org.opensms.app.db.entity.PreOrderHasItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,5 +99,10 @@ public class PreOrderDAOService {
             preOrder.setIsOpen(false);
             preOrderDAOController.update(preOrder);
         }
+    }
+
+    @Transactional
+    public List<PreOrder> getAllPreOrdersOfCurrentCustomer(Customer customer) {
+        return preOrderDAOController.getOrdersFrom(customer.getId());
     }
 }

@@ -94,6 +94,23 @@ public class PreOrderController {
         return preOrderModelList;
     }
 
+    /**
+     * Get all Preorder of current user (customer)
+     * use for reports
+     * @return
+     */
+    @RequestMapping(value = "/all/current/customer", method = RequestMethod.GET)
+    public @ResponseBody List<PreOrder> getAllPreOrdersOfCurrentCustomer() {
+
+        User user = (User) request.getSession().getAttribute("user");
+        Customer customer = customerDAOService.getCustomer(user.getUserId());
+
+        if (customer == null) {
+            return new ArrayList<PreOrder>();
+        }
+
+        return preOrderDAOService.getAllPreOrdersOfCurrentCustomer(customer);
+    }
 
     /**
      * @param customerid
