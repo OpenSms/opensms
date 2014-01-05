@@ -35,7 +35,7 @@
                                             </thead>
                                             <tbody>
                                             <tr ng-repeat="grnPayment in grnOrder.grnPaymentList | orderBy:predicate:reverse">
-                                                <td>{{grnPayment.paymentId}}</td>
+                                                <td>{{grnPayment.payementId}}</td>
                                                 <td>{{grnPayment.paymentDate | date:'fullDate'}}</td>
                                                 <td>{{grnPayment.paymentMethod.description}}</td>
                                                 <td>{{grnPayment.amount | currency:""}}</td>
@@ -69,9 +69,9 @@
                                             <tr ng-repeat="batch in grnOrder.batchList">
                                                 <td>{{batch.batchCode}}</td>
                                                 <td>{{batch.item.itemId}}</td>
-                                                <td>{{batch.item.description}}</td>
-                                                <td>{{batch.Quantity}}</td>
-                                                <td>{{batch.buyingUnitPrice}}</td>
+                                                <td>{{batch.item.name}}</td>
+                                                <td>{{batch.quantity}}</td>
+                                                <td>{{batch.buyingUnitPrice | currency:""}}</td>
                                             </tr>
                                             </tbody>
                                         </table>

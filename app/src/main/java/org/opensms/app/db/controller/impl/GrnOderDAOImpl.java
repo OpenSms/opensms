@@ -1,10 +1,13 @@
 package org.opensms.app.db.controller.impl;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.opensms.app.db.controller.AbstractDAO;
 import org.opensms.app.db.controller.GrnOrderDAO;
+import org.opensms.app.db.entity.Batch;
 import org.opensms.app.db.entity.GrnOrder;
+import org.opensms.app.db.entity.GrnPayment;
 import org.opensms.app.db.entity.Vendor;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +27,23 @@ public class GrnOderDAOImpl extends AbstractDAOImpl<GrnOrder,Long> implements Gr
     }
 
     @Override
+    public GrnOrder get(Long id) {
+
+        GrnOrder grnOrder = super.get(id);
+        Hibernate.initialize(grnOrder);
+
+        for(GrnPayment grnPayment : grnOrder.getGrnPaymentList()){
+            Hibernate.initialize(grnPayment);
+        }
+
+        for(Batch batch : grnOrder.getBatchList()){
+            Hibernate.initialize(batch);
+        }
+
+        return grnOrder;
+    }
+
+    @Override
     public List<GrnOrder> getAllGrnOrdersOfCurrentVendor(Vendor vendor) {
 
         Session session = getCurrentSession();
@@ -32,18 +52,22 @@ public class GrnOderDAOImpl extends AbstractDAOImpl<GrnOrder,Long> implements Gr
 
         List<GrnOrder> list = null;
         try {
+
             list = query.list();
-//            for (GrnOrder grnOrder:list){
-//                Hibernate.initialize(grnOrder);
-//                for(GrnPayment grnPayment:grnOrder.getGrnPaymentList()){
-//                    Hibernate.initialize(grnPayment);
-//                }
-//
-//                for(Batch batch:grnOrder.getBatchList()){
-//                    Hibernate.initialize(batch);
-//                }
-//
-//            }
+
+            for (GrnOrder grnOrder : list){
+
+                Hibernate.initialize(grnOrder);
+
+                for(GrnPayment grnPayment : grnOrder.getGrnPaymentList()){
+                    Hibernate.initialize(grnPayment);
+                }
+
+                for(Batch batch : grnOrder.getBatchList()){
+                    Hibernate.initialize(batch);
+                    Hibernate.initialize(batch.getItem());
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -35,7 +35,7 @@ public class GrnOrder implements Serializable, EntityInterface<Long> {
     @Column(name = "receive_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date receiveDate;
-    @JsonIgnore
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "grnOrder", fetch = FetchType.LAZY)
     private List<GrnPayment> grnPaymentList;
     @JoinColumn(name = "vendor", referencedColumnName = "user_id")
@@ -44,8 +44,8 @@ public class GrnOrder implements Serializable, EntityInterface<Long> {
     @JoinColumn(name = "data_entry_employee", referencedColumnName = "user_id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Employee dataEntryEmployee;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grnOrder", fetch = FetchType.EAGER)
     @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grnOrder", fetch = FetchType.EAGER)
     private List<Batch> batchList;
 
     public GrnOrder() {
@@ -76,7 +76,6 @@ public class GrnOrder implements Serializable, EntityInterface<Long> {
         this.receiveDate = receiveDate;
     }
 
-    @JsonIgnore
     public List<GrnPayment> getGrnPaymentList() {
         return grnPaymentList;
     }
