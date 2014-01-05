@@ -70,6 +70,11 @@ app = angular.module "main-app", ["$strap.directives", "ngTable", "services.brea
     controller: checkLogginInCtrl
     label: "Pre Order"
 
+  $routeProvider.when "/Reports/PreOrders",
+    templateUrl: "./static/app/templates/reports/customer/PreOrders.html"
+    controller: checkLogginInCtrl
+    label: "Pre Orders"
+
   $routeProvider.otherwise
     redirectTo: "/"
 
