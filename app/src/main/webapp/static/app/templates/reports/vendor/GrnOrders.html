@@ -1,0 +1,89 @@
+<div ng-controller="GrnOrdersCtrl">
+    <div class="row" ng-repeat="grnOrder in grnOrders">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>
+                        Grn Order # {{grnOrder.grnOrderId}} - {{grnOrder.receiveDate | date:'fullDate'}}
+                    </h3>
+                </div>
+                <div class="panel-body" style="margin: 10px;">
+                    <div class="row">
+                        <div class="col-lg-6 form-group">
+                            <label class="col-lg-3 control-label">Total Amount</label>
+                            <label class="col-lg-9 controls">{{grnOrderTotalAmount($index)}}</label>
+                        </div>
+                    </div> <!-- /.row -->
+                    <br/>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Payments </h3>
+                                </div>
+                                <div class="panel-body" style="margin: 10px;">
+                                    <div class="row">
+
+                                        <table class="table table-hover tablesorter">
+                                            <thead>
+                                            <tr>
+                                                <th ng-click="reverse = predicate == 'paymentId' && !reverse; predicate = 'paymentId'">Grn Payment ID <i class="fa fa-sort"></i></th>
+                                                <th ng-click="reverse = predicate == 'paymentDate' && !reverse; predicate = 'paymentDate'">Date <i class="fa fa-sort"></i></th>
+                                                <th ng-click="reverse = predicate == 'paymentMethod.description' && !reverse; predicate = 'paymentMethod.description'">Method</th>
+                                                <th ng-click="reverse = predicate == 'amount' && !reverse; predicate = 'amount'">Amount</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="grnPayment in grnOrder.grnPaymentList | orderBy:predicate:reverse">
+                                                <td>{{grnPayment.payementId}}</td>
+                                                <td>{{grnPayment.paymentDate | date:'fullDate'}}</td>
+                                                <td>{{grnPayment.paymentMethod.description}}</td>
+                                                <td>{{grnPayment.amount | currency:""}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Batch </h3>
+                                </div>
+                                <div class="panel-body" style="margin: 10px;">
+                                    <div class="row">
+
+                                        <table class="table table-hover tablesorter">
+                                            <thead>
+                                            <tr>
+                                                <th >Grn Payment ID <i class="fa fa-sort"></i></th>
+                                                <th >Item ID <i class="fa fa-sort"></i></th>
+                                                <th >Item Name</th>
+                                                <th >Quantity</th>
+                                                <th >Unit Price</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="batch in grnOrder.batchList">
+                                                <td>{{batch.batchCode}}</td>
+                                                <td>{{batch.item.itemId}}</td>
+                                                <td>{{batch.item.name}}</td>
+                                                <td>{{batch.quantity}}</td>
+                                                <td>{{batch.buyingUnitPrice | currency:""}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- /.row -->
+
+                </div>
+            </div>
+        </div>
+    </div> <!-- /.row -->
+</div>

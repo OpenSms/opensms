@@ -5,6 +5,8 @@
  */
 package org.opensms.app.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -57,8 +59,9 @@ public class GrnPayment implements Serializable, EntityInterface<Long>  {
     @JoinColumn(name = "payment_method", referencedColumnName = "payment_method_id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private PaymentMethod paymentMethod;
+    @JsonBackReference
     @JoinColumn(name = "grn_order", referencedColumnName = "grn_order_id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private GrnOrder grnOrder;
     @JoinColumn(name = "cashier_employee", referencedColumnName = "user_id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
