@@ -18,7 +18,7 @@ import java.util.List;
  * Time: 12:23 PM
  * To change this template use File | Settings | File Templates.
  */
-    @RequestMapping(value = "batch")
+@RequestMapping(value = "batch")
 @Controller
 public class BatchController {
 
@@ -36,5 +36,8 @@ public class BatchController {
         return bigDecimal.doubleValue();
     }
 
-
+    @RequestMapping(value = "/all", params = {"itemid"}, method = RequestMethod.GET)
+    public @ResponseBody List<Batch> getAll(@RequestParam("itemid") String itemId) {
+        return batchDAOService.getAll(itemId);
+    }
 }

@@ -1,0 +1,92 @@
+<div ng-controller="ItemDetailsCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>
+                        Item Details
+                    </h3>
+                </div>
+                <div class="panel-body" style="margin: 10px;">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group row">
+                                <label class="col-lg-3 control-label">Item ID</label>
+
+                                <div class="col-lg-8 controls">
+                                    <input ng-model="item.itemId" type="text" class="form-control"
+                                           placeholder="Item ID">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 control-label">Name</label>
+                                <label class="col-lg-9 controls">{{item.name}}</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group row">
+                                <label class="col-lg-3 control-label">Unit</label>
+                                <label class="col-lg-9 controls">{{item.unit.unit}}</label>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 control-label">Category</label>
+                                <label class="col-lg-9 controls">{{item.category.category}}</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group row">
+                                <label class="col-lg-5 control-label">Default Profit Type</label>
+                                <label class="col-lg-3 controls">{{item.defaultProfit.type}}</label>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-5 control-label">Default Profit Value</label>
+                                <label class="col-lg-3 controls">{{item.defaultProfit.value}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                    <br/>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Batch </h3>
+                                </div>
+                                <div class="panel-body" style="margin: 10px;">
+                                    <div class="row">
+
+                                        <table class="table table-hover tablesorter">
+                                            <thead>
+                                            <tr>
+                                                <th>Batch Code <i class="fa fa-sort"></i></th>
+                                                <th>Quantity <i class="fa fa-sort"></i></th>
+                                                <th>Unit Price <i class="fa fa-sort"></i></th>
+                                                <th>Remaining Qty <i class="fa fa-sort"></i></th>
+                                                <th>Expire Date <i class="fa fa-sort"></i></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="batch in batchList">
+                                                <td>{{batch.batchCode}}</td>
+                                                <td>{{batch.quantity}}</td>
+                                                <td>{{batch.buyingUnitPrice | currency:""}}</td>
+                                                <td>{{batch.remainingQuantity}}</td>
+                                                <td>{{batch.expireDate | date:'fullDate'}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
