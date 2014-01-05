@@ -62,6 +62,7 @@
 
         <intercept-url pattern="/paymentmethod/all" access="hasAnyRole('payment_vendor', 'payment_customer')"/>
 
+        <intercept-url pattern="/preorder/all/current/customer" access="hasAnyRole('customer')"/>
         <intercept-url pattern="/preorder/all/open" access="hasAnyRole('create_iis_order')"/>
         <intercept-url pattern="/preorder/save" access="hasAnyRole('customer')"/>
 
