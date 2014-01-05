@@ -49,6 +49,7 @@
         <intercept-url pattern="/employee/updatenames" access="hasAnyRole('employee', 'edit_user')"/>
         <intercept-url pattern="/employee/updateroles" access="hasAnyRole('edit_user')"/>
 
+        <intercept-url pattern="/grnorder/all/current/vendor" access="hasRole('vendor')"/>
         <intercept-url pattern="/grnorder/save" access="hasAnyRole('create_grn_order')"/>
 
         <intercept-url pattern="/gsrorder/save" access="hasAnyRole('create_gsr_order')"/>
