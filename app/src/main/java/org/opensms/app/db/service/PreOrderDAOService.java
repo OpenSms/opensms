@@ -2,12 +2,14 @@ package org.opensms.app.db.service;
 
 import org.opensms.app.db.controller.impl.PreOrderDAOController;
 import org.opensms.app.db.controller.impl.PreOrderHasItemDAOController;
+import org.opensms.app.db.entity.Item;
 import org.opensms.app.db.entity.PreOrder;
 import org.opensms.app.db.entity.PreOrderHasItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -98,5 +100,17 @@ public class PreOrderDAOService {
             preOrder.setIsOpen(false);
             preOrderDAOController.update(preOrder);
         }
+    }
+
+    @Transactional
+    public List<PreOrderHasItem> getItemByPreOrderId(String[] preorderid) {
+        List<PreOrderHasItem> preOrderHasItems=new ArrayList<PreOrderHasItem>();
+        for (String preid:preorderid){
+            PreOrder preOrder=preOrderDAOController.get(Long.parseLong(preid));
+            if (preOrder!=null) {
+                preOrderHasItems.addAll(preOrder.getPreOrderHasItemList());
+            }
+        }
+        return preOrderHasItems;
     }
 }

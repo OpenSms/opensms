@@ -51,9 +51,6 @@ public class ToDoListController {
             tripData.addCustomer(customer);
             tripData.addPreOrder(order);
         }
-
-
-
         return tripData;
     }
 }
