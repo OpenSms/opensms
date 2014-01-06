@@ -6,6 +6,7 @@ import org.opensms.app.db.controller.IisOrderDAO;
 import org.opensms.app.db.controller.IisOrderHasBatchDAO;
 import org.opensms.app.db.controller.impl.PreOrderDAOController;
 import org.opensms.app.db.entity.*;
+import org.opensms.app.view.entity.IISOrderHasBatch;
 import org.opensms.app.view.model.IisOrderModel;
 import org.opensms.app.view.model.ItemModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -142,9 +143,16 @@ public class IisOrderDAOService {
         return iisOrderDAO.get(Long.parseLong(iisorder_id));
     }
 
+    @Transactional
     public List<IisOrderHasBatch> getBatchList(String iisorder_id) {
         return iisOrderHasBatchDAO.getAllByIisOrder(iisorder_id);
     }
 
 
+    @Transactional
+    public  List<IisOrderHasBatch> getIISOrderBatch(String itemid,String empId) {
+        IisOrder openOrder = iisOrderDAO.getOpenOrder(empId);
+        List<IisOrderHasBatch> orderHasBatch=iisOrderHasBatchDAO.getBatchByItemIdAndIISOrder(itemid, openOrder.getIisOrderId());
+        return orderHasBatch;
+    }
 }

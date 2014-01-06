@@ -54,7 +54,7 @@ public class IisOrderHasBatch implements Serializable, EntityInterface<IisOrderH
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iisOrderHasBatch", fetch = FetchType.LAZY)
     private List<IisOrderBatchHasGsrOrder> iisOrderBatchHasGsrOrderList;
     @JoinColumn(name = "batch", referencedColumnName = "batch_code", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Batch batch1;
 
     public IisOrderHasBatch() {

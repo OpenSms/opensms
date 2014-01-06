@@ -21,7 +21,9 @@ public class PreOrder {
         preOrderDate=preOrder.getPreOrderDate();
         priority=preOrder.getPriority();
         isOpen=preOrder.getIsOpen();
-        iisOrder_id=preOrder.getIisOrder().getIisOrderId();
+        if (preOrder.getIisOrder()!=null) {
+            iisOrder_id=preOrder.getIisOrder().getIisOrderId();
+        }
         customer_id=preOrder.getCustomer().getId();
     }
 

@@ -70,4 +70,8 @@ public class ItemController {
     public @ResponseBody Item getItem(@RequestParam("itemid") String itemid) {
         return itemDAOService.getItem(itemid);
     }
+
+
+
+
 }
