@@ -59,7 +59,7 @@
 
         <intercept-url pattern="/gsrorder/save" access="hasAnyRole('create_gsr_order')"/>
 
-
+        <intercept-url pattern="/iisorder/all/today" access="hasAnyRole('employee')"/>
         <intercept-url pattern="/iisorder/save" access="hasAnyRole('create_iis_order')"/>
 
         <intercept-url pattern="/item/all" access="hasAnyRole('employee', 'customer', 'vendor')"/>

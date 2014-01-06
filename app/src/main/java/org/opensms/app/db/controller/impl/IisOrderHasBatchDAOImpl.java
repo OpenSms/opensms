@@ -1,5 +1,6 @@
 package org.opensms.app.db.controller.impl;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.opensms.app.db.controller.IisOrderHasBatchDAO;
@@ -8,6 +9,8 @@ import org.opensms.app.db.entity.IisOrderHasBatch;
 import org.opensms.app.db.entity.IisOrderHasBatchPK;
 import org.springframework.stereotype.Repository;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +34,32 @@ public class IisOrderHasBatchDAOImpl extends AbstractDAOImpl<IisOrderHasBatch, I
         Query query = session.createQuery("SELECT b FROM  IisOrderHasBatch b where " +
                 "b.iisOrderHasBatchPK.iisOrder = :iis_order_id");
         query.setLong("iis_order_id",Long.parseLong(iisorder_id));
+
+        return query.list();
+    }
+
+    @Override
+    public List<IisOrder> getTodaysIisOrders() {
+
+        Session session = getCurrentSession();
+        Query query = session.createQuery("SELECT b FROM  IisOrder b where " +
+                "b.issOrderDateTime between :from and :to");
+
+        Date cur = Calendar.getInstance().getTime();
+
+        Date from = new Date(cur.getYear(), cur.getMonth(), cur.getDay(), 00, 0);
+        Date to = new Date(cur.getYear(), cur.getMonth(), cur.getDay(), 23, 59);
+
+        query.setParameter("from", from);
+        query.setParameter("to", to);
+
+        List<IisOrder> iisOrderList = query.list();
+
+        for (IisOrder i : iisOrderList) {
+            Hibernate.initialize(i);
+            Hibernate.initialize(i.getSalesEmployee());
+            Hibernate.initialize(i.getItemIssuerEmployee());
+        }
 
         return query.list();
     }
