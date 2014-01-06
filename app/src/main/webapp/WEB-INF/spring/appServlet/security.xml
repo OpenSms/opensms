@@ -7,6 +7,7 @@
 
     <http auto-config="true" use-expressions="true">
         <intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS')"/>
+        <intercept-url pattern="/attendance" access="hasAnyRole('ROLE_ANONYMOUS','employee','customer','vendor')"/>
 
         <!-- template page urls -->
         <intercept-url pattern="/static/app/templates/employee/AddCategory.html"
@@ -47,6 +48,7 @@
         <intercept-url pattern="/customer/get_view" access="hasAnyRole('employee','sales_person')"/>
 
         <intercept-url pattern="/employee" access="hasAnyRole('employee', 'edit_user')"/>
+        <intercept-url pattern="/employee/attendance/signin" access="hasAnyRole('ROLE_ANONYMOUS','employee','customer','vendor')"/>
         <intercept-url pattern="/employee/save" access="hasAnyRole('create_user')"/>
         <intercept-url pattern="/employee/updatenames" access="hasAnyRole('employee', 'edit_user')"/>
         <intercept-url pattern="/employee/updateroles" access="hasAnyRole('edit_user')"/>

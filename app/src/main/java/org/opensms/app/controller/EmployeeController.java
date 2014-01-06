@@ -1,6 +1,7 @@
 package org.opensms.app.controller;
 
 import org.opensms.app.db.entity.Employee;
+import org.opensms.app.db.entity.User;
 import org.opensms.app.db.entity.UserRole;
 import org.opensms.app.db.service.EmployeeDAOService;
 import org.opensms.app.view.model.EmployeeModel;
@@ -54,5 +55,17 @@ public class EmployeeController {
     @RequestMapping(method = RequestMethod.GET, params = {"userId"})
     public @ResponseBody Employee getEmployee(@RequestParam("userId") Integer userId) {
         return employeeDAOService.getEmployee(userId);
+    }
+
+    /**
+     * Employee attendence
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "/attendance/signin", method = RequestMethod.POST)
+    public @ResponseBody ResponseMessage attendanceSignin(@RequestBody User user) {
+//        employeeDAOService.updateEmployeeRoles(userRoles);
+
+        return new ResponseMessage(ResponseMessage.Type.success, "employee attendance signin - success");
     }
 }
