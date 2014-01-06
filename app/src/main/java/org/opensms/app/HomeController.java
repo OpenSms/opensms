@@ -62,7 +62,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/attendance", method = RequestMethod.GET)
-    public String attendenceForm() {
+    public String attendanceForm() {
         return "attendance";
     }
 
