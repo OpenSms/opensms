@@ -1,6 +1,7 @@
 package org.opensms.app.controller;
 
 import org.opensms.app.db.entity.Employee;
+import org.opensms.app.db.entity.EmployeeAttendence;
 import org.opensms.app.db.entity.User;
 import org.opensms.app.db.entity.UserRole;
 import org.opensms.app.db.service.EmployeeDAOService;
@@ -88,4 +89,11 @@ public class EmployeeController {
 
         return new ResponseMessage(ResponseMessage.Type.error, "employee attendance leave - error");
     }
+
+
+    @RequestMapping(value = "/attendance/all", method = RequestMethod.GET)
+    public @ResponseBody List<EmployeeAttendence> getAllEmployeeAttendance() {
+        return employeeDAOService.getAllEmployeeAttendance();
+    }
+
 }
