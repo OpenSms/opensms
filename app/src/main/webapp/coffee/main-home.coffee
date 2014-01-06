@@ -1,4 +1,4 @@
-app = angular.module "main-app", ["$strap.directives", "ngTable", "services.breadcrumbs"], ($routeProvider, $locationProvider) ->
+app = angular.module "main-app", ["$strap.directives", "ngTable", "services.breadcrumbs", "AngularGM"], ($routeProvider, $locationProvider) ->
   $routeProvider.when "/",
     templateUrl: "./static/app/templates/index.html"
     controller: checkLogginInCtrl
@@ -69,6 +69,26 @@ app = angular.module "main-app", ["$strap.directives", "ngTable", "services.brea
     templateUrl: "./static/app/templates/customer/PreOrder.html"
     controller: checkLogginInCtrl
     label: "Pre Order"
+
+  $routeProvider.when "/Reports/PreOrders",
+    templateUrl: "./static/app/templates/reports/customer/PreOrders.html"
+    controller: checkLogginInCtrl
+    label: "Pre Orders"
+
+  $routeProvider.when "/Reports/GrnOrders",
+    templateUrl: "./static/app/templates/reports/vendor/GrnOrders.html"
+    controller: checkLogginInCtrl
+    label: "Grn Orders"
+
+  $routeProvider.when "/Reports/ItemDetails",
+    templateUrl: "./static/app/templates/reports/employee/ItemDetails.html"
+    controller: checkLogginInCtrl
+    label: "Item Details"
+
+  $routeProvider.when "/Reports/CustomerLocations",
+    templateUrl: "./static/app/templates/reports/employee/CustomerLocations.html"
+    controller: checkLogginInCtrl
+    label: "Customer Locations"
 
   $routeProvider.otherwise
     redirectTo: "/"

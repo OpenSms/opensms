@@ -33,11 +33,10 @@ public class BatchHasIISOrderController {
     public
     @ResponseBody
     List<IisOrderHasBatch> getItem(@RequestParam("itemid") String itemid, @RequestParam("salesperson") String salesperson) {
-
-
         List<IisOrderHasBatch> orderHasBatch = iisOrderDAOService.getIISOrderBatch(itemid, salesperson);
         System.out.println(orderHasBatch);
-
         return orderHasBatch;
     }
+
+
 }

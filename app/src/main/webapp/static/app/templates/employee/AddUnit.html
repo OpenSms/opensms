@@ -1,7 +1,7 @@
 <div ng-controller="AddUnitCtrl">
     <div class="row">
         <div class="col-lg-3">
-            <div class="panel panel-primary">
+            <form ng-submit="save()" class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Add Unit </h3>
                 </div>
@@ -12,17 +12,17 @@
                                 <label class="col-lg-3 control-label">Unit</label>
 
                                 <div class="col-lg-9">
-                                    <input ng-model="unit.unit" type="text" class="form-control" placeholder="Unit"/>
+                                    <input ng-model="unit.unit" type="text" class="form-control" placeholder="Unit" required=""/>
                                 </div>
                             </div>
                         </fieldset>
                     </div>
 
                     <div class="row">
-                        <button class="btn pull-right btn-default btn-primary" ng-click="save()">Add</button>
+                        <button type="submit" class="btn pull-right btn-default btn-primary">Add</button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
     <!-- /.row -->

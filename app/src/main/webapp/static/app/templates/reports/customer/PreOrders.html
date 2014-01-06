@@ -1,0 +1,53 @@
+<div ng-controller="PreOrdersCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Pre Orders - Report</h3>
+                </div>
+                <div class="panel-body" style="margin: 10px;">
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table class="table table-hover tablesorter">
+                                <thead>
+                                <tr>
+                                    <th ng-click="reverse = predicate == 'preOrderId' && !reverse; predicate = 'preOrderId'">Pre Order ID <i class="fa fa-sort"></i></th>
+                                    <th ng-click="reverse = predicate == 'preOrderDate' && !reverse; predicate = 'preOrderDate'">Date <i class="fa fa-sort"></i></th>
+                                    <th ng-click="reverse = predicate == 'priority' && !reverse; predicate = 'priority'">Priority <i class="fa fa-sort"></i></th>
+                                    <th ng-click="reverse = predicate == 'state' && !reverse; predicate = 'state'">State <i class="fa fa-sort"></i></th>
+                                    <th>Items</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="preOrder in preOrders | orderBy:predicate:reverse">
+                                    <td>{{preOrder.preOrderId}}</td>
+                                    <td>{{preOrder.preOrderDate | date:'fullDate'}}</td>
+                                    <td>{{preOrder.priority}}</td>
+                                    <td>{{preOrder.state && 'Closed' || 'Open'}}</td>
+                                    <td ng-click="show = !show">
+                                        <button class="btn btn-sm" ng-show="!show">Show</button>
+                                        <table ng-show="show">
+                                            <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Quantity</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="preOrderHasItem in preOrder.preOrderHasItemList">
+                                                <td>{{ preOrderHasItem.item1.name }}</td>
+                                                <td>{{ preOrderHasItem.quantity }}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- /.row -->
+</div>

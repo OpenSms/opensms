@@ -5,6 +5,7 @@ import org.opensms.app.db.controller.BatchDAO;
 import org.opensms.app.db.controller.GrnOrderDAO;
 import org.opensms.app.db.entity.Batch;
 import org.opensms.app.db.entity.GrnOrder;
+import org.opensms.app.db.entity.Vendor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +42,7 @@ public class GrnOrderDAOService {
      * @param grnOrder
      * @param batchList
      */
+    @Transactional
     public void save(GrnOrder grnOrder, List<Batch> batchList) {
 
         LOGGER.info(grnOrder);
@@ -71,7 +73,13 @@ public class GrnOrderDAOService {
 
     }
 
+    @Transactional
     public GrnOrder getGrnOrder(Long grnOrderId) {
         return grnOrderDAO.get(grnOrderId);
+    }
+
+    @Transactional
+    public List<GrnOrder> getAllGrnOrdersOfCurrentVendor(Vendor vendor) {
+        return grnOrderDAO.getAllGrnOrdersOfCurrentVendor(vendor);
     }
 }

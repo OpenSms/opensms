@@ -43,4 +43,8 @@ public class VendorDAOService {
 
         vendorDAOController.save(vendor);
     }
+
+    public Vendor getVendor(Integer userId) {
+        return vendorDAOController.get(userId);
+    }
 }

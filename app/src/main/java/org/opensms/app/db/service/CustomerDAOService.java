@@ -1,5 +1,6 @@
 package org.opensms.app.db.service;
 
+import org.hibernate.Hibernate;
 import org.opensms.app.db.controller.impl.CustomerDAOController;
 import org.opensms.app.db.controller.impl.RoleDAOController;
 import org.opensms.app.db.entity.Customer;
@@ -7,6 +8,8 @@ import org.opensms.app.db.utils.UserRoleDAOComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -50,5 +53,18 @@ public class CustomerDAOService {
     @Transactional
     public Customer searchCustomer(String query) {
         return customerDAOController.search(query);
+    }
+
+    @Transactional
+    public List<Customer> getAllCustomers() {
+        List<Customer> list = customerDAOController.getAll();
+
+        for (Customer customer : list){
+            Hibernate.initialize(customer);
+            Hibernate.initialize(customer.getPreOrderList());
+            Hibernate.initialize(customer.getGsrOrderList());
+        }
+
+        return list;
     }
 }

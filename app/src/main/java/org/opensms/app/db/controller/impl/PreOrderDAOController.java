@@ -41,7 +41,9 @@ public class PreOrderDAOController extends AbstractDAOImpl<PreOrder, Long>{
     }
 
     /**
-     *
+     * Used by:
+     *      PreOrderDAOService::getAllPreOrdersOfCurrentCustomer(Customer customer)
+     *      PreOrderDAOService::getPreOrdersFrom(String customerid)
      *
      * @param customerid
      * @return

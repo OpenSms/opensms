@@ -39,10 +39,12 @@
         <intercept-url pattern="/category/allparents" access="hasAnyRole('employee','customer','vendor')"/>
         <intercept-url pattern="/category/save" access="hasAnyRole('insert_item', 'edit_item')"/>
 
+        <intercept-url pattern="/contactdetails" access="hasAnyRole('create_iis_order')"/>
         <intercept-url pattern="/contactdetails/save" access="hasAnyRole('create_user', 'edit_user')"/>
         <intercept-url pattern="/contactdetails/update"
                        access="hasAnyRole('employee','customer','vendor', 'edit_user')"/>
 
+        <intercept-url pattern="/customer/all" access="hasAnyRole('create_iis_order')"/>
         <intercept-url pattern="/customer/save" access="hasAnyRole('create_user')"/>
         <intercept-url pattern="/customer/get_view" access="hasAnyRole('employee','sales_person')"/>
 
@@ -51,6 +53,7 @@
         <intercept-url pattern="/employee/updatenames" access="hasAnyRole('employee', 'edit_user')"/>
         <intercept-url pattern="/employee/updateroles" access="hasAnyRole('edit_user')"/>
 
+        <intercept-url pattern="/grnorder/all/current/vendor" access="hasRole('vendor')"/>
         <intercept-url pattern="/grnorder/save" access="hasAnyRole('create_grn_order')"/>
 
         <intercept-url pattern="/gsrorder/save" access="hasAnyRole('create_gsr_order')"/>
@@ -61,9 +64,12 @@
         <intercept-url pattern="/item/all" access="hasAnyRole('employee', 'customer', 'vendor')"/>
         <intercept-url pattern="/item/get" access="hasAnyRole('employee', 'customer', 'vendor')"/>
         <intercept-url pattern="/item/save" access="hasAnyRole('insert_item')"/>
+        <intercept-url pattern="/item/bypreorder" access="hasAnyRole('employee', 'customer', 'vendor')"/>
+
 
         <intercept-url pattern="/paymentmethod/all" access="hasAnyRole('payment_vendor', 'payment_customer')"/>
 
+        <intercept-url pattern="/preorder/all/current/customer" access="hasAnyRole('customer')"/>
         <intercept-url pattern="/preorder/all/open" access="hasAnyRole('create_iis_order')"/>
         <intercept-url pattern="/preorder/save" access="hasAnyRole('customer')"/>
 
@@ -98,7 +104,6 @@
     </http>
 
     <authentication-manager>
-
         <authentication-provider user-service-ref="customUserService">
         </authentication-provider>
     </authentication-manager>

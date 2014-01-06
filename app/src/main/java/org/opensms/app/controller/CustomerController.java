@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sadika
@@ -42,7 +44,6 @@ public class CustomerController {
     public org.opensms.app.view.entity.Customer getCustomerView(@RequestParam("query") String query) {
         org.opensms.app.view.entity.Customer customer = new org.opensms.app.view.entity.Customer();
         Customer cus = customerDAOService.searchCustomer(query);
-
         if(cus!=null){
             UserContactDetail contactDetails = contactDetailsDAOService.getContactDetails(cus.getUserId());
             customer.setCustomerDetails(cus, contactDetails);
@@ -101,5 +102,10 @@ public class CustomerController {
         cus.setUser(user);
         customerDAOService.saveCustomer(cus);
         return new ResponseMessage(ResponseMessage.Type.success, "customer save");
+    }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public @ResponseBody List<Customer> getAllCustomers() {
+        return customerDAOService.getAllCustomers();
     }
 }

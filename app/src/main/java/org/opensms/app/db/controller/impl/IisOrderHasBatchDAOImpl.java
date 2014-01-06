@@ -47,12 +47,6 @@ public class IisOrderHasBatchDAOImpl extends AbstractDAOImpl<IisOrderHasBatch, I
 
                     Query query=currentSession.createQuery("SELECT i FROM IisOrderHasBatch i WHERE i.iisOrderHasBatchPK.iisOrder = :iisOrder " +
                             "AND i.iisOrderHasBatchPK.batch IN (SELECT b.batchCode FROM Batch b WHERE b.item.itemId=:itemid)");
-//            Query query = currentSession.createQuery("SELECT ib FROM IisOrderHasBatch ib " +
-//                    "WHERE ib.iisOrderHasBatchPK.iisOrder=:iisOrder AND " +
-//                    "ib.iisOrderHasBatchPK.batch IN (SELECT b.batchCode FROM Batch b WHERE b.item.itemId=:itemid)");
-//            Query query=currentSession.createSQLQuery("select * from iis_order_has_batch where iis_order=:iisOrder and " +
-//                    "batch in (select batch_code from batch where item=:itemid)");
-
             query.setLong("iisOrder",iisOrderId);
             query.setString("itemid", itemid);
 

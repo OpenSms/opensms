@@ -36,7 +36,9 @@ public class BatchDAOImpl extends AbstractDAOImpl<Batch,String> implements Batch
     @Override
     public List<Batch> getBatchesWithItemId(Item item) {
 
-        Query query = getCurrentSession().createQuery("SELECT b FROM Batch b, GrnOrder g WHERE b.remainingQuantity > 0 " +
+        Session session = getCurrentSession();
+        session = session.getSessionFactory().openSession();
+        Query query = session.createQuery("SELECT b FROM Batch b, GrnOrder g WHERE b.remainingQuantity > 0 " +
                 "AND b.grnOrder.grnOrderId = g.grnOrderId " +
                 "AND b.item = :item ORDER BY g.receiveDate ASC");
 

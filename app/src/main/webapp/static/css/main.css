@@ -60,3 +60,10 @@ Wave Animation
 .wave-leave-start {
     left:100%;
 }
+
+input.ng-invalid {
+    border: 1px solid red;
+}
+input.ng-valid {
+    border: 1px solid green;
+}

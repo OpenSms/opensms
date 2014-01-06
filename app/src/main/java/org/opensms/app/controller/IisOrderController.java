@@ -41,6 +41,11 @@ public class IisOrderController {
     ResponseMessage saveIisOrder(@RequestBody IisOrderModel iisOrderModel) {
         User user = (User) httpServletRequest.getSession().getAttribute("user");
         Employee issuerEmployee = employeeDAOService.getEmployee(user.getUserId());
+
+        if (issuerEmployee == null) {
+            return new ResponseMessage(ResponseMessage.Type.error, "cannot save iis order.");
+        }
+
         iisOrderModel.getIisOrder().setItemIssuerEmployee(issuerEmployee);
         iisOrderDAOService.saveIisOrder(iisOrderModel);
         return new ResponseMessage(ResponseMessage.Type.success, "iis order saved.");
