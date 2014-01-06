@@ -99,4 +99,9 @@ public class EmployeeDAOService {
 
         return employeeAttendenceDAO.leave(u);
     }
+
+    public List<EmployeeAttendence> getAllEmployeeAttendance() {
+        return employeeAttendenceDAO.getAll();
+    }
+
 }

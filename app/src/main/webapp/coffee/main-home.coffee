@@ -90,6 +90,11 @@ app = angular.module "main-app", ["$strap.directives", "ngTable", "services.brea
     controller: checkLogginInCtrl
     label: "Customer Locations"
 
+  $routeProvider.when "/Reports/EmployeeAttendance",
+    templateUrl: "./static/app/templates/reports/employee/EmployeeAttendance.html"
+    controller: checkLogginInCtrl
+    label: "Employee Attendance"
+
   $routeProvider.otherwise
     redirectTo: "/"
 

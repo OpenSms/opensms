@@ -48,6 +48,7 @@
         <intercept-url pattern="/customer/get_view" access="hasAnyRole('employee','sales_person')"/>
 
         <intercept-url pattern="/employee" access="hasAnyRole('employee', 'edit_user')"/>
+        <intercept-url pattern="/employee/attendance/all" access="hasAnyRole('employee')"/>
         <intercept-url pattern="/employee/attendance/signin" access="hasAnyRole('ROLE_ANONYMOUS','employee','customer','vendor')"/>
         <intercept-url pattern="/employee/save" access="hasAnyRole('create_user')"/>
         <intercept-url pattern="/employee/updatenames" access="hasAnyRole('employee', 'edit_user')"/>
