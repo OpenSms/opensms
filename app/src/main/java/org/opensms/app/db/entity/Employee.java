@@ -24,6 +24,8 @@ import java.io.Serializable;
         @NamedQuery(name = "Employee.findByInitials", query = "SELECT e FROM Employee e WHERE e.initials = :initials"),
         @NamedQuery(name = "Employee.findByNameReferredByInitials", query = "SELECT e FROM Employee e WHERE e.nameReferredByInitials = :nameReferredByInitials")})
 public class Employee implements Serializable, EntityInterface<Integer> {
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
+//    private Collection<EmployeeAttendence> employeeAttendenceCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -218,4 +220,14 @@ public class Employee implements Serializable, EntityInterface<Integer> {
     public Integer getId() {
         return getUserId();
     }
+
+//    @XmlTransient
+//    @JsonIgnore
+//    public Collection<EmployeeAttendence> getEmployeeAttendenceCollection() {
+//        return employeeAttendenceCollection;
+//    }
+//
+//    public void setEmployeeAttendenceCollection(Collection<EmployeeAttendence> employeeAttendenceCollection) {
+//        this.employeeAttendenceCollection = employeeAttendenceCollection;
+//    }
 }
