@@ -5,7 +5,7 @@
 <div class="panel-heading">
     <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> User Registration </h3>
 </div>
-<div class="panel-body" style="margin: 10px;">
+<form ng-submit="save()" class="panel-body" style="margin: 10px;">
 <div class="row">
     <fieldset>
         <legend>Basic</legend>
@@ -14,7 +14,9 @@
                 <label class="col-lg-3 control-label">Username</label>
 
                 <div class="col-lg-9 controls">
-                    <input ng-model="user.username" type="text" class="form-control" placeholder="Username">
+                    <input ng-model="user.username" type="text" class="form-control" placeholder="Username"
+                           required="" ng-minlength="5"/>
+                    <label class="control-label"><small>Please Use NIC Number as Username</small></label>
                 </div>
             </div>
             <div class="form-group row">
@@ -33,7 +35,8 @@
                 <label class="col-lg-3 control-label">Password</label>
 
                 <div class="col-lg-9 controls">
-                    <input ng-model="user.password" type="password" class="form-control" placeholder="Password">
+                    <input ng-model="user.password" type="password" class="form-control" placeholder="Password"
+                           required="" ng-minlength="4"/>
                 </div>
             </div>
             <div class="form-group row">
@@ -58,14 +61,16 @@
                 <label class="col-lg-3 control-label">Name</label>
 
                 <div class="col-lg-9 controls">
-                    <input ng-model="contactDetails.name" type="text" class="form-control" placeholder="Name">
+                    <input ng-model="contactDetails.name" type="text" class="form-control" placeholder="Name"
+                           required="" ng-minlength="5"/>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-lg-3 control-label">Email</label>
 
                 <div class="col-lg-9 controls">
-                    <input ng-model="contactDetails.email" type="email" class="form-control" placeholder="Email">
+                    <input ng-model="contactDetails.email" type="email" class="form-control" placeholder="Email"
+                           required=""/>
                 </div>
             </div>
             <div class="form-group row">
@@ -73,7 +78,7 @@
 
                 <div class="col-lg-9 controls">
                     <input ng-model="contactDetails.addressLine1" type="text" class="form-control"
-                           placeholder="Address Line 1">
+                           placeholder="Address Line 1" required="" ng-minlength="5"/>
                 </div>
             </div>
             <div class="form-group row">
@@ -81,7 +86,7 @@
 
                 <div class="col-lg-9 controls">
                     <input ng-model="contactDetails.addressLine2" type="text" class="form-control"
-                           placeholder="Address Line 2">
+                           placeholder="Address Line 2" required="" ng-minlength="5"/>
                 </div>
             </div>
         </div>
@@ -90,7 +95,8 @@
                 <label class="col-lg-3 control-label">City</label>
 
                 <div class="col-lg-9 controls">
-                    <input ng-model="contactDetails.city" type="text" class="form-control" placeholder="City">
+                    <input ng-model="contactDetails.city" type="text" class="form-control" placeholder="City"
+                           required="" ng-minlength="5"/>
                 </div>
             </div>
             <div class="form-group row">
@@ -98,7 +104,7 @@
 
                 <div class="col-lg-9 controls">
                     <input ng-model="contactDetails.province" type="text" class="form-control"
-                           placeholder="Province">
+                           placeholder="Province" required="" ng-minlength="5"/>
                 </div>
             </div>
             <div class="form-group row">
@@ -106,14 +112,15 @@
 
                 <div class="col-lg-9 controls">
                     <input ng-model="contactDetails.postalCode" type="text" class="form-control"
-                           placeholder="Postal Code">
+                           placeholder="Postal Code" required="" ng-minlength="5"/>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-lg-3 control-label">Country</label>
 
                 <div class="col-lg-9 controls">
-                    <input ng-model="contactDetails.country" type="text" class="form-control" placeholder="Country">
+                    <input ng-model="contactDetails.country" type="text" class="form-control" placeholder="Country"
+                           required="" ng-minlength="5"/>
                 </div>
             </div>
             <div class="form-group row">
@@ -121,7 +128,7 @@
 
                 <div class="col-lg-9 controls">
                     <input ng-model="contactDetails.phoneNumber" type="text" class="form-control"
-                           placeholder="Telephone Number">
+                           placeholder="Telephone Number" required="" ng-minlength="5"/>
                 </div>
             </div>
         </div>
@@ -136,7 +143,7 @@
                     <label class="col-lg-3 control-label">Surname</label>
 
                     <div class="col-lg-9 controls">
-                        <input ng-model="employee.surname" type="text" class="form-control" placeholder="Surname">
+                        <input ng-model="employee.surname" type="text" class="form-control" placeholder="Surname" ng-minlength="5">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -144,7 +151,7 @@
 
                     <div class="col-lg-9 controls">
                         <input ng-model="employee.nameReferredByInitials" type="text" class="form-control"
-                               placeholder="Name referred by initials">
+                               placeholder="Name referred by initials" ng-minlength="5">
                     </div>
                 </div>
             </div>
@@ -153,7 +160,7 @@
                     <label class="col-lg-3 control-label">Initials</label>
 
                     <div class="col-lg-9 controls">
-                        <input ng-model="employee.initials" type="text" class="form-control" placeholder="Initials">
+                        <input ng-model="employee.initials" type="text" class="form-control" placeholder="Initials" ng-minlength="1" ng-maxlength="10">
                     </div>
                 </div>
             </div>
@@ -208,10 +215,10 @@
 </div>
 <div class="row">
     <div class="col-lg-offset-10 col-lg-2">
-        <a class="btn pull-right btn-primary" ng-click="save()">Save</a>
+        <button type="submit" class="btn pull-right btn-primary" >Save</button>
     </div>
 </div>
-</div>
+</form>
 </div>
 </div>
 </div>

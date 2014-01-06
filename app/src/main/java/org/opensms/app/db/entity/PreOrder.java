@@ -28,6 +28,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Proxy;
 
 /**
@@ -63,7 +64,7 @@ public class PreOrder implements Serializable, EntityInterface<Long> {
     @NotNull
     @Column(name = "is_open")
     private boolean isOpen;
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "preOrder1", fetch = FetchType.EAGER)
     private List<PreOrderHasItem> preOrderHasItemList;
     @JsonIgnore
@@ -120,7 +121,6 @@ public class PreOrder implements Serializable, EntityInterface<Long> {
         this.isOpen = isOpen;
     }
 
-    @JsonIgnore
     public List<PreOrderHasItem> getPreOrderHasItemList() {
         return preOrderHasItemList;
     }

@@ -4,8 +4,10 @@ import org.opensms.app.db.controller.impl.EmployeeDAOController;
 import org.opensms.app.db.entity.Employee;
 import org.opensms.app.db.entity.GrnOrder;
 import org.opensms.app.db.entity.User;
+import org.opensms.app.db.entity.Vendor;
 import org.opensms.app.db.service.EmployeeDAOService;
 import org.opensms.app.db.service.GrnOrderDAOService;
+import org.opensms.app.db.service.VendorDAOService;
 import org.opensms.app.view.model.GrnOrderModel;
 import org.opensms.app.view.model.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,6 +33,8 @@ public class GrnOrderController {
 
     @Autowired
     private EmployeeDAOService employeeDAOService;
+    @Autowired
+    private VendorDAOService vendorDAOService;
 
     @Autowired
     private HttpServletRequest request;
@@ -59,5 +65,22 @@ public class GrnOrderController {
     @RequestMapping(method = RequestMethod.GET, params = {"grnorderid"})
     public @ResponseBody GrnOrder getGrnOrder(@RequestParam("grnorderid") Long grnOrderId) {
         return grnOrderDAOService.getGrnOrder(grnOrderId);
+    }
+
+    /**
+     * Get all grn orders of currently logged user (vendor)
+     * @return
+     */
+    @RequestMapping(value = "/all/current/vendor", method = RequestMethod.GET)
+    public @ResponseBody List<GrnOrder> getAllGrnOrdersOfCurrentVendor() {
+
+        User user = (User) request.getSession().getAttribute("user");
+        Vendor vendor = vendorDAOService.getVendor(user.getUserId());
+
+        if (vendor == null) {
+            return new ArrayList<GrnOrder>();
+        }
+
+        return grnOrderDAOService.getAllGrnOrdersOfCurrentVendor(vendor);
     }
 }

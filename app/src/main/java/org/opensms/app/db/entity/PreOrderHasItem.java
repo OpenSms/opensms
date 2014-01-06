@@ -5,6 +5,8 @@
  */
 package org.opensms.app.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
@@ -41,6 +43,7 @@ public class PreOrderHasItem implements Serializable, EntityInterface<PreOrderHa
     @NotNull
     @Column(name = "quantity")
     private BigDecimal quantity;
+    @JsonBackReference
     @JoinColumn(name = "pre_order", referencedColumnName = "pre_order_id", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private PreOrder preOrder1;

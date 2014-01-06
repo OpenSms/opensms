@@ -114,7 +114,7 @@
                                     </table>
                                 </div>
 
-                                <div ng-switch-when="three">
+                                <form ng-submit="addNextItem()" ng-switch-when="three">
                                     <br/>
                                     <fieldset>
                                         <div class="form-group row">
@@ -122,7 +122,7 @@
 
                                             <div class="col-lg-9">
                                                 <input ng-model="curruntBatch.buyingUnitPrice" type="number"
-                                                       class="form-control">
+                                                       class="form-control" required="">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -130,7 +130,7 @@
 
                                             <div class="col-lg-9">
                                                 <input ng-model="curruntBatch.quantity" type="number"
-                                                       class="form-control">
+                                                       class="form-control" required="">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -147,7 +147,7 @@
 
                                         <div class="form-group row">
                                             <div class="col-lg-offset-10 col-lg-2">
-                                                <button ng-click="addNextItem()" class="btn btn-success pull-right">Add
+                                                <button type="submit" class="btn btn-success pull-right">Add
                                                     next item
                                                 </button>
                                             </div>
@@ -155,7 +155,7 @@
 
 
                                     </fieldset>
-                                </div>
+                                </form>
 
                             </div>
                         </div>
