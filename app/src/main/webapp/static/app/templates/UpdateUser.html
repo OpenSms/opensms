@@ -81,7 +81,7 @@
 
                 <div class="col-lg-9 controls">
                     <input ng-model="userPassword.oldPass" type="password" class="form-control"
-                           placeholder="Old Password" ng-change="userPasswordChanged()">
+                           placeholder="Old Password" ng-change="userPasswordChanged()" ng-minlength="4">
                 </div>
             </div>
         </div>
@@ -91,7 +91,7 @@
 
                 <div class="col-lg-9 controls">
                     <input ng-model="userPassword.confirmPass" type="password" class="form-control"
-                           placeholder="Confirm Password" ng-change="userPasswordChanged()">
+                           placeholder="Confirm Password" ng-change="userPasswordChanged()" ng-minlength="4">
                 </div>
             </div>
 
@@ -102,7 +102,7 @@
                 <div class="col-lg-9 controls">
                     <input ng-model="userPassword.newPass" type="password" class="form-control"
                            placeholder="New Password"
-                           ng-change="userPasswordChanged()">
+                           ng-change="userPasswordChanged()" ng-minlength="4">
                 </div>
             </div>
         </div>
@@ -135,7 +135,7 @@
 
                 <div class="col-lg-9 controls">
                     <input ng-model="contactDetails.addressLine1" type="text" class="form-control"
-                           placeholder="Address Line 1" ng-change="contactDetailsChanged()">
+                           placeholder="Address Line 1" ng-change="contactDetailsChanged()"  ng-minlength="5">
                 </div>
             </div>
             <div class="form-group row">
@@ -143,7 +143,7 @@
 
                 <div class="col-lg-9 controls">
                     <input ng-model="contactDetails.addressLine2" type="text" class="form-control"
-                           placeholder="Address Line 2" ng-change="contactDetailsChanged()">
+                           placeholder="Address Line 2" ng-change="contactDetailsChanged()" ng-minlength="5">
                 </div>
             </div>
         </div>
@@ -153,7 +153,7 @@
 
                 <div class="col-lg-9 controls">
                     <input ng-model="contactDetails.city" type="text" class="form-control" placeholder="City"
-                           ng-change="contactDetailsChanged()">
+                           ng-change="contactDetailsChanged()" ng-minlength="5">
                 </div>
             </div>
             <div class="form-group row">
@@ -161,7 +161,7 @@
 
                 <div class="col-lg-9 controls">
                     <input ng-model="contactDetails.province" type="text" class="form-control"
-                           placeholder="Province" ng-change="contactDetailsChanged()">
+                           placeholder="Province" ng-change="contactDetailsChanged()" ng-minlength="5">
                 </div>
             </div>
             <div class="form-group row">
@@ -169,7 +169,7 @@
 
                 <div class="col-lg-9 controls">
                     <input ng-model="contactDetails.postalCode" type="text" class="form-control"
-                           placeholder="Postal Code" ng-change="contactDetailsChanged()">
+                           placeholder="Postal Code" ng-change="contactDetailsChanged()" ng-minlength="5">
                 </div>
             </div>
             <div class="form-group row">
@@ -177,7 +177,7 @@
 
                 <div class="col-lg-9 controls">
                     <input ng-model="contactDetails.country" type="text" class="form-control" placeholder="Country"
-                           ng-change="contactDetailsChanged()">
+                           ng-change="contactDetailsChanged()" ng-minlength="5">
                 </div>
             </div>
             <div class="form-group row">
@@ -185,7 +185,7 @@
 
                 <div class="col-lg-9 controls">
                     <input ng-model="contactDetails.phoneNumber" type="text" class="form-control"
-                           placeholder="Telephone Number" ng-change="contactDetailsChanged()">
+                           placeholder="Telephone Number" ng-change="contactDetailsChanged()" ng-minlength="5">
                 </div>
             </div>
         </div>
@@ -203,7 +203,7 @@
 
                 <div class="col-lg-9 controls">
                     <input ng-model="employee.surname" type="text" class="form-control" placeholder="Surname"
-                           ng-change="employeeNameChanged()">
+                           ng-change="employeeNameChanged()" ng-minlength="5">
                 </div>
             </div>
             <div class="form-group row">
@@ -211,7 +211,7 @@
 
                 <div class="col-lg-9 controls">
                     <input ng-model="employee.nameReferredByInitials" type="text" class="form-control"
-                           placeholder="Name referred by initials" ng-change="employeeNameChanged()">
+                           placeholder="Name referred by initials" ng-change="employeeNameChanged()" ng-minlength="5">
                 </div>
             </div>
         </div>
@@ -221,7 +221,7 @@
 
                 <div class="col-lg-9 controls">
                     <input ng-model="employee.initials" type="text" class="form-control" placeholder="Initials"
-                           ng-change="employeeNameChanged()">
+                           ng-change="employeeNameChanged()"  ng-minlength="1" ng-maxlength="10">
                 </div>
             </div>
         </div>
