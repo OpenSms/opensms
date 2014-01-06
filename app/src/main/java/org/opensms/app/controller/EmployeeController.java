@@ -58,14 +58,34 @@ public class EmployeeController {
     }
 
     /**
-     * Employee attendence
+     * Employee attendance signin
      * @param user
      * @return
      */
     @RequestMapping(value = "/attendance/signin", method = RequestMethod.POST)
     public @ResponseBody ResponseMessage attendanceSignin(@RequestBody User user) {
-//        employeeDAOService.updateEmployeeRoles(userRoles);
 
-        return new ResponseMessage(ResponseMessage.Type.success, "employee attendance signin - success");
+        boolean isSigned = employeeDAOService.attendanceSignin(user);
+
+        if (isSigned)
+            return new ResponseMessage(ResponseMessage.Type.success, "employee attendance signin - success");
+
+        return new ResponseMessage(ResponseMessage.Type.error, "employee attendance signin - error");
+    }
+
+    /**
+     * Employee attendance leave
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "/attendance/leave", method = RequestMethod.POST)
+    public @ResponseBody ResponseMessage attendanceLeave(@RequestBody User user) {
+
+        boolean isLeaved = employeeDAOService.attendanceLeave(user);
+
+        if (isLeaved)
+            return new ResponseMessage(ResponseMessage.Type.success, "employee attendance leave - success");
+
+        return new ResponseMessage(ResponseMessage.Type.error, "employee attendance leave - error");
     }
 }

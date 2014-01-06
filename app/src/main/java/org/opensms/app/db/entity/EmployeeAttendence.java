@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "EmployeeAttendence.findByUserId", query = "SELECT e FROM EmployeeAttendence e WHERE e.employeeAttendencePK.userId = :userId"),
     @NamedQuery(name = "EmployeeAttendence.findBySigninTime", query = "SELECT e FROM EmployeeAttendence e WHERE e.employeeAttendencePK.signinTime = :signinTime"),
     @NamedQuery(name = "EmployeeAttendence.findByLeaveTime", query = "SELECT e FROM EmployeeAttendence e WHERE e.leaveTime = :leaveTime")})
-public class EmployeeAttendence implements Serializable {
+public class EmployeeAttendence implements Serializable, EntityInterface<EmployeeAttendencePK>  {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected EmployeeAttendencePK employeeAttendencePK;
@@ -102,5 +102,9 @@ public class EmployeeAttendence implements Serializable {
     public String toString() {
         return "org.opensms.app.db.entity.EmployeeAttendence[ employeeAttendencePK=" + employeeAttendencePK + " ]";
     }
-    
+
+    @Override
+    public EmployeeAttendencePK getId() {
+        return getEmployeeAttendencePK();
+    }
 }
