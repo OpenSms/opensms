@@ -1,0 +1,33 @@
+<div ng-controller="CustomerLocationsCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>
+                        Customer Locations
+                    </h3>
+                </div>
+                <div class="panel-body" style="margin: 10px;">
+                    <div class="row">
+                        <gm-map gm-map-id="'customerLocMap'" gm-center="center"
+                                gm-zoom="zoom" gm-map-options="options.map" style="width:100%;height:300px;">
+
+                            <gm-markers gm-objects="customers"
+                                        gm-id="object.id"
+                                        gm-position="{lat: object.location.lat, lng: object.location.lng}"
+                                        gm-marker-options="getCustomerOpts(object)"
+                                        gm-on-click="selectCustomer(object)">
+                            </gm-markers>
+                        </gm-map>
+                    </div>
+                    <div class="row">
+                        <div ng-show="customer">
+                            <h5>{{ customer.name }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>

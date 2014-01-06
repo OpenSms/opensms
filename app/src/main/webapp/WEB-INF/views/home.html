@@ -91,6 +91,7 @@
                         <li sec:authorize="hasRole('customer')"><a href="#/Reports/GsrOrders"> Gsr Orders</a></li>
 
                         <li sec:authorize="hasRole('employee')"><a href="#/Reports/ItemDetails"> Item Details</a></li>
+                        <li sec:authorize="hasRole('employee')"><a href="#/Reports/CustomerLocations"> Customer Locations</a></li>
 
                         <li sec:authorize="hasRole('vendor')"><a href="#/Reports/GrnOrders"> Grn Orders</a></li>
                     </ul>
@@ -194,6 +195,11 @@
 
 <script type="text/javascript" src="/static/app/controller/reports/customer/PreOrdersCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/reports/employee/ItemDetailsCtrl.js"></script>
+<script type="text/javascript" src="/static/app/controller/reports/employee/CustomerLocationsCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/reports/vendor/GrnOrdersCtrl.js"></script>
+
+<!-- maps -->
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="/static/lib/angular-gm/angular-gm.min.js"></script>
 </body>
 </html>
