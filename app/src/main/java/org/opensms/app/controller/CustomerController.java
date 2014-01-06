@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sadika
@@ -101,5 +103,10 @@ public class CustomerController {
         cus.setUser(user);
         customerDAOService.saveCustomer(cus);
         return new ResponseMessage(ResponseMessage.Type.success, "customer save");
+    }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public @ResponseBody List<Customer> getAllCustomers() {
+        return customerDAOService.getAllCustomers();
     }
 }
