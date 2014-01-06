@@ -2,12 +2,14 @@ package org.opensms.app.db.service;
 
 import org.opensms.app.db.controller.impl.PreOrderDAOController;
 import org.opensms.app.db.controller.impl.PreOrderHasItemDAOController;
+import org.opensms.app.db.entity.Customer;
 import org.opensms.app.db.entity.PreOrder;
 import org.opensms.app.db.entity.PreOrderHasItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
