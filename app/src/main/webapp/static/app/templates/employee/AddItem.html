@@ -5,7 +5,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Add New Item </h3>
                 </div>
-                <div class="panel-body" style="margin: 10px;">
+                <form ng-submit="addItem()" class="panel-body" style="margin: 10px;">
                     <div class="row">
                         <fieldset>
                             <div class="col-md-6">
@@ -14,7 +14,7 @@
 
                                     <div class="col-lg-8">
                                         <input ng-model="item.itemId" type="text" class="form-control"
-                                               placeholder="Item id">
+                                               placeholder="Item id" required="" ng-minlength="5">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -22,14 +22,14 @@
 
                                     <div class="col-lg-8">
                                         <input ng-model="item.name" type="text" class="form-control"
-                                               placeholder="Item Name">
+                                               placeholder="Item Name" required="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-lg-2 control-label">Unit</label>
 
                                     <div class="col-lg-8">
-                                        <select ng-model="item.unit.unitId" class="form-control">
+                                        <select ng-model="item.unit.unitId" class="form-control" required="">
                                             <option ng-repeat="unit in units" value="{{unit.unitId}}">{{unit.unit}}
                                             </option>
                                         </select>
@@ -37,22 +37,22 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-lg-2 control-label">Parent Category</label>
+                                <!--<div class="form-group row">-->
+                                    <!--<label class="col-lg-2 control-label">Parent Category</label>-->
 
-                                    <div class="col-lg-8">
-                                        <select class="form-control">
-                                            <option ng-repeat="parent in parentCategories"
-                                                    value="{{parent.categoryId}}">
-                                                {{parent.category}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
+                                    <!--<div class="col-lg-8">-->
+                                        <!--<select class="form-control" required="">-->
+                                            <!--<option ng-repeat="parent in parentCategories"-->
+                                                    <!--value="{{parent.categoryId}}">-->
+                                                <!--{{parent.category}}-->
+                                            <!--</option>-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
                                 <div class="form-group row">
-                                    <label class="col-lg-2 control-label">Child Category</label>
+                                    <label class="col-lg-2 control-label">Category</label>
 
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-8" required="">
                                         <select ng-model="item.category.categoryId" class="form-control">
                                             <option ng-repeat="child in categories" value="{{child.categoryId}}">
                                                 {{child.category}}
@@ -66,14 +66,14 @@
                                     <div class="col-lg-8">
                                         <div class="col-lg-6" style="padding-left: 0px;">
                                             <select ng-model="item.defaultProfit.profitId"
-                                                    class="form-control col-lg-4">
+                                                    class="form-control col-lg-4" required="">
                                                 <option ng-repeat="profit in profits" value="{{profit.profitId}}">
                                                     {{profit.value}}
                                                 </option>
                                             </select>
                                         </div>
                                         <div class="col-lg-6" style="padding-right: 0px;">
-                                            <select ng-model="profit" class="form-control col-lg-4">
+                                            <select ng-model="profit" class="form-control col-lg-4"  required="">
                                                 <option value="MARGIN">Margin</option>
                                                 <option value="PERCENTAGE">Percentage</option>
                                             </select>
@@ -85,11 +85,11 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-offset-10 col-lg-2">
-                            <button ng-click="addItem()" class="btn btn-default pull-right btn-primary">Add Item
+                            <button type="submit" class="btn btn-default pull-right btn-primary">Add Item
                             </button>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
