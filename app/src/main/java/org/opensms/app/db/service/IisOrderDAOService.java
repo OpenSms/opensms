@@ -142,9 +142,14 @@ public class IisOrderDAOService {
         return iisOrderDAO.get(Long.parseLong(iisorder_id));
     }
 
+    @Transactional
     public List<IisOrderHasBatch> getBatchList(String iisorder_id) {
         return iisOrderHasBatchDAO.getAllByIisOrder(iisorder_id);
     }
 
 
+    @Transactional
+    public List<IisOrder> getTodaysIisOrders() {
+        return iisOrderHasBatchDAO.getTodaysIisOrders();
+    }
 }
