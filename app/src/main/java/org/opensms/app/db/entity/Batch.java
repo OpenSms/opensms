@@ -52,11 +52,11 @@ public class Batch implements Serializable ,EntityInterface<String>{
     @ManyToOne(fetch = FetchType.LAZY)
     private Profit profit;
     @JoinColumn(name = "item", referencedColumnName = "item_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Item item;
     @JoinColumn(name = "grn_order", referencedColumnName = "grn_order_id")
     @JsonBackReference
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private GrnOrder grnOrder;
     @Basic(optional = true)
     @Column(name = "expire_date")

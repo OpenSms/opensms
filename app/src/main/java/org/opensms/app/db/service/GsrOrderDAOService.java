@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -50,6 +52,9 @@ public class GsrOrderDAOService {
         IisOrder iisOrder = iisOrderDAOService.getOpenOrder(gsrOrderModel.getSales_person());
 
 
+        List<IisOrderHasBatch> batchList = iisOrderDAOService.getBatchList(iisOrder.getIisOrderId() + "");
+        List<IisOrderBatchHasGsrOrder> gsrOrders = new ArrayList<IisOrderBatchHasGsrOrder>();
+
         Map<String, Double> itemList = gsrOrderModel.getItemList();
         for (String item_id : itemList.keySet()) {
             IisOrderBatchHasGsrOrderPK pk = new IisOrderBatchHasGsrOrderPK();
@@ -60,13 +65,27 @@ public class GsrOrderDAOService {
             batchHasGsrOrder.setQuantity(BigDecimal.valueOf(itemList.get(item_id)));
 
 
-            IisOrderHasBatchPK iisOrderHasBatchPK=new IisOrderHasBatchPK();
-            iisOrderHasBatchPK.setIisOrder(iisOrder.getIisOrderId());
-            iisOrderHasBatchPK.setBatch(item_id);
-            IisOrderHasBatch iisOrderHasBatch = iisOrderHasBatchDAO.get(iisOrderHasBatchPK);
+            for (IisOrderHasBatch batch : batchList) {
+                batchHasGsrOrder.setIisOrderHasBatch(batch);
+                batchHasGsrOrder.setIisOrderBatchHasGsrOrderPK(new IisOrderBatchHasGsrOrderPK(gsrOrder.getGsrOrderId(),
+                        batch.getIisOrderHasBatchPK().getIisOrder(), batch.getIisOrderHasBatchPK().getBatch()));
 
-            batchHasGsrOrder.setIisOrderHasBatch(iisOrderHasBatch);
-            iisOrderBatchHasGsrOrderDAO.save(batchHasGsrOrder);
+                boolean ok = true;
+
+                for (IisOrderBatchHasGsrOrder order : gsrOrders) {
+                    IisOrderBatchHasGsrOrderPK pk1 = order.getId();
+                    if (pk1.getIisOrder() == gsrOrder.getGsrOrderId() && pk1.getBatch() == batch.getIisOrderHasBatchPK().getBatch() && batch.getIisOrderHasBatchPK().getIisOrder() == pk.getIisOrder()) {
+                        ok = false;
+                        break;
+                    }
+                }
+
+                if (ok) {
+                    iisOrderBatchHasGsrOrderDAO.save(batchHasGsrOrder);
+                    gsrOrders.add(batchHasGsrOrder);
+                }
+            }
+
 
         }
         return gsrOrder.getGsrOrderId();

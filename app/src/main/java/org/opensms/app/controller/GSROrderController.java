@@ -1,15 +1,11 @@
 package org.opensms.app.controller;
 
-import org.opensms.app.db.entity.IisOrder;
 import org.opensms.app.db.entity.IisOrderHasBatch;
 import org.opensms.app.db.entity.PreOrder;
 import org.opensms.app.db.entity.PreOrderHasItem;
-import org.opensms.app.db.service.GsrOrderDAOService;
-import org.opensms.app.db.service.IisOrderDAOService;
-import org.opensms.app.db.service.ItemDAOService;
-import org.opensms.app.db.service.PreOrderDAOService;
+import org.opensms.app.db.entity.User;
+import org.opensms.app.db.service.*;
 import org.opensms.app.view.entity.GsrOrderModel;
-import org.opensms.app.view.entity.IISOrderHasBatch;
 import org.opensms.app.view.model.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,8 +35,15 @@ public class GSROrderController {
     private IisOrderDAOService iisOrderDAOService;
 
 
+    private UserDAOService userDAOService;
+
+
     @RequestMapping(value = "/save", method = RequestMethod.PUT)
     public ResponseMessage createGsrOrder(@RequestBody GsrOrderModel gsrOrderModel) {
+
+        User user = userDAOService.getUser(gsrOrderModel.getSales_person());
+        gsrOrderModel.setSales_person(user.getUserId() + "");
+
         Long id = gsrOrderDAOService.save(gsrOrderModel);
         return new ResponseMessage(ResponseMessage.Type.success, "ok");
     }
@@ -60,12 +63,13 @@ public class GSROrderController {
     }
 
 
-
-    @RequestMapping(value = "/getpreorderitesm", method = RequestMethod.GET, params = {"salesEmp"})
+    @RequestMapping(value = "/getpreorderitesm", method = RequestMethod.GET, params = {"salesEmp", "itemid"})
     @ResponseBody
-    public List<IisOrderHasBatch> getIisOrderHasBatches(@RequestParam("salesEmp") String salesEmp) {
-        IisOrder openOrder = iisOrderDAOService.getOpenOrder(salesEmp);
-        return iisOrderDAOService.getBatchList(openOrder.getIisOrderId()+"");
+    public List<IisOrderHasBatch> getIisOrderHasBatches(@RequestParam("salesEmp") String salesEmp,
+                                                        @RequestParam("itemid") String itemid) {
+        User user = userDAOService.getUser(salesEmp);
+        salesEmp=user.getId()+"";
+        return iisOrderDAOService.getIISOrderBatch(itemid, salesEmp);
     }
 
 
