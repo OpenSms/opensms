@@ -44,16 +44,15 @@ public class IisOrderHasBatchDAOImpl extends AbstractDAOImpl<IisOrderHasBatch, I
     public List<IisOrder> getTodaysIisOrders() {
 
         Session session = getCurrentSession();
-        Query query = session.createQuery("SELECT b FROM  IisOrder b where " +
-                "b.issOrderDateTime between :from and :to");
+        Query query = session.createQuery("SELECT b FROM  IisOrder b ");
 
-        Date cur = Calendar.getInstance().getTime();
-
-        Date from = new Date(cur.getYear(), cur.getMonth(), cur.getDay(), 00, 0);
-        Date to = new Date(cur.getYear(), cur.getMonth(), cur.getDay(), 23, 59);
-
-        query.setParameter("from", from);
-        query.setParameter("to", to);
+//        Date cur = Calendar.getInstance().getTime();
+//
+//        Date from = new Date(cur.getYear(), cur.getMonth(), cur.getDay(), 00, 0);
+//        Date to = new Date(cur.getYear(), cur.getMonth(), cur.getDay(), 23, 59);
+//
+//        query.setParameter("from", from);
+//        query.setParameter("to", to);
 
         List<IisOrder> iisOrderList = query.list();
 

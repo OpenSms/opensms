@@ -39,6 +39,12 @@ app = angular.module "main-app", ["$strap.directives", "ngTable", "services.brea
     controller: checkLogginInCtrl
     label: "Create GRN Order"
 
+
+  $routeProvider.when "/GsrOrder",
+    templateUrl: "./static/app/templates/employee/GsnOrderWizard.html"
+    controller: checkLogginInCtrl
+    label: "Create GSR Order"
+
   $routeProvider.when "/GrnPayment",
     templateUrl: "./static/app/templates/employee/GrnPayment.html"
     controller: checkLogginInCtrl

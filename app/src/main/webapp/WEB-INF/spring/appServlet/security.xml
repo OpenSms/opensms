@@ -21,6 +21,8 @@
                        access="hasAnyRole('create_iis_order')"/>
         <intercept-url pattern="/static/app/templates/employee/GrnOrderWizard.html"
                        access="hasAnyRole('create_grn_order')"/>
+        <intercept-url pattern="/static/app/templates/employee/GsnOrderWizard.html"
+                       access="hasAnyRole('create_gsr_order')"/>
         <intercept-url pattern="/static/app/templates/employee/ItemList.html"
                        access="hasAnyRole('customer', 'employee')"/>
         <intercept-url pattern="/static/app/templates/index.html"
@@ -40,7 +42,7 @@
         <intercept-url pattern="/category/allparents" access="hasAnyRole('employee','customer','vendor')"/>
         <intercept-url pattern="/category/save" access="hasAnyRole('insert_item', 'edit_item')"/>
 
-        <intercept-url pattern="/contactdetails" access="hasAnyRole('create_iis_order')"/>
+        <intercept-url pattern="/contactdetails" access="hasAnyRole('create_iis_order', 'edit_user')"/>
         <intercept-url pattern="/contactdetails/save" access="hasAnyRole('create_user', 'edit_user')"/>
         <intercept-url pattern="/contactdetails/update"
                        access="hasAnyRole('employee','customer','vendor', 'edit_user')"/>
@@ -73,6 +75,7 @@
         <intercept-url pattern="/paymentmethod/all" access="hasAnyRole('payment_vendor', 'payment_customer')"/>
 
         <intercept-url pattern="/preorder/all/current/customer" access="hasAnyRole('customer')"/>
+        <intercept-url pattern="/preorder/all/current/customers" access="hasAnyRole('create_iis_order')"/>
         <intercept-url pattern="/preorder/all/open" access="hasAnyRole('create_iis_order')"/>
         <intercept-url pattern="/preorder/save" access="hasAnyRole('customer')"/>
 

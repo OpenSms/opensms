@@ -128,4 +128,15 @@ public class PreOrderController {
         }
         return preOrders;
     }
+
+
+    /**
+     * @param customerid
+     * @return
+     */
+    @RequestMapping(value = "/all/customers", params = {"customerid"}, method = RequestMethod.GET)
+    @ResponseBody
+    public List<PreOrder> getAllPreOrdersFromCustomers(@RequestParam("customerid") String customerid) {
+        return preOrderDAOService.getPreOrdersFrom(customerid);
+    }
 }
