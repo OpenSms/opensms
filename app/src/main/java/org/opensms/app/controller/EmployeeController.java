@@ -1,6 +1,8 @@
 package org.opensms.app.controller;
 
 import org.opensms.app.db.entity.Employee;
+import org.opensms.app.db.entity.EmployeeAttendence;
+import org.opensms.app.db.entity.User;
 import org.opensms.app.db.entity.UserRole;
 import org.opensms.app.db.service.EmployeeDAOService;
 import org.opensms.app.view.model.EmployeeModel;
@@ -55,4 +57,43 @@ public class EmployeeController {
     public @ResponseBody Employee getEmployee(@RequestParam("userId") Integer userId) {
         return employeeDAOService.getEmployee(userId);
     }
+
+    /**
+     * Employee attendance signin
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "/attendance/signin", method = RequestMethod.POST)
+    public @ResponseBody ResponseMessage attendanceSignin(@RequestBody User user) {
+
+        boolean isSigned = employeeDAOService.attendanceSignin(user);
+
+        if (isSigned)
+            return new ResponseMessage(ResponseMessage.Type.success, "employee attendance signin - success");
+
+        return new ResponseMessage(ResponseMessage.Type.error, "employee attendance signin - error");
+    }
+
+    /**
+     * Employee attendance leave
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "/attendance/leave", method = RequestMethod.POST)
+    public @ResponseBody ResponseMessage attendanceLeave(@RequestBody User user) {
+
+        boolean isLeaved = employeeDAOService.attendanceLeave(user);
+
+        if (isLeaved)
+            return new ResponseMessage(ResponseMessage.Type.success, "employee attendance leave - success");
+
+        return new ResponseMessage(ResponseMessage.Type.error, "employee attendance leave - error");
+    }
+
+
+    @RequestMapping(value = "/attendance/all", method = RequestMethod.GET)
+    public @ResponseBody List<EmployeeAttendence> getAllEmployeeAttendance() {
+        return employeeDAOService.getAllEmployeeAttendance();
+    }
+
 }

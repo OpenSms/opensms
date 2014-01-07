@@ -92,6 +92,7 @@
 
                         <li sec:authorize="hasRole('employee')"><a href="#/Reports/ItemDetails"> Item Details</a></li>
                         <li sec:authorize="hasRole('employee')"><a href="#/Reports/CustomerLocations"> Customer Locations</a></li>
+                        <li sec:authorize="hasRole('employee')"><a href="#/Reports/EmployeeAttendance"> Employee Attendance</a></li>
 
                         <li sec:authorize="hasRole('vendor')"><a href="#/Reports/GrnOrders"> Grn Orders</a></li>
                     </ul>
@@ -194,8 +195,10 @@
 <script type="text/javascript" src="/static/app/controller/employee/AddCategoryCtrl.js"></script>
 
 <script type="text/javascript" src="/static/app/controller/reports/customer/PreOrdersCtrl.js"></script>
+<script type="text/javascript" src="/static/app/controller/reports/employee/EmployeeAttendanceCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/reports/employee/ItemDetailsCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/reports/employee/CustomerLocationsCtrl.js"></script>
+<script type="text/javascript" src="/static/app/controller/reports/employee/IisOrdersCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/reports/vendor/GrnOrdersCtrl.js"></script>
 
 <!-- maps -->

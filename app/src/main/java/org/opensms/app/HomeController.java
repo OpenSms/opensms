@@ -61,6 +61,11 @@ public class HomeController {
         return "login";
     }
 
+    @RequestMapping(value = "/attendance", method = RequestMethod.GET)
+    public String attendanceForm() {
+        return "attendance";
+    }
+
     /**
      * Login Error
      */

@@ -59,5 +59,11 @@ public class IisOrderController {
     }
 
 
+    @RequestMapping(value = "/all/today", method = RequestMethod.GET)
+    @ResponseBody
+    public List<IisOrder> getTodaysIisOrders() {
+
+        return iisOrderDAOService.getTodaysIisOrders();
+    }
 
 }

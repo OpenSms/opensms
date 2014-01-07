@@ -529,6 +529,23 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
+-- -----------------------------------------------------
+-- Table `opensms`.`employee_attendence`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `opensms`.`employee_attendence` (
+  `user_id` INT(10) UNSIGNED NOT NULL,
+  `signin_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `leave_time` TIMESTAMP NULL,
+  INDEX `fk_employee_attendence_employee1_idx` (`user_id` ASC),
+  PRIMARY KEY (`user_id`, `signin_time`),
+  CONSTRAINT `fk_employee_attendence_employee1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `opensms`.`employee` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

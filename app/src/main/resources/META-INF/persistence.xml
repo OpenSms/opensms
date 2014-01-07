@@ -26,6 +26,7 @@
     <class>org.opensms.app.db.entity.Profit</class>
     <class>org.opensms.app.db.entity.Category</class>
     <class>org.opensms.app.db.entity.CategoryHasItem</class>
+    <class>org.opensms.app.db.entity.EmployeeAttendence</class>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
       <property name="hibernate.show_sql" value="true"/>

@@ -1,16 +1,17 @@
 package org.opensms.app.db.service;
 
+import org.opensms.app.db.controller.EmployeeAttendenceDAO;
 import org.opensms.app.db.controller.impl.EmployeeDAOController;
+import org.opensms.app.db.controller.impl.UserDAOController;
 import org.opensms.app.db.controller.impl.UserRoleDAOController;
-import org.opensms.app.db.entity.Employee;
-import org.opensms.app.db.entity.Role;
-import org.opensms.app.db.entity.UserRole;
+import org.opensms.app.db.entity.*;
 import org.opensms.app.db.utils.UserRoleDAOComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 
@@ -32,6 +33,12 @@ public class EmployeeDAOService {
 
     @Autowired
     private UserRoleDAOController userRoleDAOController;
+
+    @Autowired
+    private UserDAOController userDAOController;
+
+    @Autowired
+    private EmployeeAttendenceDAO employeeAttendenceDAO;
 
     /**
      * Save employee with roles
@@ -55,4 +62,46 @@ public class EmployeeDAOService {
     public void updateEmployeeRoles(List<UserRole> userRoles) {
         userRoleDAOController.updateUserRoles(userRoles);
     }
+
+    public boolean attendanceSignin(User user) {
+
+        User u = userDAOController.getUserByUserName(user.getUsername());
+
+        if (u == null)
+            return false;
+
+        if (!u.getPassword().equals(user.getPassword())) {
+            return false;
+        }
+
+        EmployeeAttendencePK eap = new EmployeeAttendencePK();
+        eap.setUserId(u.getUserId());
+        eap.setSigninTime(Calendar.getInstance().getTime());
+
+        EmployeeAttendence ea = new EmployeeAttendence();
+        ea.setEmployeeAttendencePK(eap);
+
+        EmployeeAttendencePK ppp = employeeAttendenceDAO.save(ea);
+
+        return (ppp != null);
+    }
+
+    public boolean attendanceLeave(User user) {
+
+        User u = userDAOController.getUserByUserName(user.getUsername());
+
+        if (u == null)
+            return false;
+
+        if (!u.getPassword().equals(user.getPassword())) {
+            return false;
+        }
+
+        return employeeAttendenceDAO.leave(u);
+    }
+
+    public List<EmployeeAttendence> getAllEmployeeAttendance() {
+        return employeeAttendenceDAO.getAll();
+    }
+
 }

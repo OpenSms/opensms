@@ -144,11 +144,16 @@ public class IisOrderDAOService {
     }
 
     @Transactional
+    @Transactional
     public List<IisOrderHasBatch> getBatchList(String iisorder_id) {
         return iisOrderHasBatchDAO.getAllByIisOrder(iisorder_id);
     }
 
 
+    @Transactional
+    public List<IisOrder> getTodaysIisOrders() {
+        return iisOrderHasBatchDAO.getTodaysIisOrders();
+    }
     @Transactional
     public  List<IisOrderHasBatch> getIISOrderBatch(String itemid,String empId) {
         IisOrder openOrder = iisOrderDAO.getOpenOrder(empId);
