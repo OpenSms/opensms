@@ -64,6 +64,7 @@ public class IisOrderDAOService {
         // update pre orders. set iis order and close it.
         List<PreOrder> preOrderList = iisOrderModel.getPreOrderList();
         for (PreOrder p : preOrderList) {
+            p = preOrderDAOController.get(p.getPreOrderId());
             p.setIisOrder(iisOrder);
             p.setIsOpen(false);
             preOrderDAOController.update(p);

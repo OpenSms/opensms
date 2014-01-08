@@ -50,14 +50,11 @@
                                                        class="table ng-table-responsive">
 
                                                     <tr ng-repeat="user in users">
-                                                        <td data-title="'User ID'">
+                                                        <td data-title="'User ID'" style="text-align: center">
                                                             {{user.userId}}
                                                         </td>
-                                                        <td data-title="'Username'">
+                                                        <td data-title="'Username'" style="text-align: center">
                                                             {{user.username}}
-                                                        </td>
-                                                        <td data-title="'Name'">
-                                                            {{user.name}}
                                                         </td>
 
                                                         <td data-title="">
@@ -88,7 +85,6 @@
                                                     <tr>
                                                         <th>Selected</th>
                                                         <th>P-Order ID</th>
-                                                        <th>Customer</th>
                                                         <th>Priority</th>
                                                         <th>Items</th>
                                                     </tr>
@@ -99,7 +95,6 @@
                                                         <td><input type="checkbox" ng-model="preOrderModel.selected">
                                                         </td>
                                                         <td>{{ preOrderModel.preOrder.preOrderId }}</td>
-                                                        <td>{{ preOrderModel.preOrder.customer.name }}</td>
                                                         <td>{{ preOrderModel.preOrder.priority }}</td>
                                                         <td ng-click="show = !show">
                                                             <button class="btn btn-sm" ng-show="!show">Show</button>
