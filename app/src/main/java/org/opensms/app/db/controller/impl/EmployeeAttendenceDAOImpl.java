@@ -41,4 +41,15 @@ public class EmployeeAttendenceDAOImpl extends AbstractDAOImpl<EmployeeAttendenc
 
         return (e != null);
     }
+
+    @Override
+    public List<EmployeeAttendence> getCurrentEmployeeAttendance(Integer userId) {
+
+        Session session = getCurrentSession();
+
+        Query query = session.createQuery("select e from EmployeeAttendence e where e.employeeAttendencePK.userId = :userId");
+        query.setInteger("userId", userId);
+
+        return query.list();
+    }
 }

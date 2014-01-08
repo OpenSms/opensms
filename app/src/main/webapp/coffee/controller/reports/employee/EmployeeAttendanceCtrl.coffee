@@ -7,5 +7,5 @@ EmployeeAttendanceCtrl = ($scope, $http) ->
     $scope.attendanceList = data
 
   ).error(() ->
-    console.log("error in /item/get?itemid=")
+    console.log("error in /employee/attendance/all")
   )

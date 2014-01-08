@@ -10,13 +10,16 @@ AttendanceCtrl = ($scope, $http) ->
       $scope.signed = data.type is "success"
 
       if $scope.signed
-        alert "Signed In - " + $scope.user.username
+        alert "Signed In"
+        $scope.user = {}
       else
         alert "Sign In Faild"
+        $scope.user = {}
 
     ).error(() ->
       $scope.signed = false
       alert "Sign In Faild"
+      $scope.user = {}
     )
 
   $scope.leave = () ->
@@ -24,13 +27,16 @@ AttendanceCtrl = ($scope, $http) ->
       $scope.leaved = data.type is "success"
 
       if $scope.leaved
-        alert "Leaved - " + $scope.user.username
+        alert "Leaved"
+        $scope.user = {}
       else
         alert "Leave Faild"
+        $scope.user = {}
 
     ).error(() ->
       $scope.leaved = false
       alert "Leave Faild"
+      $scope.user = {}
     )
 
 

@@ -108,4 +108,7 @@ public class EmployeeDAOService {
         return employeeAttendenceDAO.getAll();
     }
 
+    public List<EmployeeAttendence> getCurrentEmployeeAttendance(Integer userId) {
+        return employeeAttendenceDAO.getCurrentEmployeeAttendance(userId);
+    }
 }
