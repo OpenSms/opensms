@@ -55,7 +55,7 @@ CustomerLocationsCtrl = ($scope, $http) ->
 
     for customer in data
       stopVar++
-      if stopVar < 15
+      if stopVar > 15
         break
 
       $scope.getContactDetails((contactDetails)->
