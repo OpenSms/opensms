@@ -106,6 +106,11 @@ app = angular.module "main-app", ["$strap.directives", "ngTable", "services.brea
     controller: checkLogginInCtrl
     label: "Customer Locations"
 
+  $routeProvider.when "/CloseIISOrder",
+    templateUrl: "./static/app/templates/employee/closeiisorder.html"
+    controller: checkLogginInCtrl
+    label: "Close IIS Order"
+
   $routeProvider.when "/Reports/EmployeeAttendance",
     templateUrl: "./static/app/templates/reports/employee/EmployeeAttendance.html"
     controller: checkLogginInCtrl
@@ -149,3 +154,4 @@ checkLogginInCtrl = ($http, $rootScope, $route) ->
 app.controller "BreadcrumbCtrl", ["$scope", "breadcrumbs", ($scope, breadcrumbs) ->
   $scope.breadcrumbs = breadcrumbs
 ]
+

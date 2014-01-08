@@ -81,6 +81,9 @@
                 <li sec:authorize="hasRole('create_iis_order')"><a href="#/CreateIISOrder"><i class="fa fa-wrench"></i>
                     Create IIS Order</a></li>
 
+                <li sec:authorize="hasRole('create_iis_order')"><a href="#/CloseIISOrder"><i class="fa fa-wrench"></i>
+                    Close IIS Order</a></li>
+
                 <li sec:authorize="hasRole('create_grn_order')"><a href="#/GrnOrder"><i class="fa fa-file"></i>
                     Create GRN Order</a></li>
 
@@ -189,6 +192,7 @@
 <script type="text/javascript" src="/static/app/controller/employee/AddUnitCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/employee/AddProfitCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/employee/AddCategoryCtrl.js"></script>
+<script type="text/javascript" src="/static/app/controller/employee/CloseIISOrder.js"></script>
 
 <script type="text/javascript" src="/static/app/controller/reports/customer/PreOrdersCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/reports/customer/GsrOrdersCtrl.js"></script>

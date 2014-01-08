@@ -160,4 +160,13 @@ public class IisOrderDAOService {
         List<IisOrderHasBatch> orderHasBatch=iisOrderHasBatchDAO.getBatchByItemIdAndIISOrder(itemid, openOrder.getIisOrderId());
         return orderHasBatch;
     }
+
+    @Transactional
+    public void finishOrder(String orderid,User user) {
+        IisOrder iisOrder = iisOrderDAO.get(Long.parseLong(orderid));
+        Employee employee=new Employee(user.getUserId());
+        employee.setUser(user);
+        iisOrder.setReturnCheckEmployee(employee);
+        iisOrderDAO.update(iisOrder);
+    }
 }

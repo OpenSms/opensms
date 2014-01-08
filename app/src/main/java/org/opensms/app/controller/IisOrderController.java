@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping(value = "/iisorder")
 public class IisOrderController {
 
-    private static final Logger LOGGER=Logger.getLogger(IisOrderController.class);
+    private static final Logger LOGGER = Logger.getLogger(IisOrderController.class);
 
     @Autowired
     private IisOrderDAOService iisOrderDAOService;
@@ -52,7 +52,7 @@ public class IisOrderController {
     }
 
 
-    @RequestMapping(value = "/all",params = {"empid"})
+    @RequestMapping(value = "/all", params = {"empid"})
     @ResponseBody
     public List<IisOrder> getEmployeeRelatedIisOrders(@RequestParam(value = "empid") String empid) {
         return iisOrderDAOService.getAll(empid);
@@ -64,6 +64,15 @@ public class IisOrderController {
     public List<IisOrder> getTodaysIisOrders() {
 
         return iisOrderDAOService.getTodaysIisOrders();
+    }
+
+    @RequestMapping(value = "/close", params = {"orderid"},method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage closeIISOrder(@RequestParam("orderid") String orderid) {
+        User user = (User) httpServletRequest.getSession().getAttribute("user");
+        iisOrderDAOService.finishOrder(orderid, user);
+        return new ResponseMessage(ResponseMessage.Type.success, "finish");
+
     }
 
 }
