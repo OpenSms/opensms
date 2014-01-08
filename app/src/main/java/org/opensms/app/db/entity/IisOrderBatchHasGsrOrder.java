@@ -6,6 +6,8 @@
 
 package org.opensms.app.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
@@ -44,6 +46,10 @@ public class IisOrderBatchHasGsrOrder implements EntityInterface<IisOrderBatchHa
     @NotNull
     @Column(name = "quantity")
     private BigDecimal quantity;
+    @JsonBackReference
+    @JoinColumn(name = "gsr_order", referencedColumnName = "gsr_order_id", insertable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private GsrOrder gsrOrder1;
     @JoinColumns({
         @JoinColumn(name = "iis_order", referencedColumnName = "iis_order", insertable = false, updatable = false),
         @JoinColumn(name = "batch", referencedColumnName = "batch", insertable = false, updatable = false)})
@@ -81,6 +87,11 @@ public class IisOrderBatchHasGsrOrder implements EntityInterface<IisOrderBatchHa
     public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
     }
+
+
+    public GsrOrder getGsrOrder1() { return gsrOrder1; }
+
+    public void setGsrOrder1(GsrOrder gsrOrder1) { this.gsrOrder1 = gsrOrder1; }
 
     public IisOrderHasBatch getIisOrderHasBatch() {
         return iisOrderHasBatch;

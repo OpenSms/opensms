@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -70,5 +71,10 @@ public class GsrOrderDAOService {
 
         }
         return gsrOrder.getGsrOrderId();
+    }
+
+    @Transactional
+    public List<GsrOrder> getAllGsrOrdersOfCurrentCustomer(Customer customer) {
+        return gsrOrderDAO.getAllGsrOrdersOfCurrentCustomer(customer);
     }
 }

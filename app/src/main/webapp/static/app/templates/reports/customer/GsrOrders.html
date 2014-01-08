@@ -1,0 +1,73 @@
+<div ng-controller="GsrOrdersCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Gsr Orders - Report</h3>
+                </div>
+                <div class="panel-body" style="margin: 10px;">
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table class="table table-hover tablesorter">
+                                <thead>
+                                <tr>
+                                    <th ng-click="reverse = predicate == 'gsrOrderId' && !reverse; predicate = 'gsrOrderId'">Gsr Order ID <i class="fa fa-sort"></i></th>
+                                    <th ng-click="reverse = predicate == 'sellingDateTime' && !reverse; predicate = 'sellingDateTime'">Date <i class="fa fa-sort"></i></th>
+                                    <th ng-click="reverse = predicate == 'amount' && !reverse; predicate = 'amount'">Amount <i class="fa fa-sort"></i></th>
+                                    <th>Payments </th>
+                                    <th>Items </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="gsrOrder in gsrOrders | orderBy:predicate:reverse">
+                                    <td>{{gsrOrder.gsrOrderId}}</td>
+                                    <td>{{gsrOrder.sellingDateTime | date:'fullDate'}}</td>
+                                    <td>{{getGsrOrderTotalAmount($index)}}</td>
+                                    <td ng-click="showp = !showp">
+                                        <button class="btn btn-sm" ng-show="!showp">Show</button>
+                                        <table ng-show="showp" class="table table-hover tablesorter">
+                                            <thead>
+                                            <tr>
+                                                <th> Payment ID </th>
+                                                <th> Date </th>
+                                                <th> Amount </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="gsrPayment in gsrOrder.gsrPaymentList">
+                                                <td>{{ gsrPayment.grsPaymentId }}</td>
+                                                <td>{{ gsrPayment.paymentDate }}</td>
+                                                <td>{{ gsrPayment.amount | currency:""}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td ng-click="showi = !showi">
+                                        <button class="btn btn-sm" ng-show="!showi">Show</button>
+                                        <table ng-show="showi" class="table table-hover tablesorter">
+                                            <thead>
+                                            <tr>
+                                                <th> Item ID </th>
+                                                <th> Name </th>
+                                                <th> Quantity </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="o in gsrOrder.iisOrderBatchHasGsrOrderList">
+                                                <td>{{ o.iisOrderHasBatch.batch1.item.itemId }}</td>
+                                                <td>{{ o.iisOrderHasBatch.batch1.item.name }}</td>
+                                                <td style="text-align: right;">{{ o.quantity }}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- /.row -->
+</div>
