@@ -59,21 +59,6 @@ public class UserDAOController extends AbstractDAOImpl<User, Integer> {
     }
 
     /**
-     * Validate user password
-     *
-     * @param user
-     * @return
-     */
-    public boolean validatePassword(User user) {
-        Query query = getCurrentSession().createQuery("SELECT u FROM User u WHERE u.username = :username AND u.password = :password");
-        query.setString("username", user.getUsername());
-        query.setString("password", user.getPassword());
-
-
-        return query.uniqueResult() != null;  //To change body of created methods use File | Settings | File Templates.
-    }
-
-    /**
      * Change password
      *
      * @param user
