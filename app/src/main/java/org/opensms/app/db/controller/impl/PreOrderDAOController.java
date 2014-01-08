@@ -50,7 +50,7 @@ public class PreOrderDAOController extends AbstractDAOImpl<PreOrder, Long>{
      */
     public List<PreOrder> getOrdersFrom(Integer customerid) {
         Session session = getCurrentSession();
-        Query query = session.createQuery("SELECT p FROM PreOrder p WHERE p.customer.userId=:customerid");
+        Query query = session.createQuery("SELECT p FROM PreOrder p WHERE p.customer.userId=:customerid AND p.isOpen");
         query.setInteger("customerid",  customerid);
         return query.list();
     }
