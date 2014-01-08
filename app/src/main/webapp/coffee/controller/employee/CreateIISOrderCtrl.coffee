@@ -140,6 +140,7 @@ CreateIISOrderCtrl = ($scope, $http, $location, $routeParams) ->
 
     $http.post("iisorder/save", iisOrderModel).success((data) ->
       console.log data
+      $location.path("/")
     ).error((data) ->
       console.log("error in iisorder/save")
     )

@@ -35,9 +35,7 @@ public class ProfitController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public @ResponseBody ResponseMessage saveProfit(@RequestBody Profit profit) {
-
         profitDAOService.saveProfit(profit);
-
         return new ResponseMessage(ResponseMessage.Type.success, "profit saved.");
     }
 }

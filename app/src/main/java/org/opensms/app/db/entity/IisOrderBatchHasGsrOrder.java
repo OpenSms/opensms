@@ -6,36 +6,27 @@
 
 package org.opensms.app.db.entity;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
- *
  * @author dewmal
  */
 @Entity
 @Table(name = "iis_order_batch_has_gsr_order", catalog = "opensms", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "IisOrderBatchHasGsrOrder.findAll", query = "SELECT i FROM IisOrderBatchHasGsrOrder i"),
-    @NamedQuery(name = "IisOrderBatchHasGsrOrder.findByGsrOrder", query = "SELECT i FROM IisOrderBatchHasGsrOrder i WHERE i.iisOrderBatchHasGsrOrderPK.gsrOrder = :gsrOrder"),
-    @NamedQuery(name = "IisOrderBatchHasGsrOrder.findByIisOrder", query = "SELECT i FROM IisOrderBatchHasGsrOrder i WHERE i.iisOrderBatchHasGsrOrderPK.iisOrder = :iisOrder"),
-    @NamedQuery(name = "IisOrderBatchHasGsrOrder.findByBatch", query = "SELECT i FROM IisOrderBatchHasGsrOrder i WHERE i.iisOrderBatchHasGsrOrderPK.batch = :batch"),
-    @NamedQuery(name = "IisOrderBatchHasGsrOrder.findByQuantity", query = "SELECT i FROM IisOrderBatchHasGsrOrder i WHERE i.quantity = :quantity")})
-public class IisOrderBatchHasGsrOrder implements EntityInterface<IisOrderBatchHasGsrOrderPK>,Serializable {
+        @NamedQuery(name = "IisOrderBatchHasGsrOrder.findAll", query = "SELECT i FROM IisOrderBatchHasGsrOrder i"),
+        @NamedQuery(name = "IisOrderBatchHasGsrOrder.findByGsrOrder", query = "SELECT i FROM IisOrderBatchHasGsrOrder i WHERE i.iisOrderBatchHasGsrOrderPK.gsrOrder = :gsrOrder"),
+        @NamedQuery(name = "IisOrderBatchHasGsrOrder.findByIisOrder", query = "SELECT i FROM IisOrderBatchHasGsrOrder i WHERE i.iisOrderBatchHasGsrOrderPK.iisOrder = :iisOrder"),
+        @NamedQuery(name = "IisOrderBatchHasGsrOrder.findByBatch", query = "SELECT i FROM IisOrderBatchHasGsrOrder i WHERE i.iisOrderBatchHasGsrOrderPK.batch = :batch"),
+        @NamedQuery(name = "IisOrderBatchHasGsrOrder.findByQuantity", query = "SELECT i FROM IisOrderBatchHasGsrOrder i WHERE i.quantity = :quantity")})
+public class IisOrderBatchHasGsrOrder implements EntityInterface<IisOrderBatchHasGsrOrderPK>, Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected IisOrderBatchHasGsrOrderPK iisOrderBatchHasGsrOrderPK;
@@ -44,10 +35,14 @@ public class IisOrderBatchHasGsrOrder implements EntityInterface<IisOrderBatchHa
     @NotNull
     @Column(name = "quantity")
     private BigDecimal quantity;
-    @JoinColumns({
-        @JoinColumn(name = "iis_order", referencedColumnName = "iis_order", insertable = false, updatable = false),
-        @JoinColumn(name = "batch", referencedColumnName = "batch", insertable = false, updatable = false)})
+    @JsonBackReference
+    @JoinColumn(name = "gsr_order", referencedColumnName = "gsr_order_id", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private GsrOrder gsrOrder1;
+    @JoinColumns({
+            @JoinColumn(name = "iis_order", referencedColumnName = "iis_order", insertable = false, updatable = false),
+            @JoinColumn(name = "batch", referencedColumnName = "batch", insertable = false, updatable = false)})
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private IisOrderHasBatch iisOrderHasBatch;
 
     public IisOrderBatchHasGsrOrder() {
@@ -108,6 +103,14 @@ public class IisOrderBatchHasGsrOrder implements EntityInterface<IisOrderBatchHa
             return false;
         }
         return true;
+    }
+
+    public GsrOrder getGsrOrder1() {
+        return gsrOrder1;
+    }
+
+    public void setGsrOrder1(GsrOrder gsrOrder1) {
+        this.gsrOrder1 = gsrOrder1;
     }
 
     @Override

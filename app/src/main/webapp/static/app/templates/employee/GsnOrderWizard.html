@@ -1,0 +1,215 @@
+<div ng-controller="GsrOrderCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> New GSN Order </h3>
+                </div>
+                <div class="panel-body" style="margin: 10px;">
+                    <div class="row">
+                        <div>
+                            <div class="col-lg-12">
+                                <div class="btn-group row">
+                                    <button class="btn" ng-class="{'btn-primary':isCurrentStep(0)}">Select Customer
+                                    </button>
+                                    <button class="btn" ng-class="{'btn-primary':isCurrentStep(1)}">Select Item</button>
+                                    <button class="btn" ng-class="{'btn-primary':isCurrentStep(2)}">Update Batch
+                                        Details
+                                    </button>
+                                    <button class="btn" ng-class="{'btn-primary':isCurrentStep(3)}"
+                                            ng-show="isCompleteOrder()">Finish Order
+                                    </button>
+                                    <button class="btn">&nbsp;</button>
+                                    <!-- ui fix -->
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12" ng-switch="getCurrentStep()" ng-animate="'wave'" class="slide-frame">
+
+                                <div ng-switch-when="one">
+                                    <form class="" role="form">
+                                        <div class="form-group">
+                                            <div class="col-lg-10">
+                                                <input ng-model="vendorsearchString" type="text" class="form-control"
+                                                       placeholder="Search">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-2">
+                                                <button ng-click="searchCustomer()" class="btn btn-default">Search
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <table ng-table="vendorTableParams" class="table ng-table-responsive">
+
+                                        <tr ng-repeat="user in users">
+                                            <td data-title="'User ID'">
+                                                {{user.userId}}
+                                            </td>
+                                            <td data-title="'Username'">
+                                                {{user.user.username}}
+                                            </td>
+                                            <td data-title="'Name'">
+                                                {{user.name}}
+                                            </td>
+
+                                            <td data-title="">
+                                                <a class="btn btn-default btn-sm" ng-click="selectVendor(user)">
+                                                    <span class="glyphicon glyphicon-edit"></span> Select
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <div ng-switch-when="two">
+                                    <br/>
+
+                                    <form class="" role="form">
+                                        <div class="col-lg-10">
+                                            <div class="form-group">
+                                                <input ng-model="itemSearchString" type="text" class="form-control"
+                                                       placeholder="Search">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="form-group row">
+                                                <button ng-click="itemSearch()" class="btn btn-default">Search</button>
+                                                <button class="btn btn-default" href="#/AddItem">Add New Item</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <table ng-table="itemTableParams" class="table ng-table-responsive">
+
+                                        <tr ng-repeat="item in items">
+
+                                            <td data-title="'Item Id'">
+                                                {{item.itemId}}
+                                            </td>
+                                            <td data-title="'Name'">
+                                                {{item.name}}
+                                            </td>
+                                            <td data-title="'Unit'">
+                                                {{item.unit.unit}}
+                                            </td>
+                                            <td data-title="'Category'">
+                                                {{item.category.category}}
+                                            </td>
+                                            <td data-title="'Parent Category'">
+                                                {{item.category.parentCategory}}
+                                            </td>
+                                            <td data-title="">
+                                                <a class="btn btn-default btn-sm" ng-click="selectItem(item)">
+                                                    <span class="glyphicon glyphicon-edit"></span> Select
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <form ng-submit="addNextItem()" ng-switch-when="three">
+                                    <br/>
+                                    <fieldset>
+                                        <div class="form-group row">
+                                            <label class="col-lg-3 control-label">Buying Unit Price </label>
+
+                                            <div class="col-lg-9">
+                                                <input ng-model="curruntBatch.buyingUnitPrice" type="number"
+                                                       class="form-control" required="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-3 control-label">Quantity </label>
+
+                                            <div class="col-lg-9">
+                                                <input ng-model="curruntBatch.quantity" type="number"
+                                                       class="form-control" required="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-3 control-label">Profit </label>
+
+                                            <div class="col-lg-9 ">
+                                                <select ng-model="curruntBatch.profit.profitId" class="form-control">
+                                                    <option ng-repeat="profit in profits" value="{{profit.profitId}}">
+                                                        {{profit.value}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-lg-offset-10 col-lg-2">
+                                                <button type="submit" class="btn btn-success pull-right">Add
+                                                    next item
+                                                </button>
+                                            </div>
+                                        </div>
+
+
+                                    </fieldset>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="pull-right">
+                            <a class="btn" ng-click="clearOrderForm()">Clear Order Details</a>
+                            <a class="btn btn-primary" ng-click="finishOrder()" ng-disabled="isOrderHasntItems()">Finish
+                                Order</a>
+                        </div>
+                    </div>
+
+                    <br/>
+                    <hr/>
+                    <br/>
+
+                    <table ng-table="tbItemListParam" class="table ng-table-responsive">
+
+                        <tr ng-repeat="batch in batchList">
+
+                            <td data-title="'Item Id'">
+                                {{batch.item.itemId}}
+                            </td>
+                            <td data-title="'Name'">
+                                {{batch.item.name}}
+                            </td>
+                            <td data-title="'Unit'">
+                                {{batch.item.unit.unit}}
+                            </td>
+                            <td data-title="'Category'">
+                                {{batch.item.category.category}}
+                            </td>
+                            <td data-title="'Parent Category'">
+                                {{batch.item.category.parentCategory}}
+                            </td>
+
+                            <td data-title="'Quantity '">
+                                {{batch.quantity}}
+                            </td>
+                            <td data-title="'Profit '">
+                                {{batch.buyingUnitPrice}}
+                            </td>
+
+                            <td data-title="">
+                                <a class="btn btn-default btn-sm" ng-click="selectItem(item)">
+                                    <span class="glyphicon glyphicon-edit"></span> Select
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>

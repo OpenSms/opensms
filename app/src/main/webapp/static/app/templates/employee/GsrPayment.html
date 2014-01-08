@@ -1,0 +1,130 @@
+<div ng-controller="GsrPaymentCtrl">
+<div class="row">
+<div class="col-lg-12">
+<div class="panel panel-primary">
+<div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> New Grn Payment </h3>
+</div>
+<div class="panel-body" style="margin: 10px;">
+<div class="row">
+    <fieldset>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Grn Order ID</label>
+
+                <div class="col-lg-9 controls">
+                    <input ng-model="gsrOrder.gsrOrderId" type="number"
+                           class="form-control" placeholder="Gsr Order Id">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Payment Method</label>
+
+                <div class="col-lg-9 controls">
+                        <select  class="form-control" ng-model="paymentMethod"
+                                 ng-options="pm.description for pm in paymentMethods"></select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Balance Due</label>
+                <label class="col-lg-9 control-label">{{getTotalGsrOrderAmount() - totalPreviousPayments() | currency:""}}</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-3 control-label">Amount</label>
+
+                <div class="col-lg-9 controls">
+                        <input ng-model="gsrPayment.amount" type="number" class="form-control" placeholder="Amount">
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<div class="row">
+    <div class="col-lg-offset-10 col-lg-2">
+        <a class="btn pull-right btn-primary" ng-click="save()">Save</a>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- /.row -->
+
+<div class="row">
+<div class="col-lg-6">
+<div class="panel panel-primary">
+<div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Grn Order </h3>
+</div>
+<div class="panel-body" style="margin: 10px;">
+<div class="row">
+    <fieldset>
+            <div class="form-group row">
+                <label class="col-lg-4 control-label">Received Date</label>
+                <label class="col-lg-8 controls">{{gsrOrder.sellingDateTime | date:'fullDate'}}</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-4 control-label">Total Amount</label>
+                <label class="col-lg-8 controls">{{getTotalGrnOrderAmount() | currency:""}}</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-4 control-label">Vendor Id</label>
+                <label class="col-lg-8 controls">{{gsrOrder.customer.userId}}</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-4 control-label">Vendor Name</label>
+                <label class="col-lg-8 controls">{{gsrOrder.customer.name}}</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-4 control-label">Data Entry Employee Id</label>
+                <label class="col-lg-8 controls">{{gsrOrder.dataEntryEmployee.userId}}</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-4 control-label">Data Entry Employee Name</label>
+                <label class="col-lg-8 controls">{{grnOrder.dataEntryEmployee.surname}} {{grnOrder.dataEntryEmployee.initials}}</label>
+            </div>
+    </fieldset>
+</div>
+</div>
+</div>
+</div>
+
+<div class="col-lg-6">
+<div class="panel panel-primary">
+<div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Payments </h3>
+</div>
+<div class="panel-body" style="margin: 10px;">
+<div class="row">
+    <div class="table-responsive">
+        <table class="table table-hover tablesorter">
+            <thead>
+            <tr>
+                <th>Payment ID <i class="fa fa-sort"></i></th>
+                <th>Date <i class="fa fa-sort"></i></th>
+                <th>Payment Method <i class="fa fa-sort"></i></th>
+                <th>Amount <i class="fa fa-sort"></i></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="previousGrnPayment in previousGrnPayments">
+                <td>{{previousGrnPayment.payementId}}</td>
+                <td>{{previousGrnPayment.paymentDate | date:'fullDate'}}</td>
+                <td>{{previousGrnPayment.paymentMethod.description}}</td>
+                <td style="text-align: right">{{previousGrnPayment.amount | currency:""}}</td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align: right"><strong>Total</strong></td>
+                <td style="text-align: right"><strong>{{totalPreviousPayments() | currency:""}}</strong></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

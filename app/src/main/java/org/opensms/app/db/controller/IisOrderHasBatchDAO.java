@@ -3,6 +3,7 @@ package org.opensms.app.db.controller;
 import org.opensms.app.db.entity.IisOrder;
 import org.opensms.app.db.entity.IisOrderHasBatch;
 import org.opensms.app.db.entity.IisOrderHasBatchPK;
+import org.opensms.app.view.entity.IISOrderHasBatch;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ public interface IisOrderHasBatchDAO extends AbstractDAO<IisOrderHasBatch, IisOr
 
 
     List<IisOrderHasBatch> getAllByIisOrder(String iisorder_id);
+
+    List<IisOrderHasBatch> getBatchByItemIdAndIISOrder(String itemid, Long iisOrderId);
 
     List<IisOrder> getTodaysIisOrders();
 }

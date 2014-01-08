@@ -48,4 +48,14 @@ public class GsrOrderModel {
     public void setSales_person(String sales_person) {
         this.sales_person = sales_person;
     }
+
+    @Override
+    public String toString() {
+        return "GsrOrderModel{" +
+                "preOrders=" + preOrders +
+                ", itemList=" + itemList +
+                ", customer='" + customer + '\'' +
+                ", sales_person='" + sales_person + '\'' +
+                '}';
+    }
 }

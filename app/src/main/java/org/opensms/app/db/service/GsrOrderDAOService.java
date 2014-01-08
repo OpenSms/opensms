@@ -1,6 +1,7 @@
 package org.opensms.app.db.service;
 
 import org.opensms.app.db.controller.GsrOrderDAO;
+import org.opensms.app.db.controller.GsrPaymentDAO;
 import org.opensms.app.db.controller.IisOrderBatchHasGsrOrderDAO;
 import org.opensms.app.db.controller.IisOrderHasBatchDAO;
 import org.opensms.app.db.entity.*;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,6 +21,7 @@ import java.util.Map;
  */
 @Service
 public class GsrOrderDAOService {
+
     @Autowired
     private IisOrderHasBatchDAO iisOrderHasBatchDAO;
 
@@ -36,6 +40,9 @@ public class GsrOrderDAOService {
     @Autowired
     private CustomerDAOService customerDAOService;
 
+    @Autowired
+    private GsrPaymentDAO gsrPaymentDAO;
+
 
     @Transactional
     public Long save(GsrOrderModel gsrOrderModel) {
@@ -50,6 +57,9 @@ public class GsrOrderDAOService {
         IisOrder iisOrder = iisOrderDAOService.getOpenOrder(gsrOrderModel.getSales_person());
 
 
+        List<IisOrderHasBatch> batchList = iisOrderDAOService.getBatchList(iisOrder.getIisOrderId() + "");
+        List<IisOrderBatchHasGsrOrder> gsrOrders = new ArrayList<IisOrderBatchHasGsrOrder>();
+
         Map<String, Double> itemList = gsrOrderModel.getItemList();
         for (String item_id : itemList.keySet()) {
             IisOrderBatchHasGsrOrderPK pk = new IisOrderBatchHasGsrOrderPK();
@@ -60,15 +70,44 @@ public class GsrOrderDAOService {
             batchHasGsrOrder.setQuantity(BigDecimal.valueOf(itemList.get(item_id)));
 
 
-            IisOrderHasBatchPK iisOrderHasBatchPK=new IisOrderHasBatchPK();
-            iisOrderHasBatchPK.setIisOrder(iisOrder.getIisOrderId());
-            iisOrderHasBatchPK.setBatch(item_id);
-            IisOrderHasBatch iisOrderHasBatch = iisOrderHasBatchDAO.get(iisOrderHasBatchPK);
+            for (IisOrderHasBatch batch : batchList) {
+                batchHasGsrOrder.setIisOrderHasBatch(batch);
+                batchHasGsrOrder.setIisOrderBatchHasGsrOrderPK(new IisOrderBatchHasGsrOrderPK(gsrOrder.getGsrOrderId(),
+                        batch.getIisOrderHasBatchPK().getIisOrder(), batch.getIisOrderHasBatchPK().getBatch()));
 
-            batchHasGsrOrder.setIisOrderHasBatch(iisOrderHasBatch);
-            iisOrderBatchHasGsrOrderDAO.save(batchHasGsrOrder);
+                boolean ok = true;
+
+                for (IisOrderBatchHasGsrOrder order : gsrOrders) {
+                    IisOrderBatchHasGsrOrderPK pk1 = order.getId();
+                    if (pk1.getIisOrder() == gsrOrder.getGsrOrderId() && pk1.getBatch() == batch.getIisOrderHasBatchPK().getBatch() && batch.getIisOrderHasBatchPK().getIisOrder() == pk.getIisOrder()) {
+                        ok = false;
+                        break;
+                    }
+                }
+
+                if (ok) {
+                    iisOrderBatchHasGsrOrderDAO.save(batchHasGsrOrder);
+                    gsrOrders.add(batchHasGsrOrder);
+                }
+            }
+
 
         }
         return gsrOrder.getGsrOrderId();
+    }
+
+    @Transactional
+    public GsrOrder getOrder(long orderId) {
+        return gsrOrderDAO.get(orderId);
+    }
+
+    @Transactional
+    public List<GsrPayment> getGsrPayments(String gsrorderid) {
+        return gsrPaymentDAO.getAllById(gsrorderid);
+    }
+
+    @Transactional
+    public void saveGsrOrderPayment(GsrPayment gsrPayment) {
+        gsrPaymentDAO.save(gsrPayment);
     }
 }

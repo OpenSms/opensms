@@ -67,6 +67,8 @@ public class GrnPayment implements Serializable, EntityInterface<Long>  {
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Employee cashierEmployee;
 
+    
+
     public GrnPayment() {
     }
 

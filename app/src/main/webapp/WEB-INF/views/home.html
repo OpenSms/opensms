@@ -74,6 +74,10 @@
                 <li sec:authorize="hasAnyRole('insert_item', 'edit_item')"><a href="#/AddUnit">
                     <i class="fa fa-font"></i> Add Unit</a></li>
 
+                <li sec:authorize="hasRole('create_gsr_order')"><a href="#/GsrOrder"><i class="fa fa-wrench"></i>
+                    Create GSR Order</a></li>
+
+
                 <li sec:authorize="hasRole('create_iis_order')"><a href="#/CreateIISOrder"><i class="fa fa-wrench"></i>
                     Create IIS Order</a></li>
 
@@ -82,6 +86,9 @@
 
                 <li sec:authorize="hasRole('payment_vendor')"><a href="#/GrnPayment"><i class="fa fa-file"></i>
                     New GRN Payment</a></li>
+                
+                <li sec:authorize="hasRole('payment_customer')"><a href="#/GsrPayment"><i class="fa fa-file"></i>
+                    New GSR Payment</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right navbar-user">
@@ -171,7 +178,10 @@
 <script type="text/javascript" src="/static/app/controller/employee/ItemInsertCtrl.js"></script>
 
 <script type="text/javascript" src="/static/app/controller/employee/ItemListCtrl.js"></script>
+<script type="text/javascript" src="/static/app/controller/employee/GsnOrderCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/employee/GrnOrderCtrl.js"></script>
+
+<script type="text/javascript" src="/static/app/controller/employee/GsrPaymentCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/employee/GrnPaymentCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/customer/PreOrderCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/employee/CreateIISOrderCtrl.js"></script>
@@ -184,7 +194,6 @@
 <script type="text/javascript" src="/static/app/controller/reports/employee/ItemDetailsCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/reports/employee/CustomerLocationsCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/reports/employee/IisOrdersCtrl.js"></script>
-<script type="text/javascript" src="/static/app/controller/reports/employee/PersonalAttendanceCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/reports/vendor/GrnOrdersCtrl.js"></script>
 
 <!-- maps -->
