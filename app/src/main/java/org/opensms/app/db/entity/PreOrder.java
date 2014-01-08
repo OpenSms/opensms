@@ -95,7 +95,7 @@ public class PreOrder implements Serializable, EntityInterface<Long> {
         return preOrderId;
     }
 
-    public void setPreOrderId() {
+    public void setPreOrderId(Long preOrderId) {
         this.preOrderId = preOrderId;
     }
 
