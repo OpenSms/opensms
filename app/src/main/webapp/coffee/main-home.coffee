@@ -117,13 +117,13 @@ checkLogginInCtrl = ($http, $rootScope, $route) ->
 
   $rootScope.title =  $route.current.label
 
-#  $http.get("/isUserLoggedIn").success((data) ->
-#    if data is 'false'
-#      window.location = "/"
-#
-#  ).error((data) ->
-#    window.location = "/"
-#  )
+  $http.get("/isUserLoggedIn").success((data) ->
+    if data is 'false'
+      window.location = "/"
+
+  ).error((data) ->
+    window.location = "/"
+  )
 
 app.controller "BreadcrumbCtrl", ["$scope", "breadcrumbs", ($scope, breadcrumbs) ->
   $scope.breadcrumbs = breadcrumbs

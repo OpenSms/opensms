@@ -90,10 +90,6 @@ public class UserDAOService {
         userDAOController.changePassword(user);
     }
 
-//    public User login(User user) {
-//        return userDAOController.login(user);
-//    }
-
     public List<User> search(String query, String type) {
         return userDAOController.search(query, type);
     }
