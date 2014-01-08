@@ -7,6 +7,7 @@ import org.opensms.app.db.controller.impl.UserRoleDAOController;
 import org.opensms.app.db.entity.*;
 import org.opensms.app.db.utils.UserRoleDAOComponent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,6 +41,9 @@ public class EmployeeDAOService {
     @Autowired
     private EmployeeAttendenceDAO employeeAttendenceDAO;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     /**
      * Save employee with roles
      *
@@ -70,7 +74,7 @@ public class EmployeeDAOService {
         if (u == null)
             return false;
 
-        if (!u.getPassword().equals(user.getPassword())) {
+        if (!passwordEncoder.matches(user.getPassword(), u.getPassword())) {
             return false;
         }
 
@@ -93,7 +97,7 @@ public class EmployeeDAOService {
         if (u == null)
             return false;
 
-        if (!u.getPassword().equals(user.getPassword())) {
+        if (!passwordEncoder.matches(user.getPassword(), u.getPassword())) {
             return false;
         }
 
