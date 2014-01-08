@@ -3,7 +3,7 @@ CloseIISOrder=($http,$scope, $rootScope)->
   $scope.userRoles = $rootScope.userRoles
   $scope.iisOrderList = []
 
-  $http.get("/iisorder/all/today").success((data) ->
+  $http.get("/iisorder/all/today/open").success((data) ->
 
     $scope.iisOrderList = data
     console.log data

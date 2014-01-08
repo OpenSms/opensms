@@ -66,6 +66,13 @@ public class IisOrderController {
         return iisOrderDAOService.getTodaysIisOrders();
     }
 
+
+    @RequestMapping(value = "/all/today/open", method = RequestMethod.GET)
+    @ResponseBody
+    public List<IisOrder> getTodaysOpenIisOrders() {
+        return iisOrderDAOService.getTodaysOpenIisOrders();
+    }
+
     @RequestMapping(value = "/close", params = {"orderid"},method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage closeIISOrder(@RequestParam("orderid") String orderid) {

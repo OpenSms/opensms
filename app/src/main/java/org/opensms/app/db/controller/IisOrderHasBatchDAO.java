@@ -22,4 +22,6 @@ public interface IisOrderHasBatchDAO extends AbstractDAO<IisOrderHasBatch, IisOr
     List<IisOrderHasBatch> getBatchByItemIdAndIISOrder(String itemid, Long iisOrderId);
 
     List<IisOrder> getTodaysIisOrders();
+
+    List<IisOrder> getTodaysOpenIisOrders();
 }

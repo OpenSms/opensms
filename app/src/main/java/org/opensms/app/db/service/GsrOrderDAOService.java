@@ -87,7 +87,7 @@ public class GsrOrderDAOService {
 
                 IisOrderBatchHasGsrOrder order = iisOrderBatchHasGsrOrderDAO.get(batchHasGsrOrder.getIisOrderBatchHasGsrOrderPK());
                 if (ok && order == null) {
-                    iisOrderBatchHasGsrOrderDAO.save(batchHasGsrOrder);
+                    iisOrderBatchHasGsrOrderDAO.update(batchHasGsrOrder);
                     gsrOrders.add(batchHasGsrOrder);
                 }
             }

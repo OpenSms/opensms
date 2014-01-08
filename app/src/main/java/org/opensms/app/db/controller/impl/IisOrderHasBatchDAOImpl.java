@@ -66,6 +66,30 @@ public class IisOrderHasBatchDAOImpl extends AbstractDAOImpl<IisOrderHasBatch, I
     }
 
     @Override
+    public List<IisOrder> getTodaysOpenIisOrders() {
+        Session session = getCurrentSession();
+        Query query = session.createQuery("SELECT b FROM  IisOrder b WHERE b.returnCheckEmployee is NULL");
+
+//        Date cur = Calendar.getInstance().getTime();
+//
+//        Date from = new Date(cur.getYear(), cur.getMonth(), cur.getDay(), 00, 0);
+//        Date to = new Date(cur.getYear(), cur.getMonth(), cur.getDay(), 23, 59);
+//
+//        query.setParameter("from", from);
+//        query.setParameter("to", to);
+
+        List<IisOrder> iisOrderList = query.list();
+
+        for (IisOrder i : iisOrderList) {
+            Hibernate.initialize(i);
+            Hibernate.initialize(i.getSalesEmployee());
+            Hibernate.initialize(i.getItemIssuerEmployee());
+        }
+
+        return query.list();
+    }
+
+    @Override
     public List<IisOrderHasBatch> getBatchByItemIdAndIISOrder(String itemid, Long iisOrderId) {
         IisOrderHasBatch iisOrderHasBatch= null;
         try {

@@ -169,4 +169,9 @@ public class IisOrderDAOService {
         iisOrder.setReturnCheckEmployee(employee);
         iisOrderDAO.update(iisOrder);
     }
+
+    @Transactional
+    public List<IisOrder> getTodaysOpenIisOrders() {
+        return iisOrderHasBatchDAO.getTodaysOpenIisOrders();
+    }
 }
