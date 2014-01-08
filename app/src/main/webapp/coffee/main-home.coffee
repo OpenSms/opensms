@@ -86,6 +86,11 @@ app = angular.module "main-app", ["$strap.directives", "ngTable", "services.brea
     controller: checkLogginInCtrl
     label: "Pre Orders"
 
+  $routeProvider.when "/Reports/GsrOrders",
+    templateUrl: "./static/app/templates/reports/customer/GsrOrders.html"
+    controller: checkLogginInCtrl
+    label: "Gsr Orders"
+
   $routeProvider.when "/Reports/GrnOrders",
     templateUrl: "./static/app/templates/reports/vendor/GrnOrders.html"
     controller: checkLogginInCtrl
@@ -125,7 +130,7 @@ app.run ($http, $rootScope) ->
 
   $http.get("/currentuserroles").success((data) ->
     $rootScope.userRoles = data
-  ).error((data) ->
+  ).error(() ->
     console.log "error in /currentuserroles"
   )
 
@@ -137,7 +142,7 @@ checkLogginInCtrl = ($http, $rootScope, $route) ->
     if data is 'false'
       window.location = "/"
 
-  ).error((data) ->
+  ).error(() ->
     window.location = "/"
   )
 

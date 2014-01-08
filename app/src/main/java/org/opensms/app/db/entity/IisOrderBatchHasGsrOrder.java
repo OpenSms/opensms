@@ -8,13 +8,26 @@ package org.opensms.app.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
+ *
  * @author dewmal
  */
 @Entity
@@ -77,6 +90,11 @@ public class IisOrderBatchHasGsrOrder implements EntityInterface<IisOrderBatchHa
         this.quantity = quantity;
     }
 
+
+    public GsrOrder getGsrOrder1() { return gsrOrder1; }
+
+    public void setGsrOrder1(GsrOrder gsrOrder1) { this.gsrOrder1 = gsrOrder1; }
+
     public IisOrderHasBatch getIisOrderHasBatch() {
         return iisOrderHasBatch;
     }
@@ -103,14 +121,6 @@ public class IisOrderBatchHasGsrOrder implements EntityInterface<IisOrderBatchHa
             return false;
         }
         return true;
-    }
-
-    public GsrOrder getGsrOrder1() {
-        return gsrOrder1;
-    }
-
-    public void setGsrOrder1(GsrOrder gsrOrder1) {
-        this.gsrOrder1 = gsrOrder1;
     }
 
     @Override

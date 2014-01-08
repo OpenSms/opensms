@@ -110,4 +110,9 @@ public class GsrOrderDAOService {
     public void saveGsrOrderPayment(GsrPayment gsrPayment) {
         gsrPaymentDAO.save(gsrPayment);
     }
+
+    @Transactional
+    public List<GsrOrder> getAllGsrOrdersOfCurrentCustomer(Customer customer) {
+        return gsrOrderDAO.getAllGsrOrdersOfCurrentCustomer(customer);
+    }
 }

@@ -54,13 +54,13 @@ public class GsrOrder implements EntityInterface<Long>, Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date sellingDateTime;
     @JoinColumn(name = "customer", referencedColumnName = "user_id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Customer customer;
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "gsrOrder1", fetch = FetchType.EAGER)
     private List<IisOrderBatchHasGsrOrder> iisOrderBatchHasGsrOrderList;
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gsrOrder", fetch = FetchType.LAZY)
-//    private List<GsrPayment> gsrPaymentList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gsrOrder", fetch = FetchType.LAZY)
+    private List<GsrPayment> gsrPaymentList;
 
     public GsrOrder() {
     }
@@ -110,13 +110,13 @@ public class GsrOrder implements EntityInterface<Long>, Serializable {
 //
 //    @XmlTransient
 //    @JsonIgnore
-//    public List<GsrPayment> getGsrPaymentList() {
-//        return gsrPaymentList;
-//    }
-//
-//    public void setGsrPaymentList(List<GsrPayment> gsrPaymentList) {
-//        this.gsrPaymentList = gsrPaymentList;
-//    }
+    public List<GsrPayment> getGsrPaymentList() {
+        return gsrPaymentList;
+    }
+
+    public void setGsrPaymentList(List<GsrPayment> gsrPaymentList) {
+        this.gsrPaymentList = gsrPaymentList;
+    }
 
     @Override
     public int hashCode() {
