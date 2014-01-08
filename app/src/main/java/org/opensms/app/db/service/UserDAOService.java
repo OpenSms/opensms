@@ -1,16 +1,17 @@
 package org.opensms.app.db.service;
 
+import org.opensms.app.db.controller.impl.EmployeeDAOController;
 import org.opensms.app.db.controller.impl.RoleDAOController;
 import org.opensms.app.db.controller.impl.UserDAOController;
 import org.opensms.app.db.controller.impl.UserRoleDAOController;
-import org.opensms.app.db.entity.Role;
-import org.opensms.app.db.entity.User;
-import org.opensms.app.db.entity.UserRole;
+import org.opensms.app.db.entity.*;
 import org.opensms.app.db.utils.UserRoleDAOComponent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -34,10 +35,18 @@ public class UserDAOService {
     private UserRoleDAOController userRoleDAOController;
 
     @Autowired
-    private UserRoleDAOComponent userRoleDAOComponent;
+    private EmployeeDAOController employeeDAOController;
+
+    @Autowired
+    private ContactDetailsDAOService contactDetailsDAOService;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     public Integer saveUser(User user) {
         user.setCreatedate(Calendar.getInstance().getTime());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         return userDAOController.save(user);
     }
 
@@ -87,5 +96,47 @@ public class UserDAOService {
 
     public String getUserType(Integer userId) {
         return userDAOController.getUserType(userId);
+    }
+
+    /**
+     * Add administrator to the system.
+     * @param password
+     * @return
+     */
+    public boolean registerAdmin(String username, String password) {
+
+        User admin = new User();
+
+        admin.setUsername(username);
+        admin.setPassword(passwordEncoder.encode(password));
+        admin.setCreatedate(Calendar.getInstance().getTime());
+        admin.setAccountStatus(true);
+
+//        List<UserRole> userRoles = new ArrayList<UserRole>();
+//        for (Role role : roleDAOController.getAll()) {
+//
+//            UserRole ur = new UserRole(role.getRoleId(), admin.getUserId(), Calendar.getInstance().getTime());
+//            ur.setActive(true);
+//            userRoles.add(ur);
+//        }
+//        admin.setUserRoleList(userRoles);
+
+        Integer userId = userDAOController.save(admin);
+
+        Employee ae = new Employee(admin.getUserId());
+        ae.setUser(admin);
+        ae.setSurname("CHANGE_LATER");
+        ae.setInitials("CHANGE_LATER");
+        ae.setNameReferredByInitials("CHANGE_LATER");
+        Integer empId = employeeDAOController.save(ae);
+
+
+        UserContactDetail uc = new UserContactDetail(admin.getUserId());
+        uc.setUser(admin);
+        uc.setName("CHANGE_LATER"); uc.setCity("CHANGE_LATER"); uc.setProvince("CHANGE_LATER");
+        uc.setPostalCode("CHANGE_LATER"); uc.setCountry("CHANGE_LATER");
+        contactDetailsDAOService.saveContactDetails(uc);
+
+        return (userId > 0 && empId > 0);
     }
 }

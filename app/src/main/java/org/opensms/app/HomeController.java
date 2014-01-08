@@ -8,11 +8,13 @@ import org.apache.log4j.Logger;
 import org.opensms.app.db.entity.User;
 import org.opensms.app.db.entity.UserRole;
 import org.opensms.app.db.service.UserDAOService;
+import org.opensms.app.view.model.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -108,5 +110,17 @@ public class HomeController {
     @ResponseBody
     boolean isUserLoggedIn() {
         return context.getSession().getAttribute("user") != null;
+    }
+
+
+    @RequestMapping(value = "/registeradmin", method = RequestMethod.GET, params = {"username", "password"})
+    public @ResponseBody ResponseMessage registerAdmin(@RequestParam("username") String username, @RequestParam("password") String password) {
+
+        boolean state = userDAOService.registerAdmin(username, password);
+
+        if (state)
+            return new ResponseMessage(ResponseMessage.Type.success, "user 'administrator' successfully registered.");
+
+        return new ResponseMessage(ResponseMessage.Type.error, "user 'administrator' registration failed.");
     }
 }
