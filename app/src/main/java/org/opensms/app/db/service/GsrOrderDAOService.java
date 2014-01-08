@@ -1,6 +1,7 @@
 package org.opensms.app.db.service;
 
 import org.opensms.app.db.controller.GsrOrderDAO;
+import org.opensms.app.db.controller.GsrPaymentDAO;
 import org.opensms.app.db.controller.IisOrderBatchHasGsrOrderDAO;
 import org.opensms.app.db.controller.IisOrderHasBatchDAO;
 import org.opensms.app.db.entity.*;
@@ -20,6 +21,7 @@ import java.util.Map;
  */
 @Service
 public class GsrOrderDAOService {
+
     @Autowired
     private IisOrderHasBatchDAO iisOrderHasBatchDAO;
 
@@ -37,6 +39,9 @@ public class GsrOrderDAOService {
 
     @Autowired
     private CustomerDAOService customerDAOService;
+
+    @Autowired
+    private GsrPaymentDAO gsrPaymentDAO;
 
 
     @Transactional
@@ -89,5 +94,20 @@ public class GsrOrderDAOService {
 
         }
         return gsrOrder.getGsrOrderId();
+    }
+
+    @Transactional
+    public GsrOrder getOrder(long orderId) {
+        return gsrOrderDAO.get(orderId);
+    }
+
+    @Transactional
+    public List<GsrPayment> getGsrPayments(String gsrorderid) {
+        return gsrPaymentDAO.getAllById(gsrorderid);
+    }
+
+    @Transactional
+    public void saveGsrOrderPayment(GsrPayment gsrPayment) {
+        gsrPaymentDAO.save(gsrPayment);
     }
 }

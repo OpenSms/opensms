@@ -62,6 +62,7 @@
         <intercept-url pattern="/grnorder/save" access="hasAnyRole('create_grn_order')"/>
 
         <intercept-url pattern="/gsrorder/save" access="hasAnyRole('create_gsr_order')"/>
+        <intercept-url pattern="/gsrorder/get" access="hasAnyRole('create_gsr_order')"/>
 
         <intercept-url pattern="/iisorder/all/today" access="hasAnyRole('employee')"/>
         <intercept-url pattern="/iisorder/save" access="hasAnyRole('create_iis_order')"/>

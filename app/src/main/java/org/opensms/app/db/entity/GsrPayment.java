@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "GsrPayment.findByGsrPaymentId", query = "SELECT g FROM GsrPayment g WHERE g.gsrPaymentId = :gsrPaymentId"),
     @NamedQuery(name = "GsrPayment.findByAmount", query = "SELECT g FROM GsrPayment g WHERE g.amount = :amount"),
     @NamedQuery(name = "GsrPayment.findByPaymentDate", query = "SELECT g FROM GsrPayment g WHERE g.paymentDate = :paymentDate")})
-public class GsrPayment implements Serializable {
+public class GsrPayment implements Serializable ,EntityInterface<Long>{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,6 +63,18 @@ public class GsrPayment implements Serializable {
     @JoinColumn(name = "payment_method", referencedColumnName = "payment_method_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private PaymentMethod paymentMethod;
+
+
+    private double sAmount=0;
+
+    public double getsAmount() {
+        return sAmount;
+    }
+
+    public void setsAmount(double sAmount) {
+        this.sAmount = sAmount;
+        this.amount=new BigDecimal(sAmount);
+    }
 
     public GsrPayment() {
     }
@@ -149,5 +161,9 @@ public class GsrPayment implements Serializable {
     public String toString() {
         return "org.opensms.app.db.entity.GsrPayment[ gsrPaymentId=" + gsrPaymentId + " ]";
     }
-    
+
+    @Override
+    public Long getId() {
+        return gsrPaymentId;
+    }
 }

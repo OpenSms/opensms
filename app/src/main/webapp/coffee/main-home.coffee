@@ -50,6 +50,11 @@ app = angular.module "main-app", ["$strap.directives", "ngTable", "services.brea
     controller: checkLogginInCtrl
     label: "New GRN Payment"
 
+  $routeProvider.when "/GsrPayment",
+    templateUrl: "./static/app/templates/employee/GsrPayment.html"
+    controller: checkLogginInCtrl
+    label: "New GSR Payment"
+
 
   $routeProvider.when "/CreateIISOrder",
     templateUrl: "./static/app/templates/employee/CreateIISOrder.html"

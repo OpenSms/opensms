@@ -6,7 +6,7 @@
 package org.opensms.app.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.io.Serializable;
 import java.util.List;
@@ -52,14 +52,16 @@ public class Customer implements Serializable, EntityInterface<Integer> {
     @Column(name = "remark")
     private String remark;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer", fetch = FetchType.LAZY)
     private List<GsrOrder> gsrOrderList;
 
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
     @OneToOne(optional = false, fetch = FetchType.EAGER)
     private User user;
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer", fetch = FetchType.LAZY)
     private List<PreOrder> preOrderList;
 
@@ -100,7 +102,6 @@ public class Customer implements Serializable, EntityInterface<Integer> {
     }
 
 
-    @JsonIgnore
     public List<GsrOrder> getGsrOrderList() {
         return gsrOrderList;
     }
@@ -118,7 +119,6 @@ public class Customer implements Serializable, EntityInterface<Integer> {
     }
 
 
-    @JsonIgnore
     public List<PreOrder> getPreOrderList() {
         return preOrderList;
     }

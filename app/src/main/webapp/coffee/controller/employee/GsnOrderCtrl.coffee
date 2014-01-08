@@ -3,28 +3,49 @@ GsrOrderCtrl = ($scope, $http,ngTableParams, $location)->
   $scope.batchList=[]
   $scope.curruntBatch={}
   $scope.profits = []
+  $scope.preOrders=[]
 
 
   wizardController($scope)
 
+  additemToBatchlist=(item,qty)->
+    canAdd=true
+    curruntBatch={
+      item:item
+      quantity:qty
+    }
+    for batch in $scope.batchList
+      if batch
+        if batch.item.itemId is item.itemId
+          batch.quantity+=qty
+          canAdd=false
+          break
 
+
+
+    $scope.batchList.push curruntBatch if canAdd
+
+
+    console.log  $scope.batchList
 
   $scope.finishOrder=()->
 
-    $location.path '/'
-    grnOrder=
-      vendor:$scope.vendor
-      batchList:$scope.batchList
+    #$location.path '/'
+    batches={}
+    for batch in $scope.batchList
+      batches[batch.item.itemId]=batch.quantity
+
+    gsrOrder=
+      customer:$scope.vendor.userId
+      preOrders:$scope.preOrders
+      itemList:batches
 
 
 
-    delete grnOrder.vendor.user
 
+    console.log gsrOrder
 
-    console.log grnOrder
-
-    $http.post('/grnorder/save',grnOrder).success((data)->
-
+    $http.post('/gsrorder/save',gsrOrder).success((data)->
       console.log data
       $location.path("/")
 
@@ -46,19 +67,7 @@ GsrOrderCtrl = ($scope, $http,ngTableParams, $location)->
 
   $scope.addNextItem=()->
 
-    canAdd=true
-
-    for batch in $scope.batchList
-      if batch.item.itemId is $scope.curruntBatch.item.itemId
-        batch=$scope.curruntBatch
-        canAdd=false
-        break
-
-
-    $scope.batchList.push $scope.curruntBatch if canAdd
-
-
-    console.log  $scope.batchList
+    additemToBatchlist $scope.curruntBatch.item,$scope.curruntBatch.quantity
     $scope.curruntBatch={}
     $scope.handlePrevious()
 
@@ -125,10 +134,11 @@ GsrOrderCtrl = ($scope, $http,ngTableParams, $location)->
       (data)->
 
        for preOrder in data
+        console.log preOrder
+        $scope.preOrders.push preOrder.preOrderId
         for preOrderHasitem in preOrder.preOrderHasItemList
-          $scope.batchList.push (
-            item:preOrderHasitem.item1
-          )
+          additemToBatchlist preOrderHasitem.item1, preOrderHasitem.quantity
+
 
     ).error((data)->
 

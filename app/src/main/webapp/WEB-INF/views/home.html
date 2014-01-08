@@ -87,6 +87,9 @@
                 <li sec:authorize="hasRole('payment_vendor')"><a href="#/GrnPayment"><i class="fa fa-file"></i>
                     New GRN Payment</a></li>
 
+                <li sec:authorize="hasRole('payment_customer')"><a href="#/GsrPayment"><i class="fa fa-file"></i>
+                    New GRN Payment</a></li>
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>
                         Reports <b class="caret"></b></a>
@@ -192,6 +195,8 @@
 <script type="text/javascript" src="/static/app/controller/employee/ItemListCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/employee/GsnOrderCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/employee/GrnOrderCtrl.js"></script>
+
+<script type="text/javascript" src="/static/app/controller/employee/GsrPaymentCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/employee/GrnPaymentCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/customer/PreOrderCtrl.js"></script>
 <script type="text/javascript" src="/static/app/controller/employee/CreateIISOrderCtrl.js"></script>

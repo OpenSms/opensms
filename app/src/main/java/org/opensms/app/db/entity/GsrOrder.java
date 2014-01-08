@@ -5,6 +5,9 @@
  */
 package org.opensms.app.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +37,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "gsr_order")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "GsrOrder.findAll", query = "SELECT g FROM GsrOrder g"),
     @NamedQuery(name = "GsrOrder.findByGsrOrderId", query = "SELECT g FROM GsrOrder g WHERE g.gsrOrderId = :gsrOrderId"),
@@ -52,10 +54,11 @@ public class GsrOrder implements EntityInterface<Long>, Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date sellingDateTime;
     @JoinColumn(name = "customer", referencedColumnName = "user_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Customer customer;
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gsrOrder1", fetch = FetchType.LAZY)
-//    private List<IisOrderBatchHasGsrOrder> iisOrderBatchHasGsrOrderList;
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gsrOrder1", fetch = FetchType.EAGER)
+    private List<IisOrderBatchHasGsrOrder> iisOrderBatchHasGsrOrderList;
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gsrOrder", fetch = FetchType.LAZY)
 //    private List<GsrPayment> gsrPaymentList;
 
@@ -96,14 +99,14 @@ public class GsrOrder implements EntityInterface<Long>, Serializable {
     }
 
 //    @XmlTransient
-//    @JsonIgnore
-//    public List<IisOrderBatchHasGsrOrder> getIisOrderBatchHasGsrOrderList() {
-//        return iisOrderBatchHasGsrOrderList;
-//    }
-//
-//    public void setIisOrderBatchHasGsrOrderList(List<IisOrderBatchHasGsrOrder> iisOrderBatchHasGsrOrderList) {
-//        this.iisOrderBatchHasGsrOrderList = iisOrderBatchHasGsrOrderList;
-//    }
+
+    public List<IisOrderBatchHasGsrOrder> getIisOrderBatchHasGsrOrderList() {
+        return iisOrderBatchHasGsrOrderList;
+    }
+
+    public void setIisOrderBatchHasGsrOrderList(List<IisOrderBatchHasGsrOrder> iisOrderBatchHasGsrOrderList) {
+        this.iisOrderBatchHasGsrOrderList = iisOrderBatchHasGsrOrderList;
+    }
 //
 //    @XmlTransient
 //    @JsonIgnore
