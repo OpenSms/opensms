@@ -1,7 +1,7 @@
-IisOrdersCtrl = ($scope, $http) ->
+IisOrdersCtrl = ($scope, $http, $rootScope) ->
 
+  $scope.userRoles = $rootScope.userRoles
   $scope.iisOrderList = []
-  console.log "fsfsdf"
 
   $http.get("/iisorder/all/today").success((data) ->
 
@@ -11,3 +11,10 @@ IisOrdersCtrl = ($scope, $http) ->
   ).error(() ->
     console.log("error in /iisorder/all/today")
   )
+
+  $scope.show = () ->
+    for role in $scope.userRoles
+      if role.role1.description is 'customer' or role.role1.description is 'vendor'
+        return false
+
+    return true

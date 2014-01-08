@@ -82,10 +82,11 @@
 
                 <li sec:authorize="hasRole('payment_vendor')"><a href="#/GrnPayment"><i class="fa fa-file"></i>
                     New GRN Payment</a></li>
+            </ul>
 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>
-                        Reports <b class="caret"></b></a>
+            <ul class="nav navbar-nav navbar-right navbar-user">
+                <li class="dropdown alerts-dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> Reports <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li sec:authorize="hasRole('customer')"><a href="#/Reports/PreOrders"> Pre Orders</a></li>
                         <li sec:authorize="hasRole('customer')"><a href="#/Reports/GsrOrders"> Gsr Orders</a></li>
@@ -95,23 +96,6 @@
                         <li sec:authorize="hasRole('employee')"><a href="#/Reports/EmployeeAttendance"> Employee Attendance</a></li>
 
                         <li sec:authorize="hasRole('vendor')"><a href="#/Reports/GrnOrders"> Grn Orders</a></li>
-                    </ul>
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right navbar-user">
-                <li class="dropdown alerts-dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> Alerts <span
-                            class="badge">3</span> <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Default <span class="label label-default">Default</span></a></li>
-                        <li><a href="#">Primary <span class="label label-primary">Primary</span></a></li>
-                        <li><a href="#">Success <span class="label label-success">Success</span></a></li>
-                        <li><a href="#">Info <span class="label label-info">Info</span></a></li>
-                        <li><a href="#">Warning <span class="label label-warning">Warning</span></a></li>
-                        <li><a href="#">Danger <span class="label label-danger">Danger</span></a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">View All</a></li>
                     </ul>
                 </li>
                 <li class="dropdown user-dropdown">
