@@ -79,16 +79,20 @@ public class UserDAOService {
     }
 
     public boolean validatePassword(User user) {
-        return userDAOController.validatePassword(user);
+
+        User u = userDAOController.getUserByUserName(user.getUsername());
+
+        return passwordEncoder.matches(user.getPassword(), u.getPassword());
     }
 
     public void changePassword(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDAOController.changePassword(user);
     }
 
-    public User login(User user) {
-        return userDAOController.login(user);
-    }
+//    public User login(User user) {
+//        return userDAOController.login(user);
+//    }
 
     public List<User> search(String query, String type) {
         return userDAOController.search(query, type);

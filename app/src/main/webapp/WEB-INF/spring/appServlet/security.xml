@@ -9,6 +9,8 @@
         <intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS')"/>
         <intercept-url pattern="/attendance" access="hasAnyRole('ROLE_ANONYMOUS','employee','customer','vendor')"/>
 
+        <intercept-url pattern="/registeradmin" access="denyAll"/>
+
         <!-- template page urls -->
         <intercept-url pattern="/static/app/templates/employee/AddCategory.html"
                        access="hasAnyRole('insert_item', 'edit_item')"/>
