@@ -45,9 +45,11 @@ public class Profit implements Serializable, EntityInterface<Integer> {
     @Size(min = 1, max = 11)
     @Column(name = "type")
     private String type;
+    @JsonIgnore
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(mappedBy = "profit", fetch = FetchType.LAZY)
     private List<Batch> batchList;
+    @JsonIgnore
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "defaultProfit", fetch = FetchType.LAZY)
     private List<Item> itemList;

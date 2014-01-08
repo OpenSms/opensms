@@ -23,7 +23,11 @@
                                     <td>{{preOrder.preOrderId}}</td>
                                     <td>{{preOrder.preOrderDate | date:'fullDate'}}</td>
                                     <td>{{preOrder.priority}}</td>
-                                    <td>{{preOrder.state && 'Closed' || 'Open'}}</td>
+
+                                    <td>
+                                        <!--{{preOrder.state && 'Closed' || 'Open'}}-->
+                                        {{preOrder}}
+                                    </td>
                                     <td ng-click="show = !show">
                                         <button class="btn btn-sm" ng-show="!show">Show</button>
                                         <table ng-show="show" class="table table-hover tablesorter">

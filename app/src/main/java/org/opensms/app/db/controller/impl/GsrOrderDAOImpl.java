@@ -4,10 +4,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.opensms.app.db.controller.GsrOrderDAO;
-import org.opensms.app.db.entity.Customer;
-import org.opensms.app.db.entity.GsrOrder;
-import org.opensms.app.db.entity.IisOrderBatchHasGsrOrder;
-import org.opensms.app.db.entity.PreOrder;
+import org.opensms.app.db.entity.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -30,6 +27,10 @@ public class GsrOrderDAOImpl extends AbstractDAOImpl<GsrOrder, Long> implements 
         Customer customer = gsrOrder.getCustomer();
         Hibernate.initialize(customer);
         Hibernate.initialize(customer.getUser());
+        for(GsrPayment gsrPayment:gsrOrder.getGsrPaymentList()){
+            Hibernate.initialize(gsrPayment);
+        }
+
         for (GsrOrder order : customer.getGsrOrderList()) {
             Hibernate.initialize(order);
         }
