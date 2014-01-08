@@ -151,23 +151,23 @@ public class UserController {
      * @param user
      * @return
      */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    ResponseMessage login(@RequestBody User user) {
-
-        user = userDAOService.login(user);
-        if (user == null) {
-            return new ResponseMessage(ResponseMessage.Type.error, "invalid login details");
-        } else if (user.getAccountStatus() == false) {
-            return new ResponseMessage(ResponseMessage.Type.error, "deactivated user.");
-        }
-
-        //If Login details are ok then save logged user in Http Session
-        request.getSession().setAttribute("user", user);
-
-        return new ResponseMessage(ResponseMessage.Type.success, "Valid Login Details");
-    }
+//    @RequestMapping(value = "/login", method = RequestMethod.POST)
+//    public
+//    @ResponseBody
+//    ResponseMessage login(@RequestBody User user) {
+//
+//        user = userDAOService.login(user);
+//        if (user == null) {
+//            return new ResponseMessage(ResponseMessage.Type.error, "invalid login details");
+//        } else if (user.getAccountStatus() == false) {
+//            return new ResponseMessage(ResponseMessage.Type.error, "deactivated user.");
+//        }
+//
+//        //If Login details are ok then save logged user in Http Session
+//        request.getSession().setAttribute("user", user);
+//
+//        return new ResponseMessage(ResponseMessage.Type.success, "Valid Login Details");
+//    }
 
     /**
      * Return type of user (customer/employee/vendor)

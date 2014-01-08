@@ -9,6 +9,8 @@
         <intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS')"/>
         <intercept-url pattern="/attendance" access="hasAnyRole('ROLE_ANONYMOUS','employee','customer','vendor')"/>
 
+        <intercept-url pattern="/registeradmin" access="denyAll"/>
+
         <!-- template page urls -->
         <intercept-url pattern="/static/app/templates/employee/AddCategory.html"
                        access="hasAnyRole('insert_item', 'edit_item')"/>
@@ -30,7 +32,7 @@
         <intercept-url pattern="/static/app/templates/UpdateUser.html" access="hasAnyRole('edit_user')"/>
         <intercept-url pattern="/static/app/templates/UserRegistration.html" access="hasAnyRole('create_user')"/>
 
-        
+
         <!-- internal mappings -->
         <intercept-url pattern="/batch/maxitemcount" access="hasAnyRole('employee','create_iis_order')"/>
 
@@ -102,9 +104,11 @@
 
     </http>
 
-    <authentication-manager>
+    <beans:bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
+    <authentication-manager>
         <authentication-provider user-service-ref="customUserService">
+            <password-encoder ref="bCryptPasswordEncoder"></password-encoder>
         </authentication-provider>
     </authentication-manager>
 
