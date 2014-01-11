@@ -50,7 +50,7 @@ How to check
     
 DataBase Diagrams
 
-![EERD](https://github.com/OpenSms/opensms/blob/development/db/db_image.png)
+![EERD](https://github.com/OpenSms/opensms/blob/development/db/db_image.png?raw=true)
     
 Completed Tasks list
 ----------------------------
