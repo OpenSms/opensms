@@ -48,6 +48,10 @@ How to check
     then try [http://localhost:8080](http://localhost:8080)  for web interface
     
     
+DataBase Diagrams
+
+![EERD](https://github.com/OpenSms/opensms/blob/development/db/db_image.png)
+    
 Completed Tasks list
 ----------------------------
 
