@@ -1,7 +1,7 @@
 opensms
 ==============
 
-**Open source Sales Managment System**
+**Open source Sales Management System**
 
 
  Our aim is help to manage Item distribution company data.
